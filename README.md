@@ -1,37 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 Fullstack Next.js CRUD App
 
-## Getting Started
+Uma aplicação moderna e responsiva construída com **Next.js (App Router)**, projetada para funcionar de forma integrada e otimizada tanto em **navegadores web** (desktop e mobile) quanto em **aplicativos móveis** (como WebView, PWA ou consumo de API).
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 📌 Sobre o Projeto
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Este projeto consiste em um sistema completo de **CRUD** (Create, Read, Update, Delete) desenvolvido com arquitetura focada em performance, acessibilidade e flexibilidade multi-plataforma.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 🎯 Principais Objetivos
+* **Multiplataforma:** Interface responsiva adaptada para telas de dispositivos móveis e desktops.
+* **API Unificada:** Estrutura pronta para servir dados via API Routes/Server Actions tanto para o frontend web quanto para apps mobile nativos/híbridos.
+* **Segurança e Validação:** Integração com serviços de verificação (como reCAPTCHA) e validações robustas de formulários.
+* **Interface Moderna:** Componentização modular com ícones e estados de carregamento otimizados.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🛠️ Tecnologias Utilizadas
 
-To learn more about Next.js, take a look at the following resources:
+* **Framework:** [Next.js](https://nextjs.org/) (App Router, Server Components & Client Components)
+* **Linguagem:** JavaScript / TypeScript
+* **Biblioteca UI:** React
+* **Ícones:** [React Icons](https://react-icons.github.io/react-icons/)
+* **Segurança:** Google reCAPTCHA v3 (`react-google-recaptcha-v3`)
+* **Estilização:** CSS Modules / Tailwind CSS
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📱 Suporte Web & Mobile
 
-## Deploy on Vercel
+O projeto foi projetado desde o início para suportar ecossistemas web e mobile:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. **Navegadores Web (Desktop & Mobile):** Layouts fluidos e responsivos com suporte a toque e teclado.
+2. **Aplicativos Mobile (PWA / WebView):** Estrutura preparada para execução empacotada em React Native (WebView), Capacitor ou como Progressive Web App (PWA).
+3. **API Endpoints:** Rotas otimizadas para consumo de dados em aplicativos mobile nativos.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# crud-nextjs
+---
+
+## 📂 Estrutura de Pastas
+
+```text
+.
+├── app/
+│   ├── api/                  # Endpoints da API (utilizados por Web e Mobile)
+│   ├── components/           # Componentes reutilizáveis
+│   │   ├── screens/          # Telas e fluxos principais (ex: CreateComponent)
+│   │   └── utils/            # Utilitários, auxiliares e centralizadores de ícones
+│   ├── favicon.ico           # Ícone da aplicação
+│   ├── globals.css           # Estilos globais
+│   ├── layout.tsx            # Layout principal da aplicação
+│   └── page.tsx              # Página inicial
+├── public/                   # Arquivos estáticos e imagens
+├── next.config.mjs           # Configurações do Next.js
+├── package.json              # Dependências do projeto
+└── README.md                 # Documentação do projeto
