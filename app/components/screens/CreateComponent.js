@@ -28,22 +28,11 @@ export default function CreateComponent() {
         };
     }, []); // O array vazio garante que o efeito só rode uma vez ao montar
     return (
-        <GoogleReCaptchaProvider reCaptchaKey="6LfUDVQeAAAAAAfI1-Hf3Sz9ZT56MMr-PDQO5vaG">
-            <div>
-                <h1>Create Component</h1>
-                <button onClick={goToAnotherPage}>
-            Ir para outra página
-        </button>
-            </div>
-        </GoogleReCaptchaProvider>
+        <div>
+            <h1>Create Component</h1>
+            <button onClick={() => { router.push('/create-user') }}>
+                Ir para outra página
+            </button>
+        </div>
     );
-}
-
-async function redirectToHome() {
-    const location = window.location.host.split(/[\.]/gmi)
-    const length = location.length
-    const protocol = window.location.protocol
-    if (window != undefined) {
-        window.location.href = `${protocol}//${location[length - 2]}.${location[length - 1]}`
-    }
 }
