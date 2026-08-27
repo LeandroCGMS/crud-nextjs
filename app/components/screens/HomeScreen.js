@@ -18,6 +18,7 @@ export default function HomeScreen() {
     const divMain = useId();
     const divLocalStorage = useId()
     const [showAdvise, setShowAdvise] = useState(false);
+    const [showLogoFullScreen, setShowLogoFullScreen] = useState(false)
 
     useEffect(() => {
         // Executado apenas no navegador!
@@ -31,15 +32,27 @@ export default function HomeScreen() {
             <div id={divMain} className={styles.container}>
                 {/* <h1>Home Screen</h1> */}
                 <div className={[styles.flex1]}>
-                    <div className={styles.rounded}>
-                    <Image
-                        src={meuLogo}
-                        alt="Logo da Empresa"
-                        width={250}  /* Obrigatório informar width e height para imagens da pasta public */
-                        height={250}
-                    // width e height são identificados automaticamente!
-                    />
+                    <div className={`${styles.rounded} cursor-pointer`}
+                        onClick={() => { setShowLogoFullScreen(true) }}> {/* fixed inset-0 */}
+                        <Image
+                            src={meuLogo}
+                            alt="Logo da Empresa"
+                            width={150}  /* Obrigatório informar width e height para imagens da pasta public */
+                            height={150}
+                        />
                     </div>
+                    {showLogoFullScreen && <div className={`cursor-pointer fixed inset-0 p-[2em] border-white border-[0.1em] flex flex-col items-center justify-center text-center bg-white`} onClick={() => { setShowLogoFullScreen(false) }}>
+                        <h1 className={`text-black`}>Clique ou toque na tela para fechar essa visualização.</h1>
+                        <div className={`w-[100%] h-[100%] relative`}>
+                            <Image
+                                className={`w-[100%] h-[100%] relative rounded-lg`}
+                                src={meuLogo}
+                                alt="Logo da Empresa"
+                            // width={600}
+                            // height={600}
+                            />
+                        </div>
+                    </div>}
                 </div>
 
                 <div className={styles.flex1}>
