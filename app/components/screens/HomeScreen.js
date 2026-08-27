@@ -11,6 +11,7 @@ import styles from './page.module.css';
 import { IoClose } from 'react-icons/io5';
 import { FaXmark } from 'react-icons/fa6';
 import { TbX } from 'react-icons/tb';
+import meuLogo from '@/assets/images/my-logo.jpg'; // ou da pasta de assets
 
 export default function HomeScreen() {
     const router = useRouter()
@@ -29,8 +30,16 @@ export default function HomeScreen() {
         <GoogleReCaptchaProvider reCaptchaKey="6LfUDVQeAAAAAAfI1-Hf3Sz9ZT56MMr-PDQO5vaG">
             <div id={divMain} className={styles.container}>
                 {/* <h1>Home Screen</h1> */}
-                <div className={styles.flex1}>
-                    <h1>algo</h1>
+                <div className={[styles.flex1]}>
+                    <div className={styles.rounded}>
+                    <Image
+                        src={meuLogo}
+                        alt="Logo da Empresa"
+                        width={250}  /* Obrigatório informar width e height para imagens da pasta public */
+                        height={250}
+                    // width e height são identificados automaticamente!
+                    />
+                    </div>
                 </div>
 
                 <div className={styles.flex1}>
@@ -89,10 +98,10 @@ export default function HomeScreen() {
       transition-all duration-200 
       cursor-pointer
     " onClick={() => {
-                        localStorage.setItem('acceptLocalStorage', 'true')
-                        console.warn(localStorage.getItem('acceptLocalStorage'))
-                        setShowAdvise(false)
-                    }
+                                localStorage.setItem('acceptLocalStorage', 'true')
+                                console.warn(localStorage.getItem('acceptLocalStorage'))
+                                setShowAdvise(false)
+                            }
                             }>
                             Aceito
                         </button>
