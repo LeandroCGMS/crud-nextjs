@@ -16,7 +16,7 @@ import meuLogo from '@/assets/images/my-logo.jpg'; // ou da pasta de assets
 // Ícone que remete a aplicativo/desenvolvimento mobile (Tabler Icons)
 import { TbDeviceMobileCode } from 'react-icons/tb';
 import Link from 'next/link';
-import { obterAnoComRedundancia } from '../utils/functions'
+import { getCurrentYear } from '../utils/functions'
 
 export default function HomeScreen() {
     const router = useRouter()
@@ -32,7 +32,7 @@ export default function HomeScreen() {
         item == null ? localStorage.setItem('acceptLocalStorage', 'false') : null
         console.warn(item)
         setShowAdvise(item === 'false'); // converte string para boolean, se necessário
-        obterAnoComRedundancia(setCurrentYearOnline)
+        getCurrentYear(setCurrentYearOnline)
     }, []);
     return (
         <ReCaptchaProvider>

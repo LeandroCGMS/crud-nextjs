@@ -4,7 +4,7 @@ export function getNow() {
     return new Date().toLocaleString('pt-BR');
 }
 
-export async function obterAnoComRedundancia(setCurrentYearOnline = new Function(),
+export async function getCurrentYear(setCurrentYearOnline = new Function(),
     setError = new Function(), setSuccess = new Function()) {
     const apis = [
         'http://worldtimeapi.org/api/timezone/Etc/UTC',
