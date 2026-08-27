@@ -142,9 +142,9 @@ export default function HomeScreen() {
                 <div className={`${styles.flex1} bg-white text-black p-2 rounded-lg border border-4 border-violet-400`}>
                     <h3 className={`font-mono text-3xl`}>Experiência</h3>
                     <div className={`text-start`}>
-                        <p className={styles.p}>⛵ Full Stack Web Dev no Projeto Arca — 2018</p>
-                        <p className={styles.p}>🚀 Full Stack Web Dev e conteudista de mídias sociais na startup Ecomblue.io — 2019 - 2020</p>
-                        <p className={styles.p}>☁️ Full Stack Web Dev, Mobile Developer, Cloud Computing e SEO — 2014 ao presente, em projetos pessoais e de estudos.</p>
+                        <p className={styles.p}><span className={`text-3xl`}>⛵</span> Full Stack Web Dev no Projeto Arca — 2018</p>
+                        <p className={styles.p}><span className={`text-3xl`}>🚀</span> Full Stack Web Dev e conteudista de mídias sociais na startup Ecomblue.io — 2019 - 2020</p>
+                        <p className={styles.p}><span className={`text-3xl`}>🔍</span> Full Stack Web Dev, Mobile Developer, Cloud Computing e SEO — 2014 ao presente, em projetos pessoais e de estudos.</p>
                     </div>
                     <h1 className={`bg-black text-white p-2 rounded-sm mb-1 mt-1`}>
                         © {currentYearOnline} Leandro Santos de Carvalho.
