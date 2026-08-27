@@ -16,6 +16,7 @@ import meuLogo from '@/assets/images/my-logo.jpg'; // ou da pasta de assets
 // Ícone que remete a aplicativo/desenvolvimento mobile (Tabler Icons)
 import { TbDeviceMobileCode } from 'react-icons/tb';
 import Link from 'next/link';
+import { obterAnoComRedundancia } from '../utils/functions'
 
 export default function HomeScreen() {
     const router = useRouter()
@@ -23,6 +24,7 @@ export default function HomeScreen() {
     const divLocalStorage = useId()
     const [showAdvise, setShowAdvise] = useState(false);
     const [showLogoFullScreen, setShowLogoFullScreen] = useState(false)
+    const [currentYearOnline, setCurrentYearOnline] = useState(null);
 
     useEffect(() => {
         // Executado apenas no navegador!
@@ -30,6 +32,7 @@ export default function HomeScreen() {
         item == null ? localStorage.setItem('acceptLocalStorage', 'false') : null
         console.warn(item)
         setShowAdvise(item === 'false'); // converte string para boolean, se necessário
+        obterAnoComRedundancia(setCurrentYearOnline)
     }, []);
     return (
         <ReCaptchaProvider>
@@ -45,7 +48,7 @@ export default function HomeScreen() {
                             height={150}
                         />
                     </div>
-                    {showLogoFullScreen && <div className={`cursor-pointer fixed inset-0 p-[2em] border-white border-[0.1em] flex flex-col items-center justify-center text-center bg-violet-700`} onClick={() => { setShowLogoFullScreen(false) }}>
+                    {showLogoFullScreen && <div className={`cursor-pointer fixed inset-0 p-[2em] border-white border-[0.1em] flex flex-col items-center justify-center text-center bg-violet-700 z-30`} onClick={() => { setShowLogoFullScreen(false) }}>
                         <h1 className={`text-black`}>Clique ou toque na tela para fechar essa visualização.</h1>
                         <small>Se estiver no celular, melhor girar o celular, com giro de tela ativado, para exibir com largura maior.</small>
                         <div className={`w-[100%] h-[100%] relative`}>
@@ -125,9 +128,9 @@ export default function HomeScreen() {
                             Me peça um orçamento sem compromisso.
                         </p>
                     </div>
-                    <div className="w-full max-w-4xl mx-auto aspect-video rounded-xl overflow-hidden shadow-lg">
+                    <div className="w-[100%] max-w-4xl mx-auto aspect-video rounded-xl overflow-hidden shadow-lg">
                         <iframe
-                            className="w-full h-full"
+                            className="w-[100%] h-full"
                             src="https://www.youtube.com/embed/NFKLWOIu7G8"
                             title="Vídeo do YouTube"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -136,8 +139,19 @@ export default function HomeScreen() {
                     </div>
                 </div>
 
-                <div className={styles.flex1}>
-                    <h1>eita</h1>
+                <div className={`${styles.flex1} bg-white text-black p-2 rounded-lg border border-4 border-violet-400`}>
+                    <h3 className={`font-mono text-3xl`}>Experiência</h3>
+                    <div className={`text-start`}>
+                        <p className={styles.p}>⛵ Full Stack Web Dev no Projeto Arca — 2018</p>
+                        <p className={styles.p}>🚀 Full Stack Web Dev e conteudista de mídias sociais na startup Ecomblue.io — 2019 - 2020</p>
+                        <p className={styles.p}>☁️ Full Stack Web Dev, Mobile Developer, Cloud Computing e SEO — 2014 ao presente, em projetos pessoais e de estudos.</p>
+                    </div>
+                    <h1 className={`bg-black text-white p-2 rounded-sm mb-1 mt-1`}>
+                        © {currentYearOnline} Leandro Santos de Carvalho.
+                    </h1>
+                    <h1 className={`bg-black text-white p-2 rounded-sm`}>
+                        Todos os direitos reservados.
+                    </h1>
                 </div>
                 {showAdvise && <div id={divLocalStorage} className={styles.divLocalStorage}>
                     <div className={styles.right}>
