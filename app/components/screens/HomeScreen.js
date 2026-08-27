@@ -16,12 +16,13 @@ export default function HomeScreen() {
     const router = useRouter()
     const divMain = useId();
     const divLocalStorage = useId()
-    const [showAdvise, setShowAdvise] = useState(true);
+    const [showAdvise, setShowAdvise] = useState(false);
 
     useEffect(() => {
         // Executado apenas no navegador!
         const item = localStorage.getItem('acceptLocalStorage');
-        localStorage.setItem('acceptLocalStorage', 'false') ? item == null : null
+        item == null ? localStorage.setItem('acceptLocalStorage', 'false') : null
+        console.warn(item)
         setShowAdvise(item === 'false'); // converte string para boolean, se necessário
     }, []);
     return (
@@ -41,7 +42,11 @@ export default function HomeScreen() {
                 </div>
                 {showAdvise && <div id={divLocalStorage} className={styles.divLocalStorage}>
                     <div className={styles.right}>
-                        <div className={`${styles.buttonClose} transition-all duration-150 active:scale-95 active:shadow-inner cursor-pointer`}>
+                        <div className={`${styles.buttonClose} transition-all duration-150 active:scale-95 active:shadow-inner cursor-pointer`}
+                            onClick={() => {
+                                setShowAdvise(false)
+                            }}
+                        >
                             <IoClose size={24} color="#000000" />
                         </div>
                     </div>
@@ -83,7 +88,12 @@ export default function HomeScreen() {
       /* Animação suave para as mudanças */
       transition-all duration-200 
       cursor-pointer
-    ">
+    " onClick={() => {
+                        localStorage.setItem('acceptLocalStorage', 'true')
+                        console.warn(localStorage.getItem('acceptLocalStorage'))
+                        setShowAdvise(false)
+                    }
+                            }>
                             Aceito
                         </button>
                     </div>
