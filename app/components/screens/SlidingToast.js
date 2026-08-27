@@ -3,9 +3,7 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 
-export default function SlidingToast({ text: string = `🚀 Servidor operando em 100% — Novas atualizações disponíveis!`, isVisible = false, setIsVisible = new Function()}) {
-
-  if (!isVisible) return null;
+export default function SlidingToast({ text: string = `🚀 Servidor operando em 100% — Novas atualizações disponíveis!`, setIsVisible = new Function()}) {
 
   return (
     <motion.div
