@@ -53,10 +53,32 @@ export default function HomeScreen() {
                             />
                         </div>
                     </div>}
+                    <h1>Leandro Santos de Carvalho</h1>
+                    <h2>Corretor de Imóveis - CRECI/MS 18329</h2>
+                    <h2>Desenvolvedor Web e Mobile, Full Stack / Full Cycle</h2>
                 </div>
 
-                <div className={styles.flex1}>
-                    <h1>outro</h1>
+                <div className={`${styles.flex1} border rounded-lg p-[1em]`}>
+                    <p className={styles.p}>
+                        Você contará com um servidor e site protegido contra ataques de força bruta, negação de serviço (DDOS), SQL Injection, entre outras ameaças. Também contará com certificado SSL de criptografia grátis ou pago dependendo do seu objetivo. Desenvolvemos sites, com responsividade, visando, em primeiro lugar, os celulares (mobile first). Você terá a sua disposição nossas habilidades em SEO, Cloud Computing, WebSockets, Gateway de Pagamentos, conceito SPA, APIs, SOAs, arquitetura REST, proxy reverso – com NGINX – containerização – com docker – e clusters – com Kubernetes. No frontend, CSS Flexible Box Layout, Grid Layout, além de frameworks CSS. A escolha de todas as ferramentas ou parte delas depende do seu objetivo e condições.
+                    </p>
+                    <p className={styles.p}>
+                        Visamos, sempre, as melhores práticas, como código limpo e as melhores ferramentas (clean code / best practices), as mais eficientes e eficazes, prezando pelo o que há de mais atual em desenvolvimento de software. Um exemplo é usar ferramentas de plataformas colaborativas que atualizam o código em seu servidor, a cada implementação, ao invés de acesso FTP ou mesmo SSH manualmente.
+                    </p>
+                    <div className={`justify-start w-[100%]`}>
+                        <p className={`${styles.p}`}>
+                            Me peça um orçamento sem compromisso.
+                        </p>
+                    </div>
+                    <div className="w-full max-w-4xl mx-auto aspect-video rounded-xl overflow-hidden shadow-lg">
+                        <iframe
+                            className="w-full h-full"
+                            src="https://www.youtube.com/embed/NFKLWOIu7G8"
+                            title="Vídeo do YouTube"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowFullScreen
+                        />
+                    </div>
                 </div>
 
                 <div className={styles.flex1}>
