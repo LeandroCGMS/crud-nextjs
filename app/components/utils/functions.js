@@ -24,8 +24,9 @@ export async function getCurrentYear(setCurrentYearOnline = new Function(),
                 // A TimeAPI traz o ano direto no campo 'year', já a WorldTimeAPI traz no 'datetime'
                 const ano = data.year || new Date(data.datetime).getFullYear();
                 setCurrentYearOnline(ano);
+                console.warn('>>>> dados da API de timezone:', data)
+                return data;
                 break
-                return ano;
             }
         } catch (e) {
             // Se falhar esta API, passa para a próxima da lista
