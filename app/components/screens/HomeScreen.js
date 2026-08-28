@@ -16,7 +16,6 @@ import meuLogo from '@/assets/images/my-logo.jpg'; // ou da pasta de assets
 // Ícone que remete a aplicativo/desenvolvimento mobile (Tabler Icons)
 import { TbDeviceMobileCode } from 'react-icons/tb';
 import Link from 'next/link';
-import { getCurrentYear } from '../utils/functions'
 import FooterComponent from './FooterComponent'
 import SlidingToast from '@/app/components/utils/SlidingToast'
 
@@ -26,7 +25,6 @@ export default function HomeScreen() {
     const divLocalStorage = useId()
     const [showAdvise, setShowAdvise] = useState(false);
     const [showLogoFullScreen, setShowLogoFullScreen] = useState(false)
-    const [currentYearOnline, setCurrentYearOnline] = useState(null);
     const [visibleSlidingToas, setVisibleSlidingToast] = useState(true)
 
     useEffect(() => {
@@ -35,7 +33,6 @@ export default function HomeScreen() {
         item == null ? localStorage.setItem('acceptLocalStorage', 'false') : null
         console.warn(item)
         setShowAdvise(item === 'false'); // converte string para boolean, se necessário
-        getCurrentYear(setCurrentYearOnline)
     }, []);
     return (
         <ReCaptchaProvider>
@@ -52,7 +49,7 @@ export default function HomeScreen() {
                             height={150}
                         />
                     </div>
-                    {showLogoFullScreen && <div className={`cursor-pointer fixed inset-0 p-[2em] border-white border-[0.1em] flex flex-col items-center justify-center text-center bg-violet-700 z-30`} onClick={() => { setShowLogoFullScreen(false) }}>
+                    {showLogoFullScreen && <div className={`cursor-pointer rounded-lg fixed inset-0 p-[2em] border-white border-[0.1em] flex flex-col items-center justify-center text-center bg-violet-700 z-30`} onClick={() => { setShowLogoFullScreen(false) }}>
                         <h1 className={`text-black`}>Clique ou toque na tela para fechar essa visualização.</h1>
                         <small>Se estiver no celular, melhor girar o celular, com giro de tela ativado, para exibir com largura maior.</small>
                         <div className={`w-[100%] h-[100%] relative`}>
@@ -157,7 +154,7 @@ export default function HomeScreen() {
                         <p className={styles.p}><span className={`text-3xl`}>🔍</span> Full Cycle Web Dev, Mobile Developer, Cloud Computing e SEO — 2014 ao presente, em projetos pessoais e de estudos.</p>
                     </div>
                 </div>
-                <FooterComponent currentYearOnline={currentYearOnline} />
+                <FooterComponent />
                 {showAdvise && <div id={divLocalStorage} className={`${styles.divLocalStorage} fixed`}>
                     <div className={styles.right}>
                         <div className={`${styles.buttonClose} transition-all duration-150 active:scale-95 active:shadow-inner cursor-pointer`}
