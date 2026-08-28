@@ -17,6 +17,7 @@ import meuLogo from '@/assets/images/my-logo.jpg'; // ou da pasta de assets
 import { TbDeviceMobileCode } from 'react-icons/tb';
 import Link from 'next/link';
 import { getCurrentYear } from '../utils/functions'
+import FooterComponent from './FooterComponent'
 
 export default function HomeScreen() {
     const router = useRouter()
@@ -146,13 +147,8 @@ export default function HomeScreen() {
                         <p className={styles.p}><span className={`text-3xl`}>🚀</span> Full Cycle Web Dev e conteudista de mídias sociais na startup Ecomblue.io — 2019 - 2020</p>
                         <p className={styles.p}><span className={`text-3xl`}>🔍</span> Full Cycle Web Dev, Mobile Developer, Cloud Computing e SEO — 2014 ao presente, em projetos pessoais e de estudos.</p>
                     </div>
-                    <h1 className={`bg-black text-white p-2 rounded-sm mb-1 mt-1`}>
-                        © {currentYearOnline} Leandro Santos de Carvalho.
-                    </h1>
-                    <h1 className={`bg-black text-white p-2 rounded-sm`}>
-                        Todos os direitos reservados.
-                    </h1>
                 </div>
+                    <FooterComponent currentYearOnline={currentYearOnline}/>
                 {showAdvise && <div id={divLocalStorage} className={`${styles.divLocalStorage} fixed`}>
                     <div className={styles.right}>
                         <div className={`${styles.buttonClose} transition-all duration-150 active:scale-95 active:shadow-inner cursor-pointer`}
