@@ -65,13 +65,12 @@ export default function HomeScreen() {
                     <h1 className={`text-black bg-violet mt-1`}>Leandro Santos de Carvalho</h1>
                     <h2 className={`text-black bg-violet`}>Corretor de Imóveis - CRECI/MS 18329</h2>
                     <h2 className={`text-black bg-violet text-center`}>Programador Web e Mobile, Full Cycle</h2>
-                    <Link
-                        href="https://bit.ly/43xMhI1"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-block" /* Garante o tamanho correto do container */>
-                        <button
-                            className="
+
+                    <button
+                    onClick={() => {
+                        window.open('https://bit.ly/43xMhI1', '_blank')
+                    }}
+                        className="
         /* Layout e Alinhamento */
         group relative inline-flex items-center gap-3
         w-fit px-6 py-3.5
@@ -99,23 +98,30 @@ export default function HomeScreen() {
         /* Cursor */
         cursor-pointer
       "
-                        >
-                            {/* Container do Ícone com destaque visual */}
-                            <span className="
+                    >
+                        {/* Container do Ícone com destaque visual */}
+                        <span className="
         flex items-center justify-center 
         p-2 bg-white/10 rounded-xl 
         backdrop-blur-sm 
         group-hover:bg-white/20 
         transition-colors duration-200
       ">
-                                <TbDeviceMobileCode className="w-6 h-6 text-violet-200 group-hover:text-white transition-colors" />
-                            </span>
+                            <TbDeviceMobileCode className="w-6 h-6 text-violet-200 group-hover:text-white transition-colors" />
+                        </span>
 
-                            {/* Texto do Botão */}
-                            <span>Uma base de um dos nossos aplicativos móveis</span>
-                        </button>
-                    </Link>
+                        {/* Texto do Botão */}
+                        <span>Uma base de um dos nossos aplicativos móveis</span>
+                    </button>
                 </div>
+                {/**
+                 * <Link
+                 href="https://bit.ly/43xMhI1"
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 className="inline-block" />
+                 </Link>
+                 */}
 
                 <div className={`${styles.flex1} border border-violet-700 rounded-lg p-[1em] m-2 mt-0 border-4 bg-white text-black overflow-scroll`}>
                     <p className={styles.p}>
@@ -140,7 +146,7 @@ export default function HomeScreen() {
                     </div>
                 </div>
 
-                <div className={`${styles.flex1} bg-white text-black p-2 rounded-lg border border-4 border-violet-400`}>
+                <div className={`${styles.flex1} bg-white text-black p-2 rounded-lg border border-4 border-violet-700`}>
                     <h3 className={`font-mono text-3xl`}>Experiência</h3>
                     <div className={`text-start`}>
                         <p className={styles.p}><span className={`text-3xl`}>⛵</span> Full Cycle Web Dev no Projeto Arca — 2018</p>
@@ -148,7 +154,7 @@ export default function HomeScreen() {
                         <p className={styles.p}><span className={`text-3xl`}>🔍</span> Full Cycle Web Dev, Mobile Developer, Cloud Computing e SEO — 2014 ao presente, em projetos pessoais e de estudos.</p>
                     </div>
                 </div>
-                    <FooterComponent currentYearOnline={currentYearOnline}/>
+                <FooterComponent currentYearOnline={currentYearOnline} />
                 {showAdvise && <div id={divLocalStorage} className={`${styles.divLocalStorage} fixed`}>
                     <div className={styles.right}>
                         <div className={`${styles.buttonClose} transition-all duration-150 active:scale-95 active:shadow-inner cursor-pointer`}

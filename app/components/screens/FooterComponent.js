@@ -7,10 +7,10 @@ export default function FooterComponent({currentYearOnline}) {
 
     return (
         <div className={`${styles.footer} w-full flex flex-col text-white bg-black justify-center items-center m-2 p-2`}>
-            <h1 className={`text-3xl text-center`}>
+            <h1 className={`text-2xl text-center`}>
                 © {currentYearOnline} Leandro Santos de Carvalho.
             </h1>
-            <h1 className={`text-3xl text-center`}>
+            <h1 className={`text-2xl text-center`}>
                 Todos os direitos reservados.
             </h1>
         </div>
