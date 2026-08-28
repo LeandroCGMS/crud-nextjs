@@ -37,3 +37,79 @@ export async function getCurrentYear(setCurrentYearOnline = new Function(),
     // Se todas as APIs de rede falharem, usa a data do dispositivo como última opção
     return new Date().getFullYear();
 }
+
+export async function getWeatherByLocation() {
+    try {
+        // 1. Verifica se o navegador suporta geolocalização
+        if (typeof window === 'undefined' || !('geolocation' in navigator)) {
+            throw new Error('Geolocalização não é suportada por este navegador');
+        }
+
+        // 2. Obtém a posição atual do navegador encapsulada em uma Promise
+        const position = await new Promise((resolve, reject) => {
+            navigator.geolocation.getCurrentPosition(resolve, reject, {
+                enableHighAccuracy: true,
+                timeout: 10000,
+                maximumAge: 0,
+            });
+        });
+
+        const { latitude, longitude } = position.coords;
+
+        // 3. Faz a requisição para a Open-Meteo
+        const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&timezone=auto`;
+
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error('Falha ao buscar dados meteorológicos');
+        }
+
+        const data = await response.json();
+        const currentWeather = data.current_weather;
+
+        // Retorna o objeto formatado
+        return {
+            temperatura: Math.round(currentWeather.temperature),
+            codigoClima: currentWeather.weathercode,
+            velocidadeVento: currentWeather.windspeed,
+        };
+
+    } catch (error) {
+        return { error: error };
+    }
+}
+
+import { 
+    WiDaySunny, 
+    WiDayCloudy, 
+    WiFog, 
+    WiRain, 
+    WiThunderstorm, 
+    WiCloudy 
+} from 'react-icons/wi'; // Ícones meteorológicos dedicados da biblioteca
+
+export function getIconWeather(weathercode) {
+    // 0: Céu limpo / Sol
+    if (weathercode === 0) {
+        return { icon: WiDaySunny, color: '#FFD700', text: 'Ensolarado' };
+    } 
+    // 1, 2, 3: Parcialmente nublado / Ensolarado com nuvens
+    else if (weathercode >= 1 && weathercode <= 3) {
+        return { icon: WiDayCloudy, color: '#A0AAB2', text: 'Nublado' };
+    } 
+    // 45, 48: Nevoeiro / Névoa
+    else if (weathercode === 45 || weathercode === 48) {
+        return { icon: WiFog, color: '#95A5A6', text: 'Nevoeiro' };
+    } 
+    // 51 a 67, 80 a 82: Chuva / Garoa / Pancadas
+    else if ((weathercode >= 51 && weathercode <= 67) || (weathercode >= 80 && weathercode <= 82)) {
+        return { icon: WiRain, color: '#36AAC7', text: 'Chuvoso' };
+    } 
+    // 95, 96, 99: Tempestade
+    else if (weathercode >= 95) {
+        return { icon: WiThunderstorm, color: '#E74C3C', text: 'Tempestade' };
+    }
+
+    // Padrão / Outros
+    return { icon: WiCloudy, color: '#36AAC7', text: 'Tempo bom' };
+}

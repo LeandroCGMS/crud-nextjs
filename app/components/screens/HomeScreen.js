@@ -18,6 +18,7 @@ import { TbDeviceMobileCode } from 'react-icons/tb';
 import Link from 'next/link';
 import { getCurrentYear } from '../utils/functions'
 import FooterComponent from './FooterComponent'
+import SlidingToast from '@/app/components/utils/SlidingToast'
 
 export default function HomeScreen() {
     const router = useRouter()
@@ -26,6 +27,7 @@ export default function HomeScreen() {
     const [showAdvise, setShowAdvise] = useState(false);
     const [showLogoFullScreen, setShowLogoFullScreen] = useState(false)
     const [currentYearOnline, setCurrentYearOnline] = useState(null);
+    const [visibleSlidingToas, setVisibleSlidingToast] = useState(true)
 
     useEffect(() => {
         // Executado apenas no navegador!
@@ -37,6 +39,7 @@ export default function HomeScreen() {
     }, []);
     return (
         <ReCaptchaProvider>
+            {visibleSlidingToas && <SlidingToast setIsVisible={setVisibleSlidingToast} />}
             <div id={divMain} className={styles.container}>
                 {/* <h1>Home Screen</h1> */}
                 <div className={`${styles.flex1} color-black bg-violet-700 rounded-lg p-[2em] m-2`}>
