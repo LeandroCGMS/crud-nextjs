@@ -63,7 +63,7 @@ export default function HomeScreen() {
                     </div>}
                     <h1 className={`text-black bg-violet mt-1`}>Leandro Santos de Carvalho</h1>
                     <h2 className={`text-black bg-violet`}>Corretor de Imóveis - CRECI/MS 18329</h2>
-                    <h2 className={`text-black bg-violet text-center`}>Programador Web e Mobile, Full Stack / Full Cycle</h2>
+                    <h2 className={`text-black bg-violet text-center`}>Programador Web e Mobile, Full Cycle</h2>
                     <Link
                         href="https://bit.ly/43xMhI1"
                         target="_blank"
@@ -142,9 +142,9 @@ export default function HomeScreen() {
                 <div className={`${styles.flex1} bg-white text-black p-2 rounded-lg border border-4 border-violet-400`}>
                     <h3 className={`font-mono text-3xl`}>Experiência</h3>
                     <div className={`text-start`}>
-                        <p className={styles.p}><span className={`text-3xl`}>⛵</span> Full Stack Web Dev no Projeto Arca — 2018</p>
-                        <p className={styles.p}><span className={`text-3xl`}>🚀</span> Full Stack Web Dev e conteudista de mídias sociais na startup Ecomblue.io — 2019 - 2020</p>
-                        <p className={styles.p}><span className={`text-3xl`}>🔍</span> Full Stack Web Dev, Mobile Developer, Cloud Computing e SEO — 2014 ao presente, em projetos pessoais e de estudos.</p>
+                        <p className={styles.p}><span className={`text-3xl`}>⛵</span> Full Cycle Web Dev no Projeto Arca — 2018</p>
+                        <p className={styles.p}><span className={`text-3xl`}>🚀</span> Full Cycle Web Dev e conteudista de mídias sociais na startup Ecomblue.io — 2019 - 2020</p>
+                        <p className={styles.p}><span className={`text-3xl`}>🔍</span> Full Cycle Web Dev, Mobile Developer, Cloud Computing e SEO — 2014 ao presente, em projetos pessoais e de estudos.</p>
                     </div>
                     <h1 className={`bg-black text-white p-2 rounded-sm mb-1 mt-1`}>
                         © {currentYearOnline} Leandro Santos de Carvalho.
@@ -153,7 +153,7 @@ export default function HomeScreen() {
                         Todos os direitos reservados.
                     </h1>
                 </div>
-                {showAdvise && <div id={divLocalStorage} className={styles.divLocalStorage}>
+                {showAdvise && <div id={divLocalStorage} className={`${styles.divLocalStorage} fixed`}>
                     <div className={styles.right}>
                         <div className={`${styles.buttonClose} transition-all duration-150 active:scale-95 active:shadow-inner cursor-pointer`}
                             onClick={() => {
