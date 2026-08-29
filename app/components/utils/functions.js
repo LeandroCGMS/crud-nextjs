@@ -24,7 +24,6 @@ export async function getCurrentYear(setCurrentYearOnline = new Function(),
                 // A TimeAPI traz o ano direto no campo 'year', já a WorldTimeAPI traz no 'datetime'
                 const ano = data.year || new Date(data.datetime).getFullYear();
                 setCurrentYearOnline(ano);
-                console.warn('>>>> dados da API de timezone:', data)
                 return data;
                 break
             }
@@ -38,7 +37,7 @@ export async function getCurrentYear(setCurrentYearOnline = new Function(),
     return new Date().getFullYear();
 }
 
-export async function getWeatherByLocation() {
+export async function getWeatherByLocation(setDataWeather = new Function()) {
     try {
         // 1. Verifica se o navegador suporta geolocalização
         if (typeof window === 'undefined' || !('geolocation' in navigator)) {
@@ -56,23 +55,36 @@ export async function getWeatherByLocation() {
 
         const { latitude, longitude } = position.coords;
 
-        // 3. Faz a requisição para a Open-Meteo
-        const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&timezone=auto`;
+        // 3. Chamada em paralelo para o clima (Open-Meteo) e a cidade (BigDataCloud)
+        const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&timezone=auto`;
+        const geoUrl = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=pt`;
 
-        const response = await fetch(url);
-        if (!response.ok) {
+        const [weatherResponse, geoResponse] = await Promise.all([
+            fetch(weatherUrl),
+            fetch(geoUrl)
+        ]);
+
+        if (!weatherResponse.ok) {
             throw new Error('Falha ao buscar dados meteorológicos');
         }
 
-        const data = await response.json();
-        const currentWeather = data.current_weather;
+        const weatherData = await weatherResponse.json();
+        const geoData = geoResponse.ok ? await geoResponse.json() : null;
 
-        // Retorna o objeto formatado
-        return {
+        const currentWeather = weatherData.current_weather;
+
+        // 4. Monta o objeto com o nome da cidade e estado
+        const dataWeather = {
+            cidade: geoData?.city || geoData?.locality || 'Cidade desconhecida',
+            estado: geoData?.principalSubdivisionCode?.replace('BR-', '') || '',
             temperatura: Math.round(currentWeather.temperature),
             codigoClima: currentWeather.weathercode,
             velocidadeVento: currentWeather.windspeed,
         };
+        dataWeather.objectIconWeahter = getIconWeather(dataWeather.codigoClima)
+        console.warn('>>>> dataWeather >>> ', dataWeather);
+        setDataWeather(dataWeather);
+        return dataWeather;
 
     } catch (error) {
         return { error: error };

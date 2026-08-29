@@ -18,6 +18,7 @@ import { TbDeviceMobileCode } from 'react-icons/tb';
 import Link from 'next/link';
 import FooterComponent from './FooterComponent'
 import SlidingToast from '@/app/components/utils/SlidingToast'
+import { getWeatherByLocation, getIconWeather } from '@/app/components/utils/functions'
 
 export default function HomeScreen() {
     const router = useRouter()
@@ -26,6 +27,7 @@ export default function HomeScreen() {
     const [showAdvise, setShowAdvise] = useState(false);
     const [showLogoFullScreen, setShowLogoFullScreen] = useState(false)
     const [visibleSlidingToas, setVisibleSlidingToast] = useState(true)
+    const [dataWeather, setDataWeather] = useState()
 
     useEffect(() => {
         // Executado apenas no navegador!
@@ -33,6 +35,16 @@ export default function HomeScreen() {
         item == null ? localStorage.setItem('acceptLocalStorage', 'false') : null
         console.warn(item)
         setShowAdvise(item === 'false'); // converte string para boolean, se necessário
+        getWeatherByLocation(setDataWeather)
+/*
+    {
+        "cidade": "Campo Grande",
+        "estado": "MS",
+        "temperatura": 26,
+        "codigoClima": 0,
+        "velocidadeVento": 12.1
+    }
+*/
     }, []);
     return (
         <ReCaptchaProvider>
@@ -67,9 +79,9 @@ export default function HomeScreen() {
                     <h2 className={`text-black bg-violet text-center`}>Programador Web e Mobile, Full Cycle</h2>
 
                     <button
-                    onClick={() => {
-                        window.open('https://bit.ly/43xMhI1', '_blank')
-                    }}
+                        onClick={() => {
+                            window.open('https://bit.ly/43xMhI1', '_blank')
+                        }}
                         className="
         /* Layout e Alinhamento */
         group relative inline-flex items-center gap-3
