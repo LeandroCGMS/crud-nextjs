@@ -81,7 +81,7 @@ export async function getWeatherByLocation(setDataWeather = new Function()) {
             codigoClima: currentWeather.weathercode,
             velocidadeVento: currentWeather.windspeed,
         };
-        dataWeather.objectIconWeahter = getIconWeather(dataWeather.codigoClima)
+        dataWeather.objectIconWeather = getIconWeather(dataWeather.codigoClima)
         console.warn('>>>> dataWeather >>> ', dataWeather);
         setDataWeather(dataWeather);
         return dataWeather;

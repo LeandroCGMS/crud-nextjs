@@ -3,7 +3,9 @@
 import { motion } from 'framer-motion';
 
 export default function SlidingToast({ 
-  text = '🚀 Servidor operando em 100% — Novas atualizações disponíveis!', 
+  ComponentContent = (
+    <span>🚀 Servidor operando em 100% — Novas atualizações disponíveis!</span>
+  ), 
   setIsVisible = () => {} 
 }) {
   return (
@@ -33,7 +35,7 @@ export default function SlidingToast({
             }}
             className="whitespace-nowrap font-mono text-sm"
           >
-            {text}
+            {ComponentContent}
           </motion.div>
         </div>
       </div>

@@ -26,8 +26,9 @@ export default function HomeScreen() {
     const divLocalStorage = useId()
     const [showAdvise, setShowAdvise] = useState(false);
     const [showLogoFullScreen, setShowLogoFullScreen] = useState(false)
-    const [visibleSlidingToas, setVisibleSlidingToast] = useState(true)
+    const [visibleSlidingToast, setVisibleSlidingToast] = useState(true)
     const [dataWeather, setDataWeather] = useState()
+    const [ComponentContent, setComponentContent] = useState()
 
     useEffect(() => {
         // Executado apenas no navegador!
@@ -45,10 +46,38 @@ export default function HomeScreen() {
         "velocidadeVento": 12.1
     }
 */
+    //    !textSlidingToast ? setVisibleSlidingToast(false) : null
     }, []);
+    useEffect(() => {
+        /*
+            {
+                "cidade": "Campo Grande",
+                "estado": "MS",
+                "temperatura": 27,
+                "codigoClima": 0,
+                "velocidadeVento": 8.6,
+                "objectIconWether": {
+                    "color": "#FFD700",
+                    "text": "Ensolarado"
+                }
+            }
+        */
+    //    !textSlidingToast ? setVisibleSlidingToast(true) : null
+        if(dataWeather != null){
+            console.info('dataWeather diferente de null >>> ', dataWeather)
+            const IconWeatherComponent = (dataWeather?.objectIconWeather?.icon)
+            const ElementComponent = (
+                                        <div className={`flex flex-row items-center justify-center`}>
+                                            <span className={`text-4xl`}><IconWeatherComponent color={dataWeather?.objectIconWeather?.color}/></span>
+                                            {`Em ${dataWeather?.cidade}-${dataWeather?.estado}, faz ${dataWeather?.temperatura}°C, Velocidade do Vento: ${dataWeather?.velocidadeVento?.toString()?.replace('.', ',')}km/h, sendo um dia ${dataWeather?.objectIconWeather?.text}. Tenha uma ótimo dia. `}
+                                        </div>
+                )
+            setComponentContent(ElementComponent)
+        }
+    },[dataWeather])
     return (
         <ReCaptchaProvider>
-            {visibleSlidingToas && <SlidingToast setIsVisible={setVisibleSlidingToast} />}
+            {visibleSlidingToast && <SlidingToast setIsVisible={setVisibleSlidingToast} ComponentContent={ComponentContent}/>}
             <div id={divMain} className={styles.container}>
                 {/* <h1>Home Screen</h1> */}
                 <div className={`${styles.flex1} color-black bg-violet-700 rounded-lg p-[2em] m-2`}>
