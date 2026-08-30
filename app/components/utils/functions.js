@@ -125,3 +125,24 @@ export function getIconWeather(weathercode) {
     // Padrão / Outros
     return { icon: WiCloudy, color: '#36AAC7', text: 'Tempo bom' };
 }
+
+var count = 0
+export async function getDolarExchangeRate(setDolar = new Function()) {
+    count++
+    try {
+        const response = await fetch('https://economia.awesomeapi.com.br/last/USD-BRL', {
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                'Accept': 'application/json',
+            }
+        });
+        console.warn('>>>> ', response)
+        const data = await response.json();
+
+        // A resposta vem dentro da chave 'USDBRL'
+        setDolar(data)
+        // return { dolar_compra: parseFloat(dolar.bid), dolar_venda: parseFloat(dolar.ask), variacao: parseFloat(dolar.pctChange), ultima_atualizacao: dolar.create_date }
+    } catch (error) {
+        return { error: error }
+    }
+}

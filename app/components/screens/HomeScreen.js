@@ -69,7 +69,7 @@ export default function HomeScreen() {
             const ElementComponent = (
                                         <div className={`flex flex-row items-center justify-center`}>
                                             <span className={`text-4xl`}><IconWeatherComponent color={dataWeather?.objectIconWeather?.color}/></span>
-                                            {`Em ${dataWeather?.cidade}-${dataWeather?.estado}, faz ${dataWeather?.temperatura}°C, Velocidade do Vento: ${dataWeather?.velocidadeVento?.toString()?.replace('.', ',')}km/h, sendo um dia ${dataWeather?.objectIconWeather?.text}. Tenha uma ótimo dia. `}
+                                            {`Em ${dataWeather?.cidade}-${dataWeather?.estado}, faz ${dataWeather?.temperatura}°C, Velocidade do Vento: ${dataWeather?.velocidadeVento?.toString()?.replace('.', ',')} km/h, sendo um dia ${dataWeather?.objectIconWeather?.text}. Tenha uma ótimo dia. `}
                                         </div>
                 )
             setComponentContent(ElementComponent)
