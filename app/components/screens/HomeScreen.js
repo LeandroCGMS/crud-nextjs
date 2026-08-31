@@ -18,7 +18,20 @@ import { TbDeviceMobileCode } from 'react-icons/tb';
 import Link from 'next/link';
 import FooterComponent from './FooterComponent'
 import SlidingToast from '@/app/components/utils/SlidingToast'
-import { getWeatherByLocation, getIconWeather } from '@/app/components/utils/functions'
+import { getWeatherByLocation, getIconWeather, getDolarExchangeRate } from '@/app/components/utils/functions'
+import { FaDollarSign } from "react-icons/fa";
+
+
+const arrayChildren = []
+function ChildrenSlidingToast(children) {
+    return (
+        <div className={`flex flex-row items-center justify-center`}>
+            {children.forEach((Element) => {
+                <Element />
+            })}
+        </div>
+    )
+}
 
 export default function HomeScreen() {
     const router = useRouter()
@@ -29,6 +42,9 @@ export default function HomeScreen() {
     const [visibleSlidingToast, setVisibleSlidingToast] = useState(true)
     const [dataWeather, setDataWeather] = useState()
     const [ComponentContent, setComponentContent] = useState()
+    const [textSlidingToast, setTextSlidingToast] = useState('')
+    const [dataDolar, setDataDolar] = useState()
+    const [textDolar, setTextDolar] = useState()
 
     useEffect(() => {
         // Executado apenas no navegador!
@@ -37,16 +53,18 @@ export default function HomeScreen() {
         console.warn(item)
         setShowAdvise(item === 'false'); // converte string para boolean, se necessário
         getWeatherByLocation(setDataWeather)
-/*
-    {
-        "cidade": "Campo Grande",
-        "estado": "MS",
-        "temperatura": 26,
-        "codigoClima": 0,
-        "velocidadeVento": 12.1
-    }
-*/
-    //    !textSlidingToast ? setVisibleSlidingToast(false) : null
+        getDolarExchangeRate(setDataDolar)
+
+        /*
+            {
+                "cidade": "Campo Grande",
+                "estado": "MS",
+                "temperatura": 26,
+                "codigoClima": 0,
+                "velocidadeVento": 12.1
+            }
+        */
+        //    !textSlidingToast ? setVisibleSlidingToast(false) : null
     }, []);
     useEffect(() => {
         /*
@@ -62,22 +80,43 @@ export default function HomeScreen() {
                 }
             }
         */
-    //    !textSlidingToast ? setVisibleSlidingToast(true) : null
-        if(dataWeather != null){
+        //    !textSlidingToast ? setVisibleSlidingToast(true) : null
+        if (dataWeather != null) {
+            // setTextSlidingToast()
             console.info('dataWeather diferente de null >>> ', dataWeather)
             const IconWeatherComponent = (dataWeather?.objectIconWeather?.icon)
-            const ElementComponent = (
-                                        <div className={`flex flex-row items-center justify-center`}>
-                                            <span className={`text-4xl`}><IconWeatherComponent color={dataWeather?.objectIconWeather?.color}/></span>
-                                            {`Em ${dataWeather?.cidade}-${dataWeather?.estado}, faz ${dataWeather?.temperatura}°C, Velocidade do Vento: ${dataWeather?.velocidadeVento?.toString()?.replace('.', ',')} km/h, sendo um dia ${dataWeather?.objectIconWeather?.text}. Tenha uma ótimo dia. `}
-                                        </div>
-                )
-            setComponentContent(ElementComponent)
+            const WeatherComponent = (
+                <div className={`flex flex-row items-center justify-center`}>
+                    <span className={`text-4xl`}><IconWeatherComponent color={dataWeather?.objectIconWeather?.color} /></span>
+                    {`Em ${dataWeather?.cidade}-${dataWeather?.estado}, faz ${dataWeather?.temperatura}°C, Velocidade do Vento: ${dataWeather?.velocidadeVento?.toString()?.replace('.', ',')} km/h, sendo um dia ${dataWeather?.objectIconWeather?.text}. Tenha uma ótimo dia. `}
+                </div>
+            )
+            arrayChildren.push(WeatherComponent)
+            // setComponentContent(ElementComponent)
         }
-    },[dataWeather])
+    }, [dataWeather])
+    useEffect(() => {
+        if (dataDolar != null) {
+            const data = dataDolar
+            let newText = `${textSlidingToast}${`Dólar Compra: US$ ${data.USDBRL.bid} | Dólar Venda: US$ ${data.USDBRL.ask} | Variação: US$ ${data.USDBRL.pctChange} | Máxima do dia: US$ ${data.USDBRL.high} | Mínima do dia: US$ ${data.USDBRL.low} | Data de Criação/Registro: ${data.USDBRL.create_date}`}`
+            const DolarComponent = (
+                <div className={`flex flex-row items-center justify-center`}>
+                    <span className={`tex-4xl`}>
+                        <FaDollarSign />
+                        {newText}
+                    </span>
+                </div>
+            )
+            arrayChildren.push(DolarComponent)
+            // setTextDolar()
+            // setTextSlidingToast(newText)
+            // console.warn('>>>>>>>> 88 ', newText, textSlidingToast)
+        }
+    }, [dataDolar])
     return (
         <ReCaptchaProvider>
-            {visibleSlidingToast && <SlidingToast setIsVisible={setVisibleSlidingToast} ComponentContent={ComponentContent}/>}
+            {visibleSlidingToast && <SlidingToast setIsVisible={setVisibleSlidingToast} ComponentContent={ComponentContent} />}
+            {visibleSlidingToast && <SlidingToast setIsVisible={setVisibleSlidingToast} ComponentContent={ComponentContent} />}
             <div id={divMain} className={styles.container}>
                 {/* <h1>Home Screen</h1> */}
                 <div className={`${styles.flex1} color-black bg-violet-700 rounded-lg p-[2em] m-2`}>

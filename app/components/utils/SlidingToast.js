@@ -30,7 +30,7 @@ export default function SlidingToast({
             transition={{
               repeat: Infinity,
               repeatType: 'loop',
-              duration: 12, // Aumentado ligeiramente para um texto mais longo em telas largas
+              duration: 18, // Aumentado ligeiramente para um texto mais longo em telas largas
               ease: 'linear',
             }}
             className="whitespace-nowrap font-mono text-sm"

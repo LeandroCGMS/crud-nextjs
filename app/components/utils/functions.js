@@ -138,9 +138,8 @@ export async function getDolarExchangeRate(setDolar = new Function()) {
         });
         console.warn('>>>> ', response)
         const data = await response.json();
-
-        // A resposta vem dentro da chave 'USDBRL'
         setDolar(data)
+        return data
         // return { dolar_compra: parseFloat(dolar.bid), dolar_venda: parseFloat(dolar.ask), variacao: parseFloat(dolar.pctChange), ultima_atualizacao: dolar.create_date }
     } catch (error) {
         return { error: error }
