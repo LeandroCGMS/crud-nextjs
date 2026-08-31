@@ -24,9 +24,9 @@ const arrayChildren = []
 function ChildrenSlidingToast({children}) {
     return (
         <div className={`flex flex-row items-center justify-center`}>
-            {children.forEach((Element) => {
-                <Element />
-            })}
+            {children.map((child, index) => (
+                <React.Fragment key={index}>{child}</React.Fragment>
+            ))}
         </div>
     )
 }
@@ -83,8 +83,7 @@ export default function HomeScreen() {
         
     }, [dataWeather])
     useEffect(() => {
-        
-    }, [dataDolar])
+    }, [])
     return (
         <ReCaptchaProvider>
             {visibleSlidingToast && <SlidingToast setIsVisible={setVisibleSlidingToast} ComponentContent={ComponentContent} />}

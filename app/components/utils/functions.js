@@ -153,26 +153,25 @@ export async function APIsCAller(arrayChildren, ChildrenSlidingToast, setCompone
             console.info('dataWeather diferente de null >>> ', dataWeather)
             const IconWeatherComponent = (dataWeather?.objectIconWeather?.icon)
             const WeatherComponent = (
-                <div className={`flex flex-row items-center justify-center`}>
+                <span className={`flex flex-row justify-center items-center ml-2`}>
                     <span className={`text-4xl`}><IconWeatherComponent color={dataWeather?.objectIconWeather?.color} /></span>
                     {`Em ${dataWeather?.cidade}-${dataWeather?.estado}, faz ${dataWeather?.temperatura}°C, Velocidade do Vento: ${dataWeather?.velocidadeVento?.toString()?.replace('.', ',')} km/h, sendo um dia ${dataWeather?.objectIconWeather?.text}. Tenha uma ótimo dia. `}
-                </div>
+                </span>
             )
             arrayChildren.push(WeatherComponent)
         }
         if (dataDolar?.error == undefined) {
             const data = dataDolar
-            let newText = `${`Dólar Compra: US$ ${data.USDBRL.bid} | Dólar Venda: US$ ${data.USDBRL.ask} | Variação: US$ ${data.USDBRL.pctChange} | Máxima do dia: US$ ${data.USDBRL.high} | Mínima do dia: US$ ${data.USDBRL.low} | Data de Criação/Registro: ${data.USDBRL.create_date}`}`
+            let newText = `${`Dólar Compra: R$ ${data.USDBRL.bid} | Dólar Venda: R$ ${data.USDBRL.ask} | Variação: R$ ${data.USDBRL.pctChange} | Máxima do dia: R$ ${data.USDBRL.high} | Mínima do dia: R$ ${data.USDBRL.low} | Data de Criação/Registro: ${data.USDBRL.create_date}`}`
             const DolarComponent = (
-                <div className={`flex flex-row items-center justify-center`}>
-                    <span className={`tex-4xl`}>
-                        <FaDollarSign />
+                    <span className={`tex-4xl flex flex-row justify-center items-center`}>
+                        <FaDollarSign className={`ml-2`}/>
                         {newText}
                     </span>
-                </div>
             )
             arrayChildren.push(DolarComponent)
         }
-        setComponentContent(<ChildrenSlidingToast children={arrayChildren}/>)
+        console.warn('176: ', <ChildrenSlidingToast children={arrayChildren} />)
+        setComponentContent(<ChildrenSlidingToast children={arrayChildren} />)
     })
 }
