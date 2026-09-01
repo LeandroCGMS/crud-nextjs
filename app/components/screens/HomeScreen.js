@@ -18,7 +18,7 @@ import { TbDeviceMobileCode } from 'react-icons/tb';
 import Link from 'next/link';
 import FooterComponent from './FooterComponent'
 import SlidingToast from '@/app/components/utils/SlidingToast'
-import { getWeatherByLocation, getIconWeather, getDolarExchangeRate, APIsCAller } from '@/app/components/utils/functions'
+import { getWeatherByLocation, getIconWeather, getDolarExchangeRate, APIsCaller } from '@/app/components/utils/functions'
 
 function ChildrenSlidingToast({children}) {
     return (
@@ -52,7 +52,7 @@ export default function HomeScreen() {
         setShowAdvise(item === 'false'); // converte string para boolean, se necessário
         // getWeatherByLocation(setDataWeather)
         // getDolarExchangeRate(setDataDolar)
-        APIsCCaller(arrayChildren, ChildrenSlidingToast, setComponentContent)
+        APIsCaller(arrayChildren, ChildrenSlidingToast, setComponentContent)
 
         /*
             {
