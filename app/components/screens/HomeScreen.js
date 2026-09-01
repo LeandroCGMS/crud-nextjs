@@ -36,7 +36,7 @@ export default function HomeScreen() {
     const divLocalStorage = useId()
     const [showAdvise, setShowAdvise] = useState(false);
     const [showLogoFullScreen, setShowLogoFullScreen] = useState(false)
-    const [visibleSlidingToast, setVisibleSlidingToast] = useState(true)
+    const [visibleSlidingToast, setVisibleSlidingToast] = useState(false)
     const [dataWeather, setDataWeather] = useState()
     const [ComponentContent, setComponentContent] = useState()
     const [textSlidingToast, setTextSlidingToast] = useState('')
@@ -45,29 +45,15 @@ export default function HomeScreen() {
     
     useEffect(() => {
         const arrayChildren = []
-        // Executado apenas no navegador!
         const item = localStorage.getItem('acceptLocalStorage');
         item == null ? localStorage.setItem('acceptLocalStorage', 'false') : null
         console.warn(item)
         setShowAdvise(item === 'false'); // converte string para boolean, se necessário
-        // getWeatherByLocation(setDataWeather)
-        // getDolarExchangeRate(setDataDolar)
         APIsCaller(arrayChildren, ChildrenSlidingToast, setComponentContent)
-
-        /*
-            {
-                "cidade": "Campo Grande",
-                "estado": "MS",
-                "temperatura": 26,
-                "codigoClima": 0,
-                "velocidadeVento": 12.1
-            }
-        */
-        //    !textSlidingToast ? setVisibleSlidingToast(false) : null
     }, []);
     return (
         <ReCaptchaProvider>
-            {visibleSlidingToast && <SlidingToast setIsVisible={setVisibleSlidingToast} ComponentContent={ComponentContent} />}
+            {<SlidingToast visible={visibleSlidingToast} setVisible={setVisibleSlidingToast} ComponentContent={ComponentContent} />}
             <div id={divMain} className={styles.container}>
                 {/* <h1>Home Screen</h1> */}
                 <div className={`${styles.flex1} color-black bg-violet-700 rounded-lg p-[2em] m-2`}>
@@ -145,15 +131,6 @@ export default function HomeScreen() {
                         <span>Uma base de um dos nossos aplicativos móveis</span>
                     </button>
                 </div>
-                {/**
-                 * <Link
-                 href="https://bit.ly/43xMhI1"
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 className="inline-block" />
-                 </Link>
-                 */}
-
                 <div className={`${styles.flex1} border border-violet-700 rounded-lg p-[1em] m-2 mt-0 border-4 bg-white text-black overflow-scroll`}>
                     <p className={styles.p}>
                         Você contará com um servidor e site protegido contra ataques de força bruta, negação de serviço (DDOS), SQL Injection, entre outras ameaças. Também contará com certificado SSL de criptografia grátis ou pago dependendo do seu objetivo. Desenvolvemos sites, com responsividade, visando, em primeiro lugar, os celulares (mobile first). Você terá a sua disposição nossas habilidades em SEO, Cloud Computing, WebSockets, Gateway de Pagamentos, conceito SPA, APIs, SOAs, arquitetura REST, proxy reverso – com NGINX – containerização – com docker – e clusters – com Kubernetes. No frontend, CSS Flexible Box Layout, Grid Layout, além de frameworks CSS. A escolha de todas as ferramentas ou parte delas depende do seu objetivo e condições.
