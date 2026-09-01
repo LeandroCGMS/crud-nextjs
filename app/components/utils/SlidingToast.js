@@ -10,7 +10,7 @@ export default function SlidingToast({
 }) {
   return (
     <motion.div
-      initial={{ y: '-100%', opacity: 0 }}
+      initial={{ y: '-100%', opacity: 0 }} // -100%
       animate={{ y: 0, opacity: 1 }}
       exit={{ y: '-100%', opacity: 0 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
@@ -22,7 +22,7 @@ export default function SlidingToast({
         {/* Container do Marquee */}
         <div className="relative flex overflow-x-hidden w-full">
           <motion.div
-            animate={{ x: ['0%', '-50%'] }}
+            animate={{ x: ['0%', '-50%'] }} // -50% para mover metade do conteúdo
             transition={{
               repeat: Infinity,
               repeatType: 'loop',

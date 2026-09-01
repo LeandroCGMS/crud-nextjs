@@ -144,7 +144,10 @@ export async function getDolarExchangeRate() {
     })
 }
 
-export async function APIsCAller(arrayChildren, ChildrenSlidingToast, setComponentContent) {
+
+var contador = 0
+export async function APIsCaller(arrayChildren, ChildrenSlidingToast, setComponentContent) {
+    contador++
     Promise.all([getWeatherByLocation(), getDolarExchangeRate()]).then((values) => {
         const dataWeather = values[0]
         const dataDolar = values[1]
@@ -171,7 +174,7 @@ export async function APIsCAller(arrayChildren, ChildrenSlidingToast, setCompone
             )
             arrayChildren.push(DolarComponent)
         }
-        console.warn('176: ', <ChildrenSlidingToast children={arrayChildren} />)
+        console.warn('176, contador: ', contador, '\n', 'arrayChildren: ', arrayChildren)
         setComponentContent(<ChildrenSlidingToast children={arrayChildren} />)
     })
 }

@@ -20,7 +20,6 @@ import FooterComponent from './FooterComponent'
 import SlidingToast from '@/app/components/utils/SlidingToast'
 import { getWeatherByLocation, getIconWeather, getDolarExchangeRate, APIsCAller } from '@/app/components/utils/functions'
 
-const arrayChildren = []
 function ChildrenSlidingToast({children}) {
     return (
         <div className={`flex flex-row items-center justify-center`}>
@@ -43,8 +42,9 @@ export default function HomeScreen() {
     const [textSlidingToast, setTextSlidingToast] = useState('')
     const [dataDolar, setDataDolar] = useState()
     const [textDolar, setTextDolar] = useState()
-
+    
     useEffect(() => {
+        const arrayChildren = []
         // Executado apenas no navegador!
         const item = localStorage.getItem('acceptLocalStorage');
         item == null ? localStorage.setItem('acceptLocalStorage', 'false') : null
@@ -52,7 +52,7 @@ export default function HomeScreen() {
         setShowAdvise(item === 'false'); // converte string para boolean, se necessário
         // getWeatherByLocation(setDataWeather)
         // getDolarExchangeRate(setDataDolar)
-        APIsCAller(arrayChildren, ChildrenSlidingToast, setComponentContent)
+        APIsCCaller(arrayChildren, ChildrenSlidingToast, setComponentContent)
 
         /*
             {
@@ -65,25 +65,6 @@ export default function HomeScreen() {
         */
         //    !textSlidingToast ? setVisibleSlidingToast(false) : null
     }, []);
-    useEffect(() => {
-        /*
-            {
-                "cidade": "Campo Grande",
-                "estado": "MS",
-                "temperatura": 27,
-                "codigoClima": 0,
-                "velocidadeVento": 8.6,
-                "objectIconWether": {
-                    "color": "#FFD700",
-                    "text": "Ensolarado"
-                }
-            }
-        */
-        //    !textSlidingToast ? setVisibleSlidingToast(true) : null
-        
-    }, [dataWeather])
-    useEffect(() => {
-    }, [])
     return (
         <ReCaptchaProvider>
             {visibleSlidingToast && <SlidingToast setIsVisible={setVisibleSlidingToast} ComponentContent={ComponentContent} />}
