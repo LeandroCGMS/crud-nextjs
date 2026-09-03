@@ -36,7 +36,7 @@ export default function HomeScreen() {
     const divLocalStorage = useId()
     const [showAdvise, setShowAdvise] = useState(false);
     const [showLogoFullScreen, setShowLogoFullScreen] = useState(false)
-    const [visibleSlidingToast, setVisibleSlidingToast] = useState(false)
+    const [visibleSlidingToast, setVisibleSlidingToast] = useState(true)
     const [dataWeather, setDataWeather] = useState()
     const [ComponentContent, setComponentContent] = useState()
     const [textSlidingToast, setTextSlidingToast] = useState('')
@@ -50,10 +50,16 @@ export default function HomeScreen() {
         console.warn(item)
         setShowAdvise(item === 'false'); // converte string para boolean, se necessário
         APIsCaller(arrayChildren, ChildrenSlidingToast, setComponentContent)
+        // setTimeout(() => {
+        //     setVisibleSlidingToast(false)
+        // }, 5000)
+        // setTimeout(() => {
+        //     setVisibleSlidingToast(true)
+        // }, 10000)
     }, []);
     return (
         <ReCaptchaProvider>
-            {<SlidingToast visible={visibleSlidingToast} setVisible={setVisibleSlidingToast} ComponentContent={ComponentContent} />}
+            {<SlidingToast className={`${!visibleSlidingToast ? 'hidden' : ''}`} visible={visibleSlidingToast} setVisible={setVisibleSlidingToast} ComponentContent={ComponentContent} />}
             <div id={divMain} className={styles.container}>
                 {/* <h1>Home Screen</h1> */}
                 <div className={`${styles.flex1} color-black bg-violet-700 rounded-lg p-[2em] m-2`}>
