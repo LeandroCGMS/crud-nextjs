@@ -18,7 +18,7 @@ import { TbDeviceMobileCode } from 'react-icons/tb';
 import Link from 'next/link';
 import FooterComponent from './FooterComponent'
 import SlidingToast from '@/app/components/utils/SlidingToast'
-import { getWeatherByLocation, getIconWeather, getDolarExchangeRate, APIsCaller } from '@/app/components/utils/functions'
+import { getWeatherByLocation, getIconWeather, getDolarExchangeRate, APIsCaller, getNewsFromAPI } from '@/app/components/utils/functions'
 
 function ChildrenSlidingToast({children}) {
     return (
@@ -39,6 +39,7 @@ export default function HomeScreen() {
     const [visibleSlidingToast, setVisibleSlidingToast] = useState(true)
     const [dataWeather, setDataWeather] = useState()
     const [ComponentContent, setComponentContent] = useState()
+    const [SlidingToastNews, setSlidingToastNews] = useState()
     const [textSlidingToast, setTextSlidingToast] = useState('')
     const [dataDolar, setDataDolar] = useState()
     const [textDolar, setTextDolar] = useState()
@@ -50,16 +51,13 @@ export default function HomeScreen() {
         console.warn(item)
         setShowAdvise(item === 'false'); // converte string para boolean, se necessário
         APIsCaller(arrayChildren, ChildrenSlidingToast, setComponentContent)
-        // setTimeout(() => {
-        //     setVisibleSlidingToast(false)
-        // }, 5000)
-        // setTimeout(() => {
-        //     setVisibleSlidingToast(true)
-        // }, 10000)
+        getNewsFromAPI(setSlidingToastNews)
     }, []);
     return (
         <ReCaptchaProvider>
-            {<SlidingToast className={`${!visibleSlidingToast ? 'hidden' : ''}`} visible={visibleSlidingToast} setVisible={setVisibleSlidingToast} ComponentContent={ComponentContent} />}
+            {visibleSlidingToast && <SlidingToast className={`${!visibleSlidingToast ? 'hidden' : ''}`} visible={visibleSlidingToast} setVisible={setVisibleSlidingToast} ComponentContent={ComponentContent} pixelsBottomOrTop={0} />}
+            {SlidingToastNews && SlidingToastNews}
+            
             <div id={divMain} className={styles.container}>
                 {/* <h1>Home Screen</h1> */}
                 <div className={`${styles.flex1} color-black bg-violet-700 rounded-lg p-[2em] m-2`}>
