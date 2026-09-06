@@ -23,7 +23,7 @@ export default function HeaderComponent() {
                 </button>
             </div>
             <div className="flex flex-row gap-4 justify-center items-center">
-                <h1>Contatos: </h1>
+                <h1 className={`bg-gray-800 hover:bg-gray-700 active:bg-gray-600 text-white font-bold py-2 px-4 rounded-full`}>Contatos: </h1>
                 <BsMicrosoftTeams className={classNamesButtonsContact} size={40} color="#6264A7" onClick={() => {
                     window.open(`https://teams.microsoft.com/l/chat/0/0?users=leandrocgms1986@outlook.com`, '_blank', 'noopener,noreferrer')
                 }} />
