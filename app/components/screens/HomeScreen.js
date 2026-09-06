@@ -61,7 +61,7 @@ export default function HomeScreen() {
     }, []);
     return (
         <ReCaptchaProvider>
-            {ComponentContent && <SlidingToast className={`${!visibleSlidingToast ? 'hidden' : ''}`} visible={visibleSlidingToast} setVisible={() => {setComponentContent(null)}} ComponentContent={ComponentContent} pixelsBottomOrTop={0} bottomOrTop='top' />}
+            {ComponentContent && <SlidingToast className={`${!visibleSlidingToast ? 'hidden' : ''}`} visible={visibleSlidingToast} setVisible={() => {setComponentContent(null)}} ComponentContent={ComponentContent} pixelsBottomOrTop={150} bottomOrTop='bottom' />}
             {/* {SlidingToastNews && SlidingToastNews} */}
 
             <div id={divMain} className={styles.container}>

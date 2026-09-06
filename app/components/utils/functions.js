@@ -250,3 +250,17 @@ export async function copyFormattedText(htmlContent, plainTextFallback = '') {
     return false;
   }
 }
+
+export async function clearClipboard() {
+  try {
+    const itemClipboard = new ClipboardItem({
+      'text/plain': new Blob([''], { type: 'text/plain' }),
+      'text/html': new Blob([''], { type: 'text/html' })
+    });
+
+    await navigator.clipboard.write([itemClipboard]);
+    return true;
+  } catch (err) {
+    return false;
+  }
+}
