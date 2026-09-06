@@ -6,37 +6,44 @@ export function getNow() {
     return new Date().toLocaleString('pt-BR');
 }
 
-export async function getCurrentYear(setCurrentYearOnline = new Function(),
-    setError = new Function(), setSuccess = new Function()) {
+export async function getCurrentYear(
+    setCurrentYearOnline = () => { },
+    setError = () => { },
+    setSuccess = () => { }
+) {
+    // Substituída a API instável por opções mais confiáveis
     const apis = [
-        'http://worldtimeapi.org/api/timezone/Etc/UTC',
         'https://timeapi.io/api/time/current/zone?timeZone=UTC',
+        'https://worldclockapi.com/api/json/utc/now'
     ];
 
     for (const url of apis) {
         try {
             const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 3000); // 3 segundos de timeout
+            const timeoutId = setTimeout(() => controller.abort(), 3000);
 
             const response = await fetch(url, { signal: controller.signal });
             clearTimeout(timeoutId);
 
             if (response.ok) {
                 const data = await response.json();
-                // A TimeAPI traz o ano direto no campo 'year', já a WorldTimeAPI traz no 'datetime'
-                const ano = data.year || new Date(data.datetime).getFullYear();
+                const ano = data.year || new Date(data.currentDateTime || data.datetime).getFullYear();
                 setCurrentYearOnline(ano);
-                return data;
-                break
+                setSuccess(true);
+                return ano;
             }
         } catch (e) {
-            // Se falhar esta API, passa para a próxima da lista
-            continue;
+            // Log apenas em modo de desenvolvimento se necessário
+            if (process.env.NODE_ENV === 'development') {
+                console.warn(`Tentativa na API ${url} falhou, tentando próxima...`);
+            }
         }
     }
 
-    // Se todas as APIs de rede falharem, usa a data do dispositivo como última opção
-    return new Date().getFullYear();
+    // Fallback: Se nenhuma API responder, utiliza o horário do sistema
+    const fallbackYear = new Date().getFullYear();
+    setCurrentYearOnline(fallbackYear);
+    return fallbackYear;
 }
 
 export async function getWeatherByLocation() {
@@ -150,12 +157,10 @@ export async function getDolarExchangeRate() {
 var contador = 0
 export async function APIsCaller(arrayChildren, ChildrenSlidingToast, setComponentContent) {
     contador++
-    Promise.all([getWeatherByLocation(), getDolarExchangeRate()]).then((values) => {
-        const dataWeather = values[0]
-        const dataDolar = values[1]
-        console.warn(dataWeather?.error, dataDolar?.eror, dataWeather, dataDolar)
-        if (dataWeather?.error == undefined) {
-            console.info('dataWeather diferente de null >>> ', dataWeather)
+    Promise.allSettled([getWeatherByLocation(), getDolarExchangeRate(), getNewsFromAPI()]).then((values) => {
+        const dataWeather = values[0]?.value
+        console.warn('dataWeather: ', dataWeather, dataWeather?.status?.rejected)
+        if (dataWeather != undefined && Object.hasOwn(dataWeather, 'cidade')) {
             const IconWeatherComponent = (dataWeather?.objectIconWeather?.icon)
             const WeatherComponent = (
                 <span className={`flex flex-row justify-center items-center ml-2`}>
@@ -166,9 +171,9 @@ export async function APIsCaller(arrayChildren, ChildrenSlidingToast, setCompone
             )
             arrayChildren.push(WeatherComponent)
         }
-        if (dataDolar?.error == undefined) {
-            const data = dataDolar
-            let newText = `${`Dólar Compra: R$ ${data.USDBRL.bid} | Dólar Venda: R$ ${data.USDBRL.ask} | Variação: R$ ${data.USDBRL.pctChange} | Máxima do dia: R$ ${data.USDBRL.high} | Mínima do dia: R$ ${data.USDBRL.low} | Data de Criação/Registro: ${data.USDBRL.create_date}`}`
+        const dataDolar = values[1]?.value
+        if (dataDolar != undefined && Object.hasOwn(dataDolar, 'USDBRL')) {
+            let newText = `${`Dólar Compra: R$ ${dataDolar?.USDBRL.bid} | Dólar Venda: R$ ${dataDolar?.USDBRL.ask} | Variação: R$ ${dataDolar?.USDBRL.pctChange} | Máxima do dia: R$ ${dataDolar?.USDBRL.high} | Mínima do dia: R$ ${dataDolar?.USDBRL.low} | Data de Criação/Registro: ${dataDolar?.USDBRL.create_date}`}`
             const DolarComponent = (
                 <span className={`tex-4xl flex flex-row justify-center items-center`}>
                     <FaDollarSign className={`ml-2`} />
@@ -176,6 +181,34 @@ export async function APIsCaller(arrayChildren, ChildrenSlidingToast, setCompone
                 </span>
             )
             arrayChildren.push(DolarComponent)
+        }
+        const articlesArray = [(<span key={new Date().getTime()}>&nbsp;&nbsp;&nbsp;&nbsp;{`Principais Notícias de Hoje >>>>>>>>>>>>>>>>>>>>>       `}</span>)]
+        const dataNews = values[2]?.value
+        if (dataNews != undefined && Object.hasOwn(dataNews, 'articles')) {
+            dataNews.articles?.forEach((article, index) => {
+                articlesArray.push(
+                    (
+                        <span key={article.id || index} className={`flex flex-row justify-center items-center`}>
+                            {<FaNewspaper className={`mx-2`} />}
+                            {article?.author ? `Autor: ${article?.author} >> ` : ''}
+                            {/* {article?.title ? `Título: ${article?.title} | ` : ''} */}
+                            {article?.description ? `${article?.description} ` : ''}
+                            {/* {article?.url ? `Site: ${article?.url} | ` : ''}
+                        {article?.urlToImage ? `URL da Imagem: ${article?.urlToImage} | ` : ''} */}
+                            <a className={`text-blue-500 hover:text-black bg-white mx-2 p-2 rounded-lg`} href={article?.url} target="_blank" rel="noopener noreferrer">
+                                CLique para ir ao site
+                            </a>
+                            {article?.publishedAt ? `Publicado em: ${article?.publishedAt}. ` : ''}
+                        </span>
+                    )
+                )
+            })
+            let NewsComponent = (
+                <>
+                    {articlesArray}
+                </>
+            )
+            arrayChildren.push(NewsComponent)
         }
         console.warn('176, contador: ', contador, '\n', 'arrayChildren: ', arrayChildren)
         setComponentContent(<ChildrenSlidingToast children={arrayChildren} />)
@@ -186,33 +219,34 @@ export async function getNewsFromAPI(setSlidingToastNews = new Function()) {
     try {
         const response = await fetch(`https://newsapi.org/v2/everything?q=*&language=pt&sortBy=publishedAt&apiKey=478dbbea24bd41e3b4a7326d85a44f5e`)
         const data = await response.json()
-        const articlesArray = [`Principais Notícias de Hoje >>>>>>>>>>>>>>>>>>>>>       `]
-        data.articles?.forEach((article, index) => {
-            articlesArray.push(
-                (
-                    <span key={article.id || index} className={`flex flex-row justify-center items-center`}>
-                        {<FaNewspaper className={`mx-2`} />}
-                        {article?.author ? `Autor: ${article?.author} >> ` : ''}
-                        {/* {article?.title ? `Título: ${article?.title} | ` : ''} */}
-                        {article?.description ? `${article?.description} ` : ''}
-                        {/* {article?.url ? `Site: ${article?.url} | ` : ''}
-                        {article?.urlToImage ? `URL da Imagem: ${article?.urlToImage} | ` : ''} */}
-                        <a className={`text-blue-500 hover:text-black bg-white mx-2 p-2 rounded-lg`} href={article?.url} target="_blank" rel="noopener noreferrer">
-                            CLique para ir ao site
-                        </a>
-                        {article?.publishedAt ? `Publicado em: ${article?.publishedAt}. ` : ''}
-                    </span>
-                )
-            )
-        })
-        let NewsComponent = (
-            <>
-            {articlesArray}
-            </>
-        )
-        setSlidingToastNews(<SlidingToast ComponentContent={NewsComponent} visible={true} setVisible={() => setSlidingToastNews(null)} bottomOrTop='top' pixelsBottomOrTop={80} duration={1500} />)
+        return data
+        // setSlidingToastNews(<SlidingToast ComponentContent={NewsComponent} visible={true} setVisible={() => setSlidingToastNews(null)} bottomOrTop='bottom' pixelsBottomOrTop={0} duration={1500} />)
         console.warn('data News >>>>>>>: ', data)
     } catch (error) {
         console.error('error: ', error)
     }
+}
+
+/**
+ * Copia texto formatado (HTML) para a área de transferência.
+ * @param {string} htmlContent - String contendo a marcação HTML desejada.
+ * @param {string} plainTextFallback - Texto simples alternativo.
+ */
+export async function copyFormattedText(htmlContent, plainTextFallback = '') {
+  try {
+    // Se não houver fallback simples, remove as tags HTML automaticamente
+    const simpleText = plainTextFallback || htmlContent.replace(/<[^>]*>/g, '');
+
+    const itemClipboard = new ClipboardItem({
+      'text/html': new Blob([htmlContent], { type: 'text/html' }),
+      'text/plain': new Blob([simpleText], { type: 'text/plain' })
+    });
+
+    await navigator.clipboard.write([itemClipboard]);
+    console.log('Conteúdo copiado com sucesso!');
+    return true;
+  } catch (err) {
+    console.error('Erro ao copiar conteúdo: ', err);
+    return false;
+  }
 }

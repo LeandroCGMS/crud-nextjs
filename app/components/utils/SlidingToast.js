@@ -1,49 +1,70 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useEffect, useRef, useState, useId } from "react";
+import { useEffect, useRef, useState } from "react";
+import { copyFormattedText } from './functions';
 
 export default function SlidingToast({
 	ComponentContent,
 	setVisible = () => { },
-	bottomOrTop = 'bottom', // 'bottom' ou 'top'.
-	pixelsBottomOrTop = 0, 
-	duration = 18
+	bottomOrTop = 'bottom',
+	pixelsBottomOrTop = 0,
+	speed = 150 // Velocidade em pixels por segundo (Ajuste conforme necessário: 40 a 80 é um bom intervalo)
 }) {
-	// useEffect(() => {
-	// 	ComponentContent && setVisible(true);
-	// 	!ComponentContent && setVisible(false);
-	// }, [ComponentContent]);
-	// console.warn('SlidingToast, ComponentContent: ', ComponentContent)
+	const contentRef = useRef(null);
+	const [computedDuration, setComputedDuration] = useState(15); // Valor padrão inicial em segundos
+
+	useEffect(() => {
+		if (contentRef.current) {
+			// Mede a largura exata de um dos blocos de conteúdo em pixels
+			const contentWidth = contentRef.current.offsetWidth;
+
+			if (contentWidth > 0) {
+				// Calcula a duração necessária para percorrer toda a largura na velocidade definida
+				const calculatedDuration = contentWidth / speed;
+				setComputedDuration(calculatedDuration);
+			}
+		}
+	}, [ComponentContent, speed]);
+
+	const positionClass = bottomOrTop === 'top' ? 'top-0' : 'bottom-0';
+
 	return (
 		<motion.div
-			initial={{ y: '-100%', opacity: 0 }} // -100%
+			initial={{ y: bottomOrTop === 'top' ? '-100%' : '100%', opacity: 0 }}
 			animate={{ y: 0, opacity: 1 }}
-			exit={{ y: '-100%', opacity: 0 }}
+			exit={{ y: bottomOrTop === 'top' ? '-100%' : '100%', opacity: 0 }}
 			transition={{ duration: 0.5, ease: 'easeOut' }}
-			className={`fixed ${bottomOrTop}-${pixelsBottomOrTop} left-0 right-0 z-50 flex items-center justify-between w-full bg-gray-900 text-white p-3 shadow-xl border-b border-gray-800 overflow-hidden`}
+			style={{
+				[bottomOrTop]: `${pixelsBottomOrTop}px`
+			}}
+			className={`fixed ${positionClass} top-[80px] left-0 right-0 z-50 flex items-center justify-between w-full bg-gray-900 text-white p-3 shadow-xl border-b border-gray-800 overflow-hidden`}
 		>
 			<div className="flex items-center w-full overflow-hidden mr-4">
 				<span className="flex-shrink-0 w-3 h-3 bg-emerald-500 rounded-full mr-3 animate-pulse" />
+				<span className="flex-shrink-0 w-3 h-3 bg-emerald-500 rounded-full mr-3 animate-pulse">
+
+				</span>
 
 				{/* Container do Marquee */}
 				<div className="relative flex overflow-x-hidden w-full">
 					<motion.div
-						animate={{ x: ['0%', '-50%'] }} // -50% para mover metade do conteúdo
+						key={computedDuration} // Força a redefinição suave da animação caso a largura mude
+						animate={{ x: ['0%', '-50%'] }}
 						transition={{
 							repeat: Infinity,
 							repeatType: 'loop',
-							duration: duration, // 18 segundos para percorrer todo o conteúdo é a velocidade padrão
+							duration: computedDuration,
 							ease: 'linear',
 						}}
 						className="flex whitespace-nowrap font-mono text-sm shrink-0"
 					>
-						{/* Bloco 1 */}
-						<div className="flex items-center pr-12 shrink-0">
+						{/* Bloco 1 (Referenciado com useRef para medição) */}
+						<div ref={contentRef} className="flex items-center pr-12 shrink-0">
 							{ComponentContent}
 						</div>
 
-						{/* Bloco 2 (Duplicado necessário para preencher o rastro) */}
+						{/* Bloco 2 (Duplicado necessário para o efeito infinito) */}
 						<div className="flex items-center pr-12 shrink-0">
 							{ComponentContent}
 						</div>
@@ -52,7 +73,7 @@ export default function SlidingToast({
 			</div>
 
 			<button
-				onClick={() => setVisible(false)}
+				onClick={() => setVisible()}
 				className="flex-shrink-0 text-gray-400 hover:text-white text-sm px-2 py-1 rounded cursor-pointer"
 				aria-label="Fechar aviso"
 			>
