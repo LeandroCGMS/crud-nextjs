@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { useEffect, useRef, useState } from "react";
 import { copyFormattedText, clearClipboard } from './functions';
 import { FiCopy, FiTrash2 } from 'react-icons/fi';
+import { toast } from 'sonner';
 
 export default function SlidingToast({
 	ComponentContent,
@@ -47,6 +48,7 @@ export default function SlidingToast({
 				<button className={`p-1 cursor-pointer p-2 rounded-lg hover:bg-gray-700 ${copied ? 'text-green-500' : 'text-gray-400'}`} onClick={() => {
 					setCopied(!copied)
 					copied ? clearClipboard() : copyFormattedText(contentRef.current.innerHTML);
+					copied ? toast.success('Texto removido da área de transferência!') : toast.success('Texto copiado para a área de transferência!')
 				}} aria-label="Copiar texto">
 					{copied ? <FiTrash2 color="red" size={20} /> : <FiCopy size={20} />}
 				</button>

@@ -19,6 +19,7 @@ import Link from 'next/link';
 import FooterComponent from './FooterComponent'
 import SlidingToast from '@/app/components/utils/SlidingToast'
 import { getWeatherByLocation, getIconWeather, getDolarExchangeRate, APIsCaller, getNewsFromAPI } from '@/app/components/utils/functions'
+import { toast } from 'sonner';
 
 function ChildrenSlidingToast({ children }) {
     return (
@@ -39,6 +40,7 @@ export default function HomeScreen() {
     const [visibleSlidingToast, setVisibleSlidingToast] = useState(true)
     const [dataWeather, setDataWeather] = useState()
     const [ComponentContent, setComponentContent] = useState()
+    const [backupComponentContent, setBackupComponentContent] = useState()
     const [SlidingToastNews, setSlidingToastNews] = useState()
     const [textSlidingToast, setTextSlidingToast] = useState('')
     const [dataDolar, setDataDolar] = useState()
@@ -61,7 +63,10 @@ export default function HomeScreen() {
     }, []);
     return (
         <ReCaptchaProvider>
-            {ComponentContent && <SlidingToast className={`${!visibleSlidingToast ? 'hidden' : ''}`} visible={visibleSlidingToast} setVisible={() => {setComponentContent(null)}} ComponentContent={ComponentContent} pixelsBottomOrTop={150} bottomOrTop='bottom' />}
+            {ComponentContent && <SlidingToast className={`${!visibleSlidingToast ? 'hidden' : ''}`} visible={visibleSlidingToast} setVisible={() => {
+                setBackupComponentContent(ComponentContent)
+                setComponentContent(null)}
+                } ComponentContent={ComponentContent} pixelsBottomOrTop={150} bottomOrTop='bottom' />}
             {/* {SlidingToastNews && SlidingToastNews} */}
 
             <div id={divMain} className={styles.container}>

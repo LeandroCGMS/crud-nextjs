@@ -1,6 +1,7 @@
 import { FaDollarSign } from "react-icons/fa";
 import { FaNewspaper } from "react-icons/fa";
 import SlidingToast from "./SlidingToast";
+import { toast } from 'sonner';
 
 export function getNow() {
     return new Date().toLocaleString('pt-BR');
