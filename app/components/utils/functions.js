@@ -196,7 +196,7 @@ export async function APIsCaller(arrayChildren, ChildrenSlidingToast, setCompone
                             {/* {article?.url ? `Site: ${article?.url} | ` : ''}
                         {article?.urlToImage ? `URL da Imagem: ${article?.urlToImage} | ` : ''} */}
                             <a className={`text-blue-500 hover:text-black bg-white mx-2 p-2 rounded-lg`} href={article?.url} target="_blank" rel="noopener noreferrer">
-                                CLique para ir ao site
+                                Clique para ir ao site
                             </a>
                             {article?.publishedAt ? `Publicado em: ${article?.publishedAt}. ` : ''}
                         </span>
