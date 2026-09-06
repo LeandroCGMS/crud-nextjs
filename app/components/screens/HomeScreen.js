@@ -17,6 +17,7 @@ import meuLogo from '@/assets/images/my-logo.jpg'; // ou da pasta de assets
 import { TbDeviceMobileCode } from 'react-icons/tb';
 import Link from 'next/link';
 import FooterComponent from './FooterComponent'
+import HeaderComponent from './HeaderComponent'
 import SlidingToast from '@/app/components/utils/SlidingToast'
 import { getWeatherByLocation, getIconWeather, getDolarExchangeRate, APIsCaller, getNewsFromAPI } from '@/app/components/utils/functions'
 import { toast } from 'sonner';
@@ -63,6 +64,7 @@ export default function HomeScreen() {
     }, []);
     return (
         <ReCaptchaProvider>
+            <HeaderComponent />
             {ComponentContent && <SlidingToast className={`${!visibleSlidingToast ? 'hidden' : ''}`} visible={visibleSlidingToast} setVisible={() => {
                 setBackupComponentContent(ComponentContent)
                 setComponentContent(null)}
