@@ -9,7 +9,7 @@ import { IoLogoWhatsapp } from "react-icons/io";
 import { FaGithub } from "react-icons/fa";
 
 export default function HeaderComponent() {
-    const classNamesButtonsContact = `cursor-pointer hover:bg-purple-700 active:bg-purple-600 p-2 rounded-lg bg-[white] border-[#CF27F5] border-1`;
+    const classNamesButtonsContact = `cursor-pointer hover:bg-gray-700 active:bg-gray-600 p-2 rounded-lg bg-[white] border-[#CF27F5] border-1`;
     return (
         <div className="w-full flex flex-row text-white bg-black justify-between items-center p-2">
             <div >
@@ -22,7 +22,8 @@ export default function HeaderComponent() {
                     Área de Testes
                 </button>
             </div>
-            <div className="flex flex-row gap-4 cursor-pointer">
+            <div className="flex flex-row gap-4 justify-center items-center">
+                <h1>Contatos: </h1>
                 <BsMicrosoftTeams className={classNamesButtonsContact} size={40} color="#6264A7" onClick={() => {
                     window.open(`https://teams.microsoft.com/l/chat/0/0?users=leandrocgms1986@outlook.com`, '_blank', 'noopener,noreferrer')
                 }} />
