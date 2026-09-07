@@ -1,4 +1,4 @@
-name: Update directory
+name: Update directory # depois de cadastrar a chave privada no secrets do github, esse workflow vai atualizar o diretório do servidor remoto com o último commit do repositório
 
 on:
   push:
