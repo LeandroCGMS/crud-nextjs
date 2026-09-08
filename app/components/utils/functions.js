@@ -164,9 +164,9 @@ export async function APIsCaller(arrayChildren, ChildrenSlidingToast, setCompone
         if (dataWeather != undefined && Object.hasOwn(dataWeather, 'cidade')) {
             const IconWeatherComponent = (dataWeather?.objectIconWeather?.icon)
             const WeatherComponent = (
-                <span className={`flex flex-row justify-center items-center ml-2`}>
-                    {`Clima e Cotação do Dólar hoje >>>>>>>>>>>>>>>>>>>>>       `}
-                    <span className={`text-4xl`}><IconWeatherComponent color={dataWeather?.objectIconWeather?.color} /></span>
+                <span className={`max-w-full flex flex-row justify-center items-center ml-2 break-words`}>
+                    {`Clima e Cotação do Dólar hoje \n>>>>>>>>>>>>>>>>>>>>>       `}
+                    <span className={`w-full max-w-full text-4xl`}><IconWeatherComponent color={dataWeather?.objectIconWeather?.color} /></span>
                     {`Em ${dataWeather?.cidade}-${dataWeather?.estado}, faz ${dataWeather?.temperatura}°C, Velocidade do Vento: ${dataWeather?.velocidadeVento?.toString()?.replace('.', ',')} km/h, sendo um dia ${dataWeather?.objectIconWeather?.text}. Tenha uma ótimo dia. `}
                 </span>
             )
@@ -176,7 +176,7 @@ export async function APIsCaller(arrayChildren, ChildrenSlidingToast, setCompone
         if (dataDolar != undefined && Object.hasOwn(dataDolar, 'USDBRL')) {
             let newText = `${`Dólar Compra: R$ ${dataDolar?.USDBRL.bid} | Dólar Venda: R$ ${dataDolar?.USDBRL.ask} | Variação: R$ ${dataDolar?.USDBRL.pctChange} | Máxima do dia: R$ ${dataDolar?.USDBRL.high} | Mínima do dia: R$ ${dataDolar?.USDBRL.low} | Data de Criação/Registro: ${dataDolar?.USDBRL.create_date}`}`
             const DolarComponent = (
-                <span className={`tex-4xl flex flex-row justify-center items-center`}>
+                <span className={`w-full max-w-full tex-4xl flex flex-row justify-center items-center break-words`}>
                     <FaDollarSign className={`ml-2`} />
                     {newText}
                 </span>
@@ -189,7 +189,7 @@ export async function APIsCaller(arrayChildren, ChildrenSlidingToast, setCompone
             dataNews.articles?.forEach((article, index) => {
                 articlesArray.push(
                     (
-                        <span key={article.id || index} className={`flex flex-row justify-center items-center`}>
+                        <span key={article.id || index} className={`flex flex-row justify-center items-center max-w-full break-words`}>
                             {<FaNewspaper className={`mx-2`} />}
                             {article?.author ? `Autor: ${article?.author} >> ` : ''}
                             {/* {article?.title ? `Título: ${article?.title} | ` : ''} */}

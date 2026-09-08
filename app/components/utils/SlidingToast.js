@@ -43,8 +43,8 @@ export default function SlidingToast({
 			}}
 			className={`fixed ${positionClass} left-0 right-0 z-50 flex items-center justify-between w-full bg-gray-900 text-white p-3 shadow-xl border-b border-gray-800 overflow-hidden`}
 		>
-			<div className="flex items-center w-full overflow-hidden mr-4">
-				<span className="flex-shrink-0 w-3 h-3 bg-emerald-500 rounded-full mr-3 animate-pulse" />
+			<div className="flex items-center w-full max-w-full overflow-hidden left-4 right-4">
+				<span className="w-3 h-3 bg-emerald-500 rounded-full mr-3 animate-pulse" />
 				<button className={`p-1 cursor-pointer p-2 rounded-lg hover:bg-gray-700 ${copied ? 'text-green-500' : 'text-gray-400'}`} onClick={() => {
 					setCopied(!copied)
 					copied ? clearClipboard() : copyFormattedText(contentRef.current.innerHTML);
@@ -64,15 +64,15 @@ export default function SlidingToast({
 							duration: computedDuration,
 							ease: 'linear',
 						}}
-						className="flex whitespace-nowrap font-mono text-sm shrink-0"
+						className="flex whitespace-nowrap font-mono text-sm"
 					>
 						{/* Bloco 1 (Referenciado com useRef para medição) */}
-						<div ref={contentRef} className="flex items-center pr-12 shrink-0">
+						<div ref={contentRef} className="flex items-center pr-12 break-words">
 							{ComponentContent}
 						</div>
 
 						{/* Bloco 2 (Duplicado necessário para o efeito infinito) */}
-						<div className="flex items-center pr-12 shrink-0">
+						<div className="flex items-center pr-12 break-words">
 							{ComponentContent}
 						</div>
 					</motion.div>
@@ -81,7 +81,7 @@ export default function SlidingToast({
 
 			<button
 				onClick={() => setVisible()}
-				className="flex-shrink-0 text-gray-400 hover:text-white text-sm px-2 py-1 rounded cursor-pointer"
+				className="flex text-gray-400 hover:text-white text-sm px-2 py-1 rounded cursor-pointer"
 				aria-label="Fechar aviso"
 			>
 				✕
