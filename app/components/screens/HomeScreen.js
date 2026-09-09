@@ -21,6 +21,8 @@ import HeaderComponent from './HeaderComponent'
 import SlidingToast from '@/app/components/utils/SlidingToast'
 import { getWeatherByLocation, getIconWeather, getDolarExchangeRate, APIsCaller, getNewsFromAPI } from '@/app/components/utils/functions'
 import { toast } from 'sonner';
+import { useWindowSize } from '../utils/useWindowSize';
+import Navbar from '../utils/Navbar'
 
 function ChildrenSlidingToast({ children }) {
     return (
@@ -46,8 +48,14 @@ export default function HomeScreen() {
     const [textSlidingToast, setTextSlidingToast] = useState('')
     const [dataDolar, setDataDolar] = useState()
     const [textDolar, setTextDolar] = useState()
+    const width = useWindowSize();
+
+    // Define o breakpoint para mobile
+    const isMobile = width <= 768;
+    const [hasMounted, setHasMounted] = useState(false);
 
     useEffect(() => {
+        setHasMounted(true);
         const arrayChildren = []
         const item = localStorage.getItem('acceptLocalStorage');
         item == null ? localStorage.setItem('acceptLocalStorage', 'false') : null
@@ -64,11 +72,13 @@ export default function HomeScreen() {
     }, []);
     return (
         <ReCaptchaProvider>
-            <HeaderComponent />
+            {!isMobile && hasMounted && <HeaderComponent />}
+            {isMobile && hasMounted && <Navbar />}
             {ComponentContent && <SlidingToast className={`${!visibleSlidingToast ? 'hidden' : ''}`} visible={visibleSlidingToast} setVisible={() => {
                 setBackupComponentContent(ComponentContent)
-                setComponentContent(null)}
-                } ComponentContent={ComponentContent} pixelsBottomOrTop={150} bottomOrTop='bottom' />}
+                setComponentContent(null)
+            }
+            } ComponentContent={ComponentContent} pixelsBottomOrTop={150} bottomOrTop='bottom' />}
             {/* {SlidingToastNews && SlidingToastNews} */}
 
             <div id={divMain} className={styles.container}>
