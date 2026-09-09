@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Menu, X } from 'lucide-react'; // Importa os ícones de Menu e Fechar (X)
 import '../css/Navbar.css'; // Importa o arquivo CSS para estilização do Navbar
-import { ComponentContacts } from '../screens/HeaderComponent'; // Importa o componente de contatos
+import { ComponentContacts, ComponentButtonAreaDeTestes, ComponentButtonFaleConosco } from '../screens/HeaderComponent'; // Importa o componente de contatos
 
 export default function Navbar() {
     // Estado para controlar se o menu está aberto ou fechado
@@ -19,7 +19,7 @@ export default function Navbar() {
 
     return (
         <header className="header">
-            <div className="logo">Menu</div>
+            {/* <div className="logo">Menu</div> */}
 
             {/* Botão do Hamburguer (só aparece em telas menores via CSS) */}
             <button
@@ -33,8 +33,12 @@ export default function Navbar() {
             {/* Links de Navegação */}
             <nav className={`nav-menu ${menuAberto ? 'active' : ''}`}>
                 <ul>
-                    <li className="nav-item bg-gray-800 hover:bg-gray-700 active:bg-gray-600 text-white font-bold py-2 px-4 rounded-full cursor-pointer">Fale Conosco</li>
-                    <li className="nav-item bg-gray-800 hover:bg-gray-700 active:bg-gray-600 text-white font-bold py-2 px-4 rounded-full cursor-pointer">Área de Testes</li>
+                    <li className="nav-item">
+                        <ComponentButtonFaleConosco />
+                    </li>
+                    <li className="nav-item">
+                        <ComponentButtonAreaDeTestes />
+                    </li>
                     <ComponentContacts rowOrColumn="column" />
                 </ul>
             </nav>

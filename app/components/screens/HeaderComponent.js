@@ -14,15 +14,11 @@ export default function HeaderComponent() {
     }, [])
     return (
         <div className="w-full w-x-full flex flex-row text-white bg-black justify-between items-center p-2 border border-white rounded-lg">
-            <div >
-                <button className="bg-gray-800 hover:bg-gray-700 active:bg-gray-600 text-white font-bold py-2 px-4 rounded-full cursor-pointer">
-                    Fale Conosco
-                </button>
+            <div>
+                <ComponentButtonFaleConosco />
             </div>
-            <div >
-                <button className="bg-gray-800 hover:bg-gray-700 active:bg-gray-600 text-white font-bold py-2 px-4 rounded-full cursor-pointer">
-                    Área de Testes
-                </button>
+            <div>
+                <ComponentButtonAreaDeTestes />
             </div>
             <ComponentContacts />
         </div>
@@ -51,5 +47,21 @@ export function ComponentContacts({ rowOrColumn = 'row' }) {
                 }} />
             </div>
         </div>
+    )
+}
+
+export function ComponentButtonFaleConosco() {
+    return (
+        <button className="bg-gray-800 hover:bg-gray-700 active:bg-gray-600 text-white font-bold py-2 px-4 rounded-full cursor-pointer">
+            Fale Conosco
+        </button>
+    )
+}
+
+export function ComponentButtonAreaDeTestes() {
+    return (
+        <button className="bg-gray-800 hover:bg-gray-700 active:bg-gray-600 text-white font-bold py-2 px-4 rounded-full cursor-pointer">
+            Área de Testes
+        </button>
     )
 }
