@@ -104,9 +104,9 @@ export default function HomeScreen() {
                             />
                         </div>
                     </div>}
-                    <h1 className={`text-white bg-violet mt-1`}>Leandro Santos de Carvalho</h1>
-                    <h2 className={`text-white bg-violet`}>Corretor de Imóveis - CRECI/MS 18329</h2>
-                    <h2 className={`text-white bg-violet text-center`}>Programador Web e Mobile, Full Cycle</h2>
+                    <h1 className={`text-white text-center bg-violet mt-1`}>Leandro Santos de Carvalho</h1>
+                    <h2 className={`text-white text-center bg-violet`}>Corretor de Imóveis - CRECI/MS 18329</h2>
+                    <h2 className={`text-white text-center bg-violet text-center`}>Programador Web e Mobile, Full Cycle</h2>
 
                     <button
                         onClick={() => {
