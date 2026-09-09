@@ -183,13 +183,13 @@ export async function APIsCaller(arrayChildren, ChildrenSlidingToast, setCompone
             )
             arrayChildren.push(DolarComponent)
         }
-        const articlesArray = [(<span key={new Date().getTime()}>&nbsp;&nbsp;&nbsp;&nbsp;{`Principais Notícias de Hoje >>>>>>>>>>>>>>>>>>>>>       `}</span>)]
+        const articlesArray = [(<span key={new Date().getTime()}>&nbsp;&nbsp;&nbsp;&nbsp;{`Principais Notícias de Hoje >> >> >> >> >> >> >> >> >> >>       `}</span>)]
         const dataNews = values[2]?.value
         if (dataNews != undefined && Object.hasOwn(dataNews, 'articles')) {
             dataNews.articles?.forEach((article, index) => {
                 articlesArray.push(
                     (
-                        <span key={article.id || index} className={`flex flex-row justify-center items-center max-w-full break-words`}>
+                        <span key={article.id || index} className={`flex flex-row justify-center items-center max-w-full break-words gap-2`}>
                             {<FaNewspaper className={`mx-2`} />}
                             {article?.author ? `Autor: ${article?.author} >> ` : ''}
                             {/* {article?.title ? `Título: ${article?.title} | ` : ''} */}
@@ -217,8 +217,9 @@ export async function APIsCaller(arrayChildren, ChildrenSlidingToast, setCompone
 }
 
 export async function getNewsFromAPI(setSlidingToastNews = new Function()) {
+    const url = '/api/news' // `https://newsapi.org/v2/everything?q=*&language=pt&sortBy=publishedAt&apiKey=478dbbea24bd41e3b4a7326d85a44f5e`
     try {
-        const response = await fetch(`https://newsapi.org/v2/everything?q=*&language=pt&sortBy=publishedAt&apiKey=478dbbea24bd41e3b4a7326d85a44f5e`)
+        const response = await fetch(url)
         const data = await response.json()
         return data
         // setSlidingToastNews(<SlidingToast ComponentContent={NewsComponent} visible={true} setVisible={() => setSlidingToastNews(null)} bottomOrTop='bottom' pixelsBottomOrTop={0} duration={1500} />)

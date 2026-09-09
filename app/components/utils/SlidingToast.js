@@ -67,12 +67,12 @@ export default function SlidingToast({
 						className="flex whitespace-nowrap font-mono text-sm"
 					>
 						{/* Bloco 1 (Referenciado com useRef para medição) */}
-						<div ref={contentRef} className="flex items-center pr-12 break-words">
+						<div ref={contentRef} className="flex items-center pr-12 break-words gap-2">
 							{ComponentContent}
 						</div>
 
 						{/* Bloco 2 (Duplicado necessário para o efeito infinito) */}
-						<div className="flex items-center pr-12 break-words">
+						<div className="flex items-center pr-12 break-words gap-2">
 							{ComponentContent}
 						</div>
 					</motion.div>
