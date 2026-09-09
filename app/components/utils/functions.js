@@ -165,7 +165,7 @@ export async function APIsCaller(arrayChildren, ChildrenSlidingToast, setCompone
             const IconWeatherComponent = (dataWeather?.objectIconWeather?.icon)
             const WeatherComponent = (
                 <span className={`max-w-full flex flex-row justify-center items-center ml-2 break-words`}>
-                    {`Clima e Cotação do Dólar hoje \n>>>>>>>>>>>>>>>>>>>>>       `}
+                    {`Clima e Cotação do Dólar hoje » » » » » » » » » »`}
                     <span className={`w-full max-w-full text-4xl`}><IconWeatherComponent color={dataWeather?.objectIconWeather?.color} /></span>
                     {`Em ${dataWeather?.cidade}-${dataWeather?.estado}, faz ${dataWeather?.temperatura}°C, Velocidade do Vento: ${dataWeather?.velocidadeVento?.toString()?.replace('.', ',')} km/h, sendo um dia ${dataWeather?.objectIconWeather?.text}. Tenha uma ótimo dia. `}
                 </span>
