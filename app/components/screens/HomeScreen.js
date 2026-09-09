@@ -72,8 +72,7 @@ export default function HomeScreen() {
     }, []);
     return (
         <ReCaptchaProvider>
-            {!isMobile && hasMounted && <HeaderComponent />}
-            {isMobile && hasMounted && <Navbar />}
+            <HeaderComponent />
             {ComponentContent && <SlidingToast className={`${!visibleSlidingToast ? 'hidden' : ''}`} visible={visibleSlidingToast} setVisible={() => {
                 setBackupComponentContent(ComponentContent)
                 setComponentContent(null)

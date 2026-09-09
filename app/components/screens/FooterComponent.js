@@ -17,6 +17,9 @@ export default function FooterComponent() {
             <h1 className={`text-2xl text-center`}>
                 Todos os direitos reservados.
             </h1>
+            <div style={{height: 100}}>
+
+            </div>
         </div>
     )
 }
