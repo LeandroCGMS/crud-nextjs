@@ -94,7 +94,7 @@ export default function HomeScreen() {
                     </div>
                     {showLogoFullScreen && <div style={{ zIndex: 150 }} className={`cursor-pointer rounded-lg fixed inset-0 p-[2em] border-white border-[0.1em] flex flex-col items-center justify-center text-center bg-violet-700 z-30 overflow-scroll`} onClick={() => { setShowLogoFullScreen(false) }}>
                         <h1 className={`text-white`}>Clique ou toque na tela para fechar essa visualização.</h1>
-                        <div className={`w-[100%] h-[100%] relative justify-center items-center flex flex-col p-2`}>
+                        <div className={`w-[100%] h-[100%] relative justify-start items-center flex flex-col p-2`}>
                             <Image
                                 className={`relative rounded-lg m-2`}
                                 src={meuLogo}
