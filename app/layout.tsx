@@ -16,6 +16,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Dev Full Cycle e Corretor de Imóveis, Leandro S. Carvalho, CRECI-MS 18329",
   description: "Aqui, meu portfólio de desenvolvedor full cycle, com projetos de front-end, back-end e mobile. Além disso, também atuo como corretor de imóveis, oferecendo serviços de compra, venda e aluguel de imóveis.",
+  icons: {
+    icon: '/assets/images/my-logo.jpg', // Ou '/favicon.ico' da pasta public
+    shortcut: '/assets/images/my-logo.jpg',
+    apple: '/assets/images/my-logo.jpg', // Opcional para dispositivos Apple
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
