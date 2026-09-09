@@ -20,5 +20,5 @@ jobs:
         script: |
           cd /home/ubuntu/next-crud
           git pull
-          yarn build
+          docker exec -it next-crud-dev yarn build
           docker restart next-crud
