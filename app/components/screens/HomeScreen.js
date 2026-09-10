@@ -52,17 +52,14 @@ export default function HomeScreen() {
 
     // Define o breakpoint para mobile
     const isMobile = width <= 768;
-    const [hasMounted, setHasMounted] = useState(false);
 
     useEffect(() => {
-        setHasMounted(true);
         const arrayChildren = []
         const item = localStorage.getItem('acceptLocalStorage');
         item == null ? localStorage.setItem('acceptLocalStorage', 'false') : null
         console.warn(item)
         setShowAdvise(item === 'false'); // converte string para boolean, se necessário
         APIsCaller(arrayChildren, ChildrenSlidingToast, setComponentContent)
-        getNewsFromAPI(setSlidingToastNews)
         setTimeout(() => {
             setVisibleSlidingToast(false)
         }, 5000)

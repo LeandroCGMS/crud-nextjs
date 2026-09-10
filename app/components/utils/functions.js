@@ -216,7 +216,10 @@ export async function APIsCaller(arrayChildren, ChildrenSlidingToast, setCompone
     })
 }
 
+var counterGetNews = 0
 export async function getNewsFromAPI(setSlidingToastNews = new Function()) {
+    counterGetNews++
+    console.warn('counterGetNews: ', counterGetNews)
     const url = '/api/news' // `https://newsapi.org/v2/everything?q=*&language=pt&sortBy=publishedAt&apiKey=478dbbea24bd41e3b4a7326d85a44f5e`
     try {
         const response = await fetch(url)
