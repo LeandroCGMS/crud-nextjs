@@ -225,7 +225,7 @@ export async function APIsCaller(ComponentContent = (<>oi</>), arrayChildren, Ch
     })
 }
 
-export async function getNewsFromAPI(googleToken = 'sfgsdfgsdfgsdgsd', setHeadlines = () => {}) {
+export async function getNewsFromAPI(googleToken = 'sfgsdfgsdfgsdgsd', setHeadlines = () => {}, setDataNews = () => {}) {
     const url = '/api/news' // `https://newsapi.org/v2/everything?q=*&language=pt&sortBy=publishedAt&apiKey=478dbbea24bd41e3b4a7326d85a44f5e`
     const headers = {
         googleToken: googleToken
@@ -240,6 +240,7 @@ export async function getNewsFromAPI(googleToken = 'sfgsdfgsdfgsdgsd', setHeadli
             throw new Error(`Erro ao buscar notícias: ${response.status} ${response.statusText}`);
         }
         const data = await response.json()
+        setDataNews(data)
         console.warn('data News >>>>>>>: ', data)
         // return data
         // setSlidingToastNews(<SlidingToast ComponentContent={NewsComponent} visible={true} setVisible={() => setSlidingToastNews(null)} bottomOrTop='bottom' pixelsBottomOrTop={0} duration={1500} />)

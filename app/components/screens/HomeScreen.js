@@ -24,6 +24,7 @@ import { useWindowSize } from '../utils/useWindowSize';
 import Navbar from '../utils/Navbar'
 import { useGoogleToken } from '@/app/components/utils/useGoogleToken';
 import HeadlineTicker from '../utils/HeadlineTicker';
+import NewsPrintLayout from '@/app/components/utils/NewsPrintLayout';
 
 function ChildrenSlidingToast({ children }) {
     return (
@@ -45,12 +46,9 @@ export default function HomeScreen() {
     const [visibleSlidingToast, setVisibleSlidingToast] = useState(true)
     const [dataWeather, setDataWeather] = useState()
     const [ComponentContent, setComponentContent] = useState()
-    const [backupComponentContent, setBackupComponentContent] = useState()
-    const [SlidingToastNews, setSlidingToastNews] = useState()
-    const [textSlidingToast, setTextSlidingToast] = useState('')
-    const [dataDolar, setDataDolar] = useState()
-    const [textDolar, setTextDolar] = useState()
+    const [visibleDivNews, setVisibleDivNews] = useState(false)
     const [headlines, setHeadlines] = useState([])
+    const [dataNews, setDataNews] = useState()
     const width = useWindowSize();
     // Define o breakpoint para mobile
     const isMobile = width <= 768;
@@ -72,7 +70,7 @@ export default function HomeScreen() {
     useEffect(() => {
         isReady && getGoogleToken('api_news_action').then(token => {
             if (token) {
-                getNewsFromAPI(token, setHeadlines)
+                getNewsFromAPI(token, setHeadlines, setDataNews)
             } else {
                 console.error('Falha ao obter o token do Google reCAPTCHA v3.');
             }
@@ -81,13 +79,38 @@ export default function HomeScreen() {
     return (
         <>
             {ComponentContent && <SlidingToast className={`${!visibleSlidingToast ? 'hidden' : ''}`} visible={visibleSlidingToast} setVisible={() => {
-                setBackupComponentContent(ComponentContent)
                 setComponentContent(null)
             }
             } ComponentContent={ComponentContent} pixelsBottomOrTop={61} bottomOrTop='top' />}
             <HeaderComponent />
-            {headlines.length > 0 && <HeadlineTicker headlines={headlines} />}
-            {/* {SlidingToastNews && SlidingToastNews} */}
+            {headlines.length > 0 && <HeadlineTicker headlines={headlines} dataNews={dataNews} setVisibleDivNews={setVisibleDivNews} />}
+            {visibleDivNews && (
+                <div style={{ inset: 0, position: 'fixed', zIndex: 10000, overflow: 'scroll' }} className={`bg-black`}>
+                    <div className={`w-full bg-black rounded-lg text-white my-2`}>
+                        <button
+                            onClick={() => setVisibleDivNews(false)}
+                            className="text-zinc-400 bg-[red] hover:text-zinc-100 transition-colors p-1 m-2  rounded-md hover:bg-zinc-800 focus:outline-none cursor-pointer"
+                            aria-label="Fechar manchetes"
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            >
+                                <path d="M18 6 6 18" />
+                                <path d="m6 6 12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                    <NewsPrintLayout apiData={dataNews} />
+                </div>
+            )}            {/* {SlidingToastNews && SlidingToastNews} */}
 
             <div id={divMain} className={styles.container}>
                 {/* <h1>Home Screen</h1> */}
