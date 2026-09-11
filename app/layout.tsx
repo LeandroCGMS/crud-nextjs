@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from 'sonner';
+import ReCaptchaProvider from './components/screens/GoogleRecaptchaProvider';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,15 +26,17 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      style={{ width: 'fit-content' }}
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} w-x-full h-full antialiased fit-content`}
-    >
-      <body className="flex flex-col w-full max-w-full overflow-x-hidden">
-        {children}
-        <Toaster position="top-right" richColors />
-      </body>
-    </html>
+    <ReCaptchaProvider>
+      <html
+        style={{ width: 'fit-content' }}
+        lang="en"
+        className={`${geistSans.variable} ${geistMono.variable} w-x-full h-full antialiased fit-content`}
+      >
+        <body className="flex flex-col w-full max-w-full overflow-x-hidden">
+          {children}
+          <Toaster position="top-right" richColors />
+        </body>
+      </html>
+    </ReCaptchaProvider>
   );
 }

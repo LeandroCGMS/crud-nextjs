@@ -3,7 +3,6 @@ import React from 'react';
 
 import Image from "next/image";
 import { useEffect, useRef, useState, useId } from "react";
-// import { GoogleReCaptchaProvider, useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import ReCaptchaProvider from './GoogleRecaptchaProvider'
 import { useRouter } from "next/navigation";
 import styles from './page.module.css';
@@ -23,10 +22,12 @@ import { getWeatherByLocation, getIconWeather, getDolarExchangeRate, APIsCaller,
 import { toast } from 'sonner';
 import { useWindowSize } from '../utils/useWindowSize';
 import Navbar from '../utils/Navbar'
+import { useGoogleToken } from '@/app/components/utils/useGoogleToken';
+import HeadlineTicker from '../utils/HeadlineTicker';
 
 function ChildrenSlidingToast({ children }) {
     return (
-        <div className={`flex flex-row items-center justify-center`}>
+        <div className={`flex flex-row items-center justify-center gap-4`}>
             {children.map((child, index) => (
                 <React.Fragment key={index}>{child}</React.Fragment>
             ))}
@@ -35,6 +36,7 @@ function ChildrenSlidingToast({ children }) {
 }
 
 export default function HomeScreen() {
+    const { getGoogleToken, isReady } = useGoogleToken();
     const router = useRouter()
     const divMain = useId();
     const divLocalStorage = useId()
@@ -48,8 +50,8 @@ export default function HomeScreen() {
     const [textSlidingToast, setTextSlidingToast] = useState('')
     const [dataDolar, setDataDolar] = useState()
     const [textDolar, setTextDolar] = useState()
+    const [headlines, setHeadlines] = useState([])
     const width = useWindowSize();
-
     // Define o breakpoint para mobile
     const isMobile = width <= 768;
 
@@ -59,7 +61,7 @@ export default function HomeScreen() {
         item == null ? localStorage.setItem('acceptLocalStorage', 'false') : null
         console.warn(item)
         setShowAdvise(item === 'false'); // converte string para boolean, se necessário
-        APIsCaller(arrayChildren, ChildrenSlidingToast, setComponentContent)
+        APIsCaller(ComponentContent, arrayChildren, ChildrenSlidingToast, setComponentContent, '')
         setTimeout(() => {
             setVisibleSlidingToast(false)
         }, 5000)
@@ -67,14 +69,24 @@ export default function HomeScreen() {
             setVisibleSlidingToast(false)
         }, 10000)
     }, []);
+    useEffect(() => {
+        isReady && getGoogleToken('api_news_action').then(token => {
+            if (token) {
+                getNewsFromAPI(token, setHeadlines)
+            } else {
+                console.error('Falha ao obter o token do Google reCAPTCHA v3.');
+            }
+        });
+    }, [isReady]);
     return (
-        <ReCaptchaProvider>
+        <>
             {ComponentContent && <SlidingToast className={`${!visibleSlidingToast ? 'hidden' : ''}`} visible={visibleSlidingToast} setVisible={() => {
                 setBackupComponentContent(ComponentContent)
                 setComponentContent(null)
             }
             } ComponentContent={ComponentContent} pixelsBottomOrTop={61} bottomOrTop='top' />}
             <HeaderComponent />
+            {headlines.length > 0 && <HeadlineTicker headlines={headlines} />}
             {/* {SlidingToastNews && SlidingToastNews} */}
 
             <div id={divMain} className={styles.container}>
@@ -244,6 +256,6 @@ export default function HomeScreen() {
                     </div>
                 </div>}
             </div>
-        </ReCaptchaProvider>
+        </>
     )
 }
