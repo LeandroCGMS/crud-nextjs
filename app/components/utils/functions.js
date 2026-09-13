@@ -219,7 +219,7 @@ export async function APIsCaller(ComponentContent = (<>oi</>), arrayChildren, Ch
                             {currency.code == 'JPY' ? <TbCurrencyYen size={24} className={`mx-2`} /> : null}
                             {currency.code == 'CHF' ? <TbCurrencyFrank size={24} className={`mx-2`} /> : null}
                             {currency.code == 'BTC' ? <FaBitcoin size={24} className={`mx-2`} /> : null}
-                            {`${currency.name} Compra: R$ ${currency.bid} | Venda: R$ ${currency.ask} | Variação: ${currency.pctChange}% | Máxima: R$ ${currency.high} | Mínima: R$ ${currency.low} | Registro: ${currency.create_date}`}
+                            {`${currency.name} Compra: R$ ${currency.bid} | Venda: R$ ${currency.ask} | Variação: ${currency.pctChange} | Máxima: R$ ${currency.high} | Mínima: R$ ${currency.low} | Registro: ${currency.create_date}`}
                         </span>
                     ))}
                 </div>
