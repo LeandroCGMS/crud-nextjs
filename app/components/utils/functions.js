@@ -2,7 +2,7 @@ import { FaDollarSign } from "react-icons/fa";
 import { FaBitcoin } from "react-icons/fa";
 import { PiCurrencyGbpFill } from "react-icons/pi";
 import { FaEuroSign } from "react-icons/fa";
-import { TbCurrencyFranc } from 'react-icons/tb';
+import { TbCurrencyFrank } from 'react-icons/tb';
 import { TbCurrencyYen } from 'react-icons/tb';
 import { FaNewspaper } from "react-icons/fa";
 import SlidingToast from "./SlidingToast";
@@ -204,52 +204,24 @@ export async function APIsCaller(ComponentContent = (<>oi</>), arrayChildren, Ch
         }
         const dataExchanges = values[1]?.value
         if (dataExchanges != undefined && Object.hasOwn(dataExchanges, 'USDBRL')) {
-            let BTCText = `${`Bitcoin/Real Brasileiro Compra: R$ ${dataExchanges?.BTCBRL.bid} | Bitcoin/Real Brasileiro Venda: R$ ${dataExchanges?.BTCBRL.ask} | Variação: R$ ${dataExchanges?.BTCBRL.pctChange} | Máxima do dia: R$ ${dataExchanges?.BTCBRL.high} | Mínima do dia: R$ ${dataExchanges?.BTCBRL.low} | Data de Criação/Registro: ${dataExchanges?.BTCBRL.create_date}`}`
-            const BTCComponent = (
-                <span className={`w-full max-w-full tex-4xl flex flex-row justify-center items-center break-words`}>
-                    <FaBitcoin size={24} className={`mx-2`} />
-                    {BTCText}
-                </span>
-            )
-
-            let DolarText = `${`Dólar Americano/Real Brasileiro Compra: R$ ${dataExchanges?.USDBRL.bid} | Dólar Americano/Real Brasileiro Venda: R$ ${dataExchanges?.USDBRL.ask} | Variação: R$ ${dataExchanges?.USDBRL.pctChange} | Máxima do dia: R$ ${dataExchanges?.USDBRL.high} | Mínima do dia: R$ ${dataExchanges?.USDBRL.low} | Data de Criação/Registro: ${dataExchanges?.USDBRL.create_date}`}`
-            const DolarComponent = (<span className={`w-full max-w-full tex-4xl flex flex-row justify-center items-center break-words`}>
-                <FaDollarSign size={24} className={`mx-2`} />
-                {DolarText}
-            </span>)
-
-            let EuroText = `${`Euro/Real Brasileiro Compra: R$ ${dataExchanges?.EURBRL.bid} | Euro/Real Brasileiro Venda: R$ ${dataExchanges?.EURBRL.ask} | Variação: R$ ${dataExchanges?.EURBRL.pctChange} | Máxima do dia: R$ ${dataExchanges?.EURBRL.high} | Mínima do dia: R$ ${dataExchanges?.EURBRL.low} | Data de Criação/Registro: ${dataExchanges?.EURBRL.create_date}`}`
-            const EuroComponent = (<span className={`w-full max-w-full tex-4xl flex flex-row justify-center items-center break-words`}>
-                <FaEuroSign size={24} className={`mx-2`} />
-                {EuroText}
-            </span>)
-
-            let LibraText = `${`Libra Esterlina/Real Brasileiro Compra: R$ ${dataExchanges?.GBPBRL.bid} | Libra Esterlina/Real Brasileiro Venda: R$ ${dataExchanges?.GBPBRL.ask} | Variação: R$ ${dataExchanges?.GBPBRL.pctChange} | Máxima do dia: R$ ${dataExchanges?.GBPBRL.high} | Mínima do dia: R$ ${dataExchanges?.GBPBRL.low} | Data de Criação/Registro: ${dataExchanges?.GBPBRL.create_date}`}`
-            const LibraComponent = (<span className={`w-full max-w-full tex-4xl flex flex-row justify-center items-center break-words`}>
-                <PiCurrencyGbpFill size={24} className={`mx-2`} />
-                {LibraText}
-            </span>)
-
-            let IeneText = `${`Iene Japonês/Real Brasileiro Compra: R$ ${dataExchanges?.JPYBRL.bid} | Iene Japonês/Real Brasileiro Venda: R$ ${dataExchanges?.JPYBRL.ask} | Variação: R$ ${dataExchanges?.JPYBRL.pctChange} | Máxima do dia: R$ ${dataExchanges?.JPYBRL.high} | Mínima do dia: R$ ${dataExchanges?.JPYBRL.low} | Data de Criação/Registro: ${dataExchanges?.JPYBRL.create_date}`}`
-            const IeneComponent = (<span className={`w-full max-w-full tex-4xl flex flex-row justify-center items-center break-words`}>
-                <TbCurrencyYen size={24} className={`mx-2`} />
-                {IeneText}
-            </span>)
-
-            let FrancoText = `${`Franco Suíço/Real Brasileiro Compra: R$ ${dataExchanges?.CHFBRL.bid} | Franco Suíço/Real Brasileiro Venda: R$ ${dataExchanges?.CHFBRL.ask} | Variação: R$ ${dataExchanges?.CHFBRL.pctChange} | Máxima do dia: R$ ${dataExchanges?.CHFBRL.high} | Mínima do dia: R$ ${dataExchanges?.CHFBRL.low} | Data de Criação/Registro: ${dataExchanges?.CHFBRL.create_date}`}`
-            const FrancoComponent = (<span className={`w-full max-w-full tex-4xl flex flex-row justify-center items-center break-words`}>
-                <TbCurrencyYen size={24} className={`mx-2`} />
-                {FrancoText}
-            </span>)
+            const exchangesList = Object.values(dataExchanges);
 
             const ExchangesComponent = (
-                <div className={`flex flex-row items-center justify-center`}>
-                    {BTCComponent}
-                    {DolarComponent}
-                    {EuroComponent}
-                    {LibraComponent}
-                    {IeneComponent}
-                    {FrancoComponent}
+                <div className="flex flex-row items-center justify-center">
+                    {exchangesList.map((currency) => (
+                        <span
+                            key={currency.code}
+                            className="w-full max-w-full flex flex-row justify-center items-center break-words pr-4"
+                        >
+                            {currency.code == 'USD' ? <FaDollarSign size={24} className={`mx-2`} /> : null}
+                            {currency.code == 'EUR' ? <FaEuroSign size={24} className={`mx-2`} /> : null}
+                            {currency.code == 'GBP' ? <PiCurrencyGbpFill size={24} className={`mx-2`} /> : null}
+                            {currency.code == 'JPY' ? <TbCurrencyYen size={24} className={`mx-2`} /> : null}
+                            {currency.code == 'CHF' ? <TbCurrencyFrank size={24} className={`mx-2`} /> : null}
+                            {currency.code == 'BTC' ? <FaBitcoin size={24} className={`mx-2`} /> : null}
+                            {`${currency.name} Compra: R$ ${currency.bid} | Venda: R$ ${currency.ask} | Variação: ${currency.pctChange}% | Máxima: R$ ${currency.high} | Mínima: R$ ${currency.low} | Registro: ${currency.create_date}`}
+                        </span>
+                    ))}
                 </div>
             );
 
