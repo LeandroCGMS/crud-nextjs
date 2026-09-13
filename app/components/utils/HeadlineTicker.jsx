@@ -40,13 +40,13 @@ export default function HeadlineTicker({
 		>
 			<div className="relative flex-1 overflow-hidden h-full flex items-center">
 				<button
-								className={`p-1 cursor-pointer p-2 rounded-lg hover:bg-gray-700 ${copied ? 'text-green-500' : 'text-gray-400'}`}
+								className={`p-1 rounded-lg m-1 cursor-pointer p-2 rounded-lg hover:bg-gray-700 bg-[#000000] ${copied ? 'text-green-500' : 'text-gray-400'}`}
 								onClick={() => {
 									setVisibleDivNews(true)
 								}}
 								aria-label="Copiar texto"
 							>
-								<FaNewspaper />
+								<FaNewspaper size={48}/>
 							</button>
 				<AnimatePresence mode="wait">
 					<motion.p

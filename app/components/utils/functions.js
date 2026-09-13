@@ -1,4 +1,9 @@
 import { FaDollarSign } from "react-icons/fa";
+import { FaBitcoin } from "react-icons/fa";
+import { PiCurrencyGbpFill } from "react-icons/pi";
+import { FaEuroSign } from "react-icons/fa";
+import { TbCurrencyFranc } from 'react-icons/tb';
+import { TbCurrencyYen } from 'react-icons/tb';
 import { FaNewspaper } from "react-icons/fa";
 import SlidingToast from "./SlidingToast";
 import { toast } from 'sonner';
@@ -136,29 +141,54 @@ export function getIconWeather(weathercode) {
 }
 
 var count = 0
-export async function getDolarExchangeRate() {
-    return new Promise(async (resolve, reject) => {
-        count++
-        try {
-            const response = await fetch('https://economia.awesomeapi.com.br/last/USD-BRL', {
-                headers: {
-                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-                    'Accept': 'application/json',
-                }
-            });
-            const data = await response.json();
-            resolve(data)
-        } catch (error) {
-            reject({ error: error })
+// export async function getDolarExchangeRate() {
+//     return new Promise(async (resolve, reject) => {
+//         count++
+//         try {
+//             const response = await fetch('https://economia.awesomeapi.com.br/last/USD-BRL', {
+//                 headers: {
+//                     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+//                     'Accept': 'application/json',
+//                 }
+//             });
+//             const data = await response.json();
+//             resolve(data)
+//         } catch (error) {
+//             reject({ error: error })
+//         }
+//     })
+// }
+
+export async function getExchangeRates() {
+    count++;
+
+    // Lista dos pares separados por vírgula
+    const pairs = 'USD-BRL,EUR-BRL,GBP-BRL,JPY-BRL,CHF-BRL,BTC-BRL';
+
+    try {
+        const response = await fetch(`https://economia.awesomeapi.com.br/last/${pairs}`, {
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                'Accept': 'application/json',
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
-    })
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        throw error;
+    }
 }
 
 
 var contador = 0
 export async function APIsCaller(ComponentContent = (<>oi</>), arrayChildren, ChildrenSlidingToast, setComponentContent) {
     contador++
-    Promise.allSettled([getWeatherByLocation(), getDolarExchangeRate()]).then((values) => {
+    Promise.allSettled([getWeatherByLocation(), getExchangeRates()]).then((values) => {
         const dataWeather = values[0]?.value
         console.warn('dataWeather: ', dataWeather, dataWeather?.status?.rejected)
         if (dataWeather != undefined && Object.hasOwn(dataWeather, 'cidade')) {
@@ -172,60 +202,64 @@ export async function APIsCaller(ComponentContent = (<>oi</>), arrayChildren, Ch
             )
             arrayChildren.push(WeatherComponent)
         }
-        const dataDolar = values[1]?.value
-        if (dataDolar != undefined && Object.hasOwn(dataDolar, 'USDBRL')) {
-            let newText = `${`Dólar Compra: R$ ${dataDolar?.USDBRL.bid} | Dólar Venda: R$ ${dataDolar?.USDBRL.ask} | Variação: R$ ${dataDolar?.USDBRL.pctChange} | Máxima do dia: R$ ${dataDolar?.USDBRL.high} | Mínima do dia: R$ ${dataDolar?.USDBRL.low} | Data de Criação/Registro: ${dataDolar?.USDBRL.create_date}`}`
-            const DolarComponent = (
+        const dataExchanges = values[1]?.value
+        if (dataExchanges != undefined && Object.hasOwn(dataExchanges, 'USDBRL')) {
+            let BTCText = `${`Bitcoin/Real Brasileiro Compra: R$ ${dataExchanges?.BTCBRL.bid} | Bitcoin/Real Brasileiro Venda: R$ ${dataExchanges?.BTCBRL.ask} | Variação: R$ ${dataExchanges?.BTCBRL.pctChange} | Máxima do dia: R$ ${dataExchanges?.BTCBRL.high} | Mínima do dia: R$ ${dataExchanges?.BTCBRL.low} | Data de Criação/Registro: ${dataExchanges?.BTCBRL.create_date}`}`
+            const BTCComponent = (
                 <span className={`w-full max-w-full tex-4xl flex flex-row justify-center items-center break-words`}>
-                    <FaDollarSign className={`ml-2`} />
-                    {newText}
+                    <FaBitcoin size={24} className={`mx-2`} />
+                    {BTCText}
                 </span>
             )
-            arrayChildren.push(DolarComponent)
+
+            let DolarText = `${`Dólar Americano/Real Brasileiro Compra: R$ ${dataExchanges?.USDBRL.bid} | Dólar Americano/Real Brasileiro Venda: R$ ${dataExchanges?.USDBRL.ask} | Variação: R$ ${dataExchanges?.USDBRL.pctChange} | Máxima do dia: R$ ${dataExchanges?.USDBRL.high} | Mínima do dia: R$ ${dataExchanges?.USDBRL.low} | Data de Criação/Registro: ${dataExchanges?.USDBRL.create_date}`}`
+            const DolarComponent = (<span className={`w-full max-w-full tex-4xl flex flex-row justify-center items-center break-words`}>
+                <FaDollarSign size={24} className={`mx-2`} />
+                {DolarText}
+            </span>)
+
+            let EuroText = `${`Euro/Real Brasileiro Compra: R$ ${dataExchanges?.EURBRL.bid} | Euro/Real Brasileiro Venda: R$ ${dataExchanges?.EURBRL.ask} | Variação: R$ ${dataExchanges?.EURBRL.pctChange} | Máxima do dia: R$ ${dataExchanges?.EURBRL.high} | Mínima do dia: R$ ${dataExchanges?.EURBRL.low} | Data de Criação/Registro: ${dataExchanges?.EURBRL.create_date}`}`
+            const EuroComponent = (<span className={`w-full max-w-full tex-4xl flex flex-row justify-center items-center break-words`}>
+                <FaEuroSign size={24} className={`mx-2`} />
+                {EuroText}
+            </span>)
+
+            let LibraText = `${`Libra Esterlina/Real Brasileiro Compra: R$ ${dataExchanges?.GBPBRL.bid} | Libra Esterlina/Real Brasileiro Venda: R$ ${dataExchanges?.GBPBRL.ask} | Variação: R$ ${dataExchanges?.GBPBRL.pctChange} | Máxima do dia: R$ ${dataExchanges?.GBPBRL.high} | Mínima do dia: R$ ${dataExchanges?.GBPBRL.low} | Data de Criação/Registro: ${dataExchanges?.GBPBRL.create_date}`}`
+            const LibraComponent = (<span className={`w-full max-w-full tex-4xl flex flex-row justify-center items-center break-words`}>
+                <PiCurrencyGbpFill size={24} className={`mx-2`} />
+                {LibraText}
+            </span>)
+
+            let IeneText = `${`Iene Japonês/Real Brasileiro Compra: R$ ${dataExchanges?.JPYBRL.bid} | Iene Japonês/Real Brasileiro Venda: R$ ${dataExchanges?.JPYBRL.ask} | Variação: R$ ${dataExchanges?.JPYBRL.pctChange} | Máxima do dia: R$ ${dataExchanges?.JPYBRL.high} | Mínima do dia: R$ ${dataExchanges?.JPYBRL.low} | Data de Criação/Registro: ${dataExchanges?.JPYBRL.create_date}`}`
+            const IeneComponent = (<span className={`w-full max-w-full tex-4xl flex flex-row justify-center items-center break-words`}>
+                <TbCurrencyYen size={24} className={`mx-2`} />
+                {IeneText}
+            </span>)
+
+            let FrancoText = `${`Franco Suíço/Real Brasileiro Compra: R$ ${dataExchanges?.CHFBRL.bid} | Franco Suíço/Real Brasileiro Venda: R$ ${dataExchanges?.CHFBRL.ask} | Variação: R$ ${dataExchanges?.CHFBRL.pctChange} | Máxima do dia: R$ ${dataExchanges?.CHFBRL.high} | Mínima do dia: R$ ${dataExchanges?.CHFBRL.low} | Data de Criação/Registro: ${dataExchanges?.CHFBRL.create_date}`}`
+            const FrancoComponent = (<span className={`w-full max-w-full tex-4xl flex flex-row justify-center items-center break-words`}>
+                <TbCurrencyYen size={24} className={`mx-2`} />
+                {FrancoText}
+            </span>)
+
+            const ExchangesComponent = (
+                <div className={`flex flex-row items-center justify-center`}>
+                    {BTCComponent}
+                    {DolarComponent}
+                    {EuroComponent}
+                    {LibraComponent}
+                    {IeneComponent}
+                    {FrancoComponent}
+                </div>
+            );
+
+            arrayChildren.push(ExchangesComponent)
         }
-        // const articlesArray = [(<span key={new Date().getTime()}>&nbsp;&nbsp;&nbsp;&nbsp;{`Principais Notícias de Hoje >> >> >> >> >> >> >> >> >> >>       `}</span>)]
-        // const dataNews = values[2]?.value
-        // if (dataNews != undefined && Object.hasOwn(dataNews, 'articles')) {
-        //     dataNews.articles?.forEach((article, index) => {
-        //         articlesArray.push(
-        //             (
-        //                 <span key={article.id || index} className={`flex flex-row justify-center items-center max-w-full break-words gap-2`}>
-        //                     {<FaNewspaper className={`mx-2`} />}
-        //                     {article?.author ? `Autor: ${article?.author} >> ` : ''}
-        //                     {/* {article?.title ? `Título: ${article?.title} | ` : ''} */}
-        //                     {article?.description ? `${article?.description} ` : ''}
-        //                     {/* {article?.url ? `Site: ${article?.url} | ` : ''}
-        //                 {article?.urlToImage ? `URL da Imagem: ${article?.urlToImage} | ` : ''} */}
-        //                     <a className={`text-blue-500 hover:text-black bg-white mx-2 p-2 rounded-lg`} href={article?.url} target="_blank" rel="noopener noreferrer">
-        //                         Clique para ir ao site
-        //                     </a>
-        //                     {article?.publishedAt ? `Publicado em: ${article?.publishedAt}. ` : ''}
-        //                 </span>
-        //             )
-        //         )
-        //     })
-        //     let NewsComponent = (
-        //         <>
-        //             {articlesArray}
-        //         </>
-        //     )
-        //     arrayChildren.push(NewsComponent)
-        // }
-        // console.warn('176, contador: ', contador, '\n', 'arrayChildren: ', arrayChildren)
         setComponentContent(<ChildrenSlidingToast children={arrayChildren} />)
-        // setTimeout(() => {
-        //     const NewTesteComponent = (
-        //         <div>
-        //             {ComponentContent}
-        //             <h1 className={`text-5xl`}>ESTE É UM TESTE DE COMPONENTE JSX</h1>
-        //         </div>
-        //     )
-        //     setComponentContent(<NewTesteComponent/>)
-        // }, 5000)
     })
 }
 
-export async function getNewsFromAPI(googleToken = 'sfgsdfgsdfgsdgsd', setHeadlines = () => {}, setDataNews = () => {}) {
+export async function getNewsFromAPI(googleToken = 'sfgsdfgsdfgsdgsd', setHeadlines = () => { }, setDataNews = () => { }) {
     const url = '/api/news' // `https://newsapi.org/v2/everything?q=*&language=pt&sortBy=publishedAt&apiKey=478dbbea24bd41e3b4a7326d85a44f5e`
     const headers = {
         googleToken: googleToken
