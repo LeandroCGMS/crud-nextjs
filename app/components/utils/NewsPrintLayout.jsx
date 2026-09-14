@@ -62,7 +62,7 @@ const NewsPrintLayout = memo(forwardRef(function NewsPrintLayout({ apiData }, re
       `}</style>
 
 			{/* Grid de Notícias */}
-			<div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+			<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 2xl:grid-cols-8 max-w-[1920px] mx-auto gap-6 p-4">
 				{articles.map((article, index) => (
 					<article
 						key={index}
