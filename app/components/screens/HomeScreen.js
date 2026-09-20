@@ -68,14 +68,15 @@ export default function HomeScreen() {
         }, 10000)
     }, []);
     useEffect(() => {
-        isReady && getGoogleToken('api_news_action').then(token => {
-            if (token) {
-                getNewsFromAPI(token, setHeadlines, setDataNews)
-            } else {
-                console.error('Falha ao obter o token do Google reCAPTCHA v3.');
-            }
-        });
-    }, [isReady]);
+        getNewsFromAPI(setHeadlines, setDataNews)
+        // isReady && getGoogleToken('api_news_action').then(token => {
+        //     if (token) {
+        //         getNewsFromAPI(token, setHeadlines, setDataNews)
+        //     } else {
+        //         console.error('Falha ao obter o token do Google reCAPTCHA v3.');
+        //     }
+        // });
+    }, []); // isReady
     return (
         <>
             {ComponentContent && <SlidingToast className={`${!visibleSlidingToast ? 'hidden' : ''}`} visible={visibleSlidingToast} setVisible={() => {

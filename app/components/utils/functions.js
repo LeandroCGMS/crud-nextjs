@@ -231,16 +231,16 @@ export async function APIsCaller(ComponentContent = (<>oi</>), arrayChildren, Ch
     })
 }
 
-export async function getNewsFromAPI(googleToken = 'sfgsdfgsdfgsdgsd', setHeadlines = () => { }, setDataNews = () => { }) {
+export async function getNewsFromAPI(setHeadlines = () => { }, setDataNews = () => { }) {
     const url = '/api/news' // `https://newsapi.org/v2/everything?q=*&language=pt&sortBy=publishedAt&apiKey=478dbbea24bd41e3b4a7326d85a44f5e`
-    const headers = {
-        googleToken: googleToken
-    }
+    // const headers = {
+    //     googleToken: googleToken
+    // }
     try {
         const response = await fetch(url, {
-            headers: {
-                "googleToken": googleToken
-            }
+            // headers: {
+            //     "googleToken": googleToken
+            // }
         })
         if (!response.ok) {
             throw new Error(`Erro ao buscar notícias: ${response.status} ${response.statusText}`);
