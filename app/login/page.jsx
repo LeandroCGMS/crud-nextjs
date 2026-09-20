@@ -5,16 +5,15 @@ import { useEffect, useRef, useState } from "react";
 import { GoogleReCaptchaProvider, useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { useRouter } from "next/navigation";
 
-export default function CreateUserComponent() {
+export default function LoginComponent() {
     const router = useRouter()
     return (
-        <div>
-            CREATE User Component
-            <button className={`bg-white text-black rounded-lg border border-white p-2`} onClick={() => {
-                router.push('/delete-user')
-            }}>
-                Ir para outra página
-            </button>
+        <div className={`min-h-screen min-w-screen flex items-center justify-center gap-2`}>
+            <h1>Tela de Login</h1>
+            <h1>Tela de Login</h1>
+            <h1>Tela de Login</h1>
+            <h1>Tela de Login</h1>
         </div>
     )
 }
+

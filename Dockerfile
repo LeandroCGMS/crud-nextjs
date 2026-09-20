@@ -10,12 +10,12 @@
 
 # CMD ["yarn", "start", "--port", "4000", "-H", "0.0.0.0"]
 
-FROM oven/bun:1-alpine
+FROM oven/bun:alpine
 
 WORKDIR /app
 
-# Atualiza pacotes do sistema e instala bash + dependências de compatibilidade
-RUN apk update && apk upgrade && apk add --no-cache bash libc6-compat
+# Instala a compatibilidade de C runtime (necessária no Alpine para algumas libs nativas)
+RUN apk add --no-cache libc6-compat bash
 
 EXPOSE 4000
 
