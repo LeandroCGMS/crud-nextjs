@@ -3,6 +3,17 @@ name: Update directory # depois de cadastrar a chave privada no secrets do githu
 on:
   push:
     branches: [ main ]
+    paths-ignore:
+      - 'README.md'
+      - 'docs/**'
+      - '*.txt'
+      - '.gitignore'
+      - '*.dockerfile'
+      - 'Dockerfile*'
+      - 'main.yml'
+      - '.github/workflows/main.yml'
+      # ou para ignorar qualquer workflow/action alterado:
+      - '.github/workflows/**'
 
 jobs:
   update:
