@@ -9,7 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
-      url: 'https://seusite.com/login',
+      url: 'https://devleandrocgms.com.br/login',
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
