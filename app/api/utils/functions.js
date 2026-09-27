@@ -1,3 +1,5 @@
+import { NextResponse } from 'next/server';
+
 export async function validateGoogleToken(googleToken) {
     try {
         // // 3. Valida o ID Token junto ao servidor do Google
