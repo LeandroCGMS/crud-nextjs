@@ -8,12 +8,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'yearly',
       priority: 1,
     },
-    // {
-    //   url: 'https://seusite.com/sobre',
-    //   lastModified: new Date(),
-    //   changeFrequency: 'monthly',
-    //   priority: 0.8,
-    // },
+    {
+      url: 'https://seusite.com/login',
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
     // {
     //   url: 'https://seusite.com/blog',
     //   lastModified: new Date(),
