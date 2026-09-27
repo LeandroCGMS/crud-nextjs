@@ -29,7 +29,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <ReCaptchaProvider>
       <html
         style={{ width: 'fit-content' }}
-        lang="en"
+        lang="pt-BR"
         className={`${geistSans.variable} ${geistMono.variable} w-x-full h-full antialiased fit-content`}
       >
         <body className="flex flex-col w-full max-w-full overflow-x-hidden">
