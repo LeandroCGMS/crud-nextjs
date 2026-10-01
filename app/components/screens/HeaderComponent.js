@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, useId } from "react";
 // import { GoogleReCaptchaProvider, useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import ReCaptchaProvider from './GoogleRecaptchaProvider'
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { BsMicrosoftTeams } from "react-icons/bs";
 import { SiZoom } from "react-icons/si";
 import { MdOutlineEmail } from "react-icons/md";
@@ -9,6 +9,9 @@ import { IoLogoWhatsapp } from "react-icons/io";
 import { FaGithub } from "react-icons/fa";
 import { useWindowSize } from '../utils/useWindowSize';
 import Navbar from '../utils/Navbar'
+import { IoHomeOutline } from "react-icons/io5";
+import { GrTest } from "react-icons/gr";
+import { VscCallOutgoing } from "react-icons/vsc";
 
 const classNamesButtonsContact = `cursor-pointer hover:bg-gray-700 active:bg-gray-600 p-2 rounded-lg bg-[white] border-[#CF27F5] border-1`;
 function HeaderPCVersion() {
@@ -68,20 +71,37 @@ export function ComponentContacts({ rowOrColumn = 'row' }) {
 
 export function ComponentButtonFaleConosco() {
     return (
-        <button className="bg-gray-800 hover:bg-gray-700 active:bg-gray-600 text-white font-bold py-2 px-4 rounded-full cursor-pointer">
+        <button className="font-mono flex flex-row gap-2 items-center justify-center bg-gray-800 hover:bg-gray-700 active:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg cursor-pointer">
+            <VscCallOutgoing />
             Fale Conosco
         </button>
     )
 }
 
 export function ComponentButtonAreaDeTestes() {
+    const pathname = usePathname();
+
+    // Verifica se está exatamente na raiz '/'
+    const isHome = pathname === '/';
+    console.log('pathname:', pathname, 'isHome:', isHome);
     const router = useRouter();
+    if (isHome) {
+        return (
+            <button onClick={() => {
+                router.push('/login')
+            }}
+                className="font-mono flex flex-row gap-2 items-center justify-center bg-gray-800 hover:bg-gray-700 active:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg cursor-pointer">
+                <GrTest />
+                Área de Testes
+            </button>
+        )
+    }
     return (
         <button onClick={() => {
-            router.push('/login')
+            router.push('/')
         }}
-        className="bg-gray-800 hover:bg-gray-700 active:bg-gray-600 text-white font-bold py-2 px-4 rounded-full cursor-pointer">
-            Área de Testes
+            className="font-mono flex flex-row gap-2 items-center justify-center bg-gray-800 hover:bg-gray-700 active:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg cursor-pointer">
+            <IoHomeOutline /> Página Inicial
         </button>
     )
 }
