@@ -75,8 +75,12 @@ export function ComponentButtonFaleConosco() {
 }
 
 export function ComponentButtonAreaDeTestes() {
+    const router = useRouter();
     return (
-        <button className="bg-gray-800 hover:bg-gray-700 active:bg-gray-600 text-white font-bold py-2 px-4 rounded-full cursor-pointer">
+        <button onClick={() => {
+            router.push('/login')
+        }}
+        className="bg-gray-800 hover:bg-gray-700 active:bg-gray-600 text-white font-bold py-2 px-4 rounded-full cursor-pointer">
             Área de Testes
         </button>
     )
