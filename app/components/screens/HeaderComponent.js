@@ -48,20 +48,20 @@ export function ComponentContacts({ rowOrColumn = 'row' }) {
     return (
         <div className={`flex ${rowOrColumn === 'row' ? 'flex-row' : 'flex-col'} gap-2 justify-center items-center h-fit`}>
             <h1 className={`text-white bg-black font-mono`}>Contatos: </h1>
-            <div className={`flex flex-row gap-1`}>
-                <BsMicrosoftTeams className={classNamesButtonsContact} size={40} color="#6264A7" onClick={() => {
+            <div className={`flex flex-row gap-4 md:mr-2`}>
+                <BsMicrosoftTeams className={classNamesButtonsContact} size={60} color="#6264A7" onClick={() => {
                     window.open(`https://teams.microsoft.com/l/chat/0/0?users=leandrocgms1986@outlook.com`, '_blank', 'noopener,noreferrer')
                 }} />
-                <SiZoom className={classNamesButtonsContact} size={40} color="#0000FF" onClick={() => {
+                <SiZoom className={classNamesButtonsContact} size={60} color="#0000FF" onClick={() => {
                     window.open(`https://zoom.us/start/videomeeting?email=leandrocgms2015@gmail.com`, '_blank', 'noopener,noreferrer')
                 }} />
-                <MdOutlineEmail className={`${classNamesButtonsContact} bg-black`} size={40} color="white" onClick={() => {
+                <MdOutlineEmail className={`${classNamesButtonsContact} bg-black`} size={60} color="white" onClick={() => {
                     window.open(`mailto:leandrocgms1986@outlook.com`, '_blank', 'noopener,noreferrer')
                 }} />
-                <IoLogoWhatsapp className={classNamesButtonsContact} size={40} color="green" onClick={() => {
+                <IoLogoWhatsapp className={classNamesButtonsContact} size={60} color="green" onClick={() => {
                     window.open(`https://wa.me/5567981712803`, '_blank', 'noopener,noreferrer')
                 }} />
-                <FaGithub className={`${classNamesButtonsContact} bg-black`} size={40} color="white" onClick={() => {
+                <FaGithub className={`${classNamesButtonsContact} bg-black`} size={60} color="white" onClick={() => {
                     window.open(`https://github.com/LeandroCGMS`, '_blank', 'noopener,noreferrer')
                 }} />
             </div>
