@@ -5,14 +5,17 @@ import { useEffect, useRef, useState } from "react";
 import { GoogleReCaptchaProvider, useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { useRouter } from "next/navigation";
 import HeaderComponent from '../components/screens/HeaderComponent';
+import useWindowSizeHW from '../components/utils/useWindowHW';
 
 export default function LoginComponent() {
+    const divRef = useRef(null);
     const router = useRouter()
     return (
         <>
             <HeaderComponent />
-            <div className={`min-h-screen min-w-screen flex flex-col items-center justify-center gap-2 bg-black text-black`}>
-                <div className={`bg-white border-[0.4em] border-purple-700 flex flex-col items-center justify-center px-0 sm:px-12 py-2 gap-1 rounded-lg w-[auto]`}>
+            <div className={`min-h-[calc(100vh-58px)] min-w-screen flex flex-col items-center justify-center gap-2 bg-black text-black`}>
+                <div
+                className={`bg-white border-[0.4em] border-purple-700 flex flex-col items-center justify-center px-0 sm:px-12 py-2 gap-1 rounded-lg w-[auto]`}>
                     <div className={`flex flex-row items-center justify-center gap-2 border-[2px] p-2 rounded-lg w-full`}>
                         <label htmlFor="inputUser">Usuário: </label>
                         <input className={`p-2 border-[2px] rounded`} type="text" name="inputUser" id="" />
