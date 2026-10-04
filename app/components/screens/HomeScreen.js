@@ -87,7 +87,7 @@ export default function HomeScreen() {
             {headlines.length > 0 && <HeadlineTicker headlines={headlines} dataNews={dataNews} setVisibleDivNews={setVisibleDivNews} />}
             {visibleDivNews && (
                 <div style={{ inset: 0, position: 'fixed', zIndex: 10000, overflow: 'scroll' }} className={`bg-black`}>
-                    <div className={`fixed z-[1000] w-full bg-black mt-0 rounded-lg text-white my-2`}>
+                    <div className={`fixed z-[1000] w-full bg-black mt-2 rounded-lg text-white my-2`}>
                         <button
                             onClick={() => setVisibleDivNews(false)}
                             className="text-zinc-400 bg-[red] hover:text-zinc-100 transition-colors p-1 m-2  rounded-md hover:bg-zinc-800 focus:outline-none cursor-pointer"
