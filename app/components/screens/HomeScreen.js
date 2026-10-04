@@ -82,7 +82,7 @@ export default function HomeScreen() {
             {ComponentContent && <SlidingToast className={`${!visibleSlidingToast ? 'hidden' : ''}`} visible={visibleSlidingToast} setVisible={() => {
                 setComponentContent(null)
             }
-            } ComponentContent={ComponentContent} pixelsBottomOrTop={78} bottomOrTop='top' />} {/* era 61 */}
+            } ComponentContent={ComponentContent} pixelsBottomOrTop={isMobile ? 61 : 78} bottomOrTop='top' />} {/* era 61 */}
             <HeaderComponent />
             {headlines.length > 0 && <HeadlineTicker headlines={headlines} dataNews={dataNews} setVisibleDivNews={setVisibleDivNews} />}
             {visibleDivNews && (
