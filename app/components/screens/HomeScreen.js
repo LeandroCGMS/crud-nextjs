@@ -25,6 +25,7 @@ import Navbar from '../utils/Navbar'
 import { useGoogleToken } from '@/app/components/utils/useGoogleToken';
 import HeadlineTicker from '../utils/HeadlineTicker';
 import NewsPrintLayout from '@/app/components/utils/NewsPrintLayout';
+import { VscDeveloperTools } from "react-icons/vsc";
 
 function ChildrenSlidingToast({ children }) {
     return (
@@ -139,8 +140,9 @@ export default function HomeScreen() {
                             />
                         </div>
                     </div>}
-                    <h1 className={`text-white text-center bg-violet mt-1`}>
-                        👨‍💻 Leandro Santos de Carvalho
+                    <h1 className={`flex justify-center items-center text-white text-center bg-violet mt-1`}>
+                        <VscDeveloperTools className={`mr-1`} />
+                        Leandro Santos de Carvalho
                     </h1>
                     <h2 className={`text-white text-center bg-violet`}>
                         🏠 Corretor de Imóveis - CRECI/MS 18329
