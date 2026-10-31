@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from 'sonner';
 import ReCaptchaProvider from './components/screens/GoogleRecaptchaProvider';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,17 +27,19 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <ReCaptchaProvider>
-      <html
-        style={{ width: 'fit-content' }}
-        lang="pt-BR"
-        className={`${geistSans.variable} ${geistMono.variable} w-x-full h-full antialiased fit-content`}
-      >
-        <body className="flex flex-col w-full max-w-full overflow-x-hidden">
-          {children}
-          <Toaster position="top-right" richColors />
-        </body>
-      </html>
-    </ReCaptchaProvider>
+    <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ''}>
+      <ReCaptchaProvider>
+        <html
+          style={{ width: 'fit-content' }}
+          lang="pt-BR"
+          className={`${geistSans.variable} ${geistMono.variable} w-x-full h-full antialiased fit-content`}
+        >
+          <body className="flex flex-col w-full max-w-full overflow-x-hidden">
+            {children}
+            <Toaster position="top-right" richColors />
+          </body>
+        </html>
+      </ReCaptchaProvider>
+    </GoogleOAuthProvider>
   );
 }

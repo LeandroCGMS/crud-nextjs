@@ -28,134 +28,134 @@ import NewsPrintLayout from '@/app/components/utils/NewsPrintLayout';
 import { VscDeveloperTools } from "react-icons/vsc";
 
 function ChildrenSlidingToast({ children }) {
-    return (
-        <div className={`flex flex-row items-center justify-center gap-4`}>
-            {children.map((child, index) => (
-                <React.Fragment key={index}>{child}</React.Fragment>
-            ))}
-        </div>
-    )
+	return (
+		<div className={`flex flex-row items-center justify-center gap-4`}>
+			{children.map((child, index) => (
+				<React.Fragment key={index}>{child}</React.Fragment>
+			))}
+		</div>
+	)
 }
 
 export default function HomeScreen() {
-    const { getGoogleToken, isReady } = useGoogleToken();
-    const router = useRouter()
-    const divMain = useId();
-    const divLocalStorage = useId()
-    const [showAdvise, setShowAdvise] = useState(false);
-    const [showLogoFullScreen, setShowLogoFullScreen] = useState(false)
-    const [visibleSlidingToast, setVisibleSlidingToast] = useState(true)
-    const [dataWeather, setDataWeather] = useState()
-    const [ComponentContent, setComponentContent] = useState()
-    const [visibleDivNews, setVisibleDivNews] = useState(false)
-    const [headlines, setHeadlines] = useState([])
-    const [dataNews, setDataNews] = useState()
-    const width = useWindowSize();
-    // Define o breakpoint para mobile
-    const isMobile = width <= 768;
+	const { getGoogleToken, isReady } = useGoogleToken();
+	const router = useRouter()
+	const divMain = useId();
+	const divLocalStorage = useId()
+	const [showAdvise, setShowAdvise] = useState(false);
+	const [showLogoFullScreen, setShowLogoFullScreen] = useState(false)
+	const [visibleSlidingToast, setVisibleSlidingToast] = useState(true)
+	const [dataWeather, setDataWeather] = useState()
+	const [ComponentContent, setComponentContent] = useState()
+	const [visibleDivNews, setVisibleDivNews] = useState(false)
+	const [headlines, setHeadlines] = useState([])
+	const [dataNews, setDataNews] = useState()
+	const width = useWindowSize();
+	// Define o breakpoint para mobile
+	const isMobile = width <= 768;
 
-    useEffect(() => {
-        const arrayChildren = []
-        const item = localStorage.getItem('acceptLocalStorage');
-        item == null ? localStorage.setItem('acceptLocalStorage', 'false') : null
-        console.warn(item)
-        setShowAdvise(item === 'false'); // converte string para boolean, se necessário
-        APIsCaller(ComponentContent, arrayChildren, ChildrenSlidingToast, setComponentContent, '')
-        setTimeout(() => {
-            setVisibleSlidingToast(false)
-        }, 5000)
-        setTimeout(() => {
-            setVisibleSlidingToast(false)
-        }, 10000)
-    }, []);
-    useEffect(() => {
-        getNewsFromAPI(setHeadlines, setDataNews)
-        // isReady && getGoogleToken('api_news_action').then(token => {
-        //     if (token) {
-        //         getNewsFromAPI(token, setHeadlines, setDataNews)
-        //     } else {
-        //         console.error('Falha ao obter o token do Google reCAPTCHA v3.');
-        //     }
-        // });
-    }, []); // isReady
-    return (
-        <>
-            {ComponentContent && <SlidingToast className={`${!visibleSlidingToast ? 'hidden' : ''}`} visible={visibleSlidingToast} setVisible={() => {
-                setComponentContent(null)
-            }
-            } ComponentContent={ComponentContent} pixelsBottomOrTop={isMobile ? 61 : 78} bottomOrTop='top' />} {/* era 61 */}
-            <HeaderComponent />
-            {headlines.length > 0 && <HeadlineTicker headlines={headlines} dataNews={dataNews} setVisibleDivNews={setVisibleDivNews} />}
-            {visibleDivNews && (
-                <div style={{ inset: 0, position: 'fixed', zIndex: 10000, overflow: 'scroll' }} className={`bg-black`}>
-                    <div className={`fixed z-[1000] w-full bg-black mt-2 rounded-lg text-white my-2`}>
-                        <button
-                            onClick={() => setVisibleDivNews(false)}
-                            className="text-zinc-400 bg-[red] hover:text-zinc-100 transition-colors p-1 m-2  rounded-md hover:bg-zinc-800 focus:outline-none cursor-pointer"
-                            aria-label="Fechar manchetes"
-                        >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="16"
-                                height="16"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                            >
-                                <path d="M18 6 6 18" />
-                                <path d="m6 6 12 12" />
-                            </svg>
-                        </button>
-                    </div>
-                    <div className={`mt-[40px]`}>
-                        <NewsPrintLayout apiData={dataNews} />
-                    </div>
-                </div>
-            )}            {/* {SlidingToastNews && SlidingToastNews} */}
+	useEffect(() => {
+		const arrayChildren = []
+		const item = localStorage.getItem('acceptLocalStorage');
+		item == null ? localStorage.setItem('acceptLocalStorage', 'false') : null
+		console.warn(item)
+		setShowAdvise(item === 'false'); // converte string para boolean, se necessário
+		APIsCaller(ComponentContent, arrayChildren, ChildrenSlidingToast, setComponentContent, '')
+		setTimeout(() => {
+			setVisibleSlidingToast(false)
+		}, 5000)
+		setTimeout(() => {
+			setVisibleSlidingToast(false)
+		}, 10000)
+	}, []);
+	useEffect(() => {
+		getNewsFromAPI(setHeadlines, setDataNews)
+		// isReady && getGoogleToken('api_news_action').then(token => {
+		//     if (token) {
+		//         getNewsFromAPI(token, setHeadlines, setDataNews)
+		//     } else {
+		//         console.error('Falha ao obter o token do Google reCAPTCHA v3.');
+		//     }
+		// });
+	}, []); // isReady
+	return (
+		<>
+			{ComponentContent && <SlidingToast className={`${!visibleSlidingToast ? 'hidden' : ''}`} visible={visibleSlidingToast} setVisible={() => {
+				setComponentContent(null)
+			}
+			} ComponentContent={ComponentContent} pixelsBottomOrTop={isMobile ? 61 : 78} bottomOrTop='top' />} {/* era 61 */}
+			<HeaderComponent />
+			{headlines.length > 0 && <HeadlineTicker headlines={headlines} dataNews={dataNews} setVisibleDivNews={setVisibleDivNews} />}
+			{visibleDivNews && (
+				<div style={{ inset: 0, position: 'fixed', zIndex: 10000, overflow: 'scroll' }} className={`bg-black`}>
+					<div className={`fixed z-[1000] w-full bg-black mt-2 rounded-lg text-white my-2`}>
+						<button
+							onClick={() => setVisibleDivNews(false)}
+							className="text-zinc-400 bg-[red] hover:text-zinc-100 transition-colors p-1 m-2  rounded-md hover:bg-zinc-800 focus:outline-none cursor-pointer"
+							aria-label="Fechar manchetes"
+						>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="16"
+								height="16"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								strokeWidth="2"
+								strokeLinecap="round"
+								strokeLinejoin="round"
+							>
+								<path d="M18 6 6 18" />
+								<path d="m6 6 12 12" />
+							</svg>
+						</button>
+					</div>
+					<div className={`mt-[40px]`}>
+						<NewsPrintLayout apiData={dataNews} />
+					</div>
+				</div>
+			)}            {/* {SlidingToastNews && SlidingToastNews} */}
 
-            <div id={divMain} className={styles.container}>
-                {/* <h1>Home Screen</h1> */}
-                <div className={`${styles.flex1} color-black bg-violet-700 rounded-lg p-[2em] m-2`}>
-                    <div className={`${styles.rounded} cursor-pointer`}
-                        onClick={() => { setShowLogoFullScreen(true) }}> {/* fixed inset-0 */}
-                        <Image
-                            src={meuLogo}
-                            alt="Logo da Empresa"
-                            width={150}  /* Obrigatório informar width e height para imagens da pasta public */
-                            height={150}
-                        />
-                    </div>
-                    {showLogoFullScreen && <div style={{ zIndex: 150 }} className={`cursor-pointer rounded-lg fixed inset-0 p-[2em] border-white border-[0.1em] flex flex-col items-center justify-center text-center bg-violet-700 z-30 overflow-scroll`} onClick={() => { setShowLogoFullScreen(false) }}>
-                        <h1 className={`text-white`}>Clique ou toque na tela para fechar essa visualização.</h1>
-                        <div className={`w-[100%] h-[100%] relative justify-start items-center flex flex-col p-2`}>
-                            <Image
-                                className={`relative rounded-lg m-2`}
-                                src={meuLogo}
-                                alt="Logo da Empresa"
-                            // width={600}
-                            // height={600}
-                            />
-                        </div>
-                    </div>}
-                    <h1 className={`flex justify-center items-center text-white text-center bg-violet mt-1`}>
-                        <VscDeveloperTools className={`mr-1`} />
-                        Leandro Santos de Carvalho
-                    </h1>
-                    <h2 className={`text-white text-center bg-violet`}>
-                        🏠 Corretor de Imóveis - CRECI/MS 18329
-                    </h2>
-                    <h2 className={`text-white text-center bg-violet`}>
-                        💻 Programador Web e Mobile, Full Cycle
-                    </h2>
+			<div id={divMain} className={styles.container}>
+				{/* <h1>Home Screen</h1> */}
+				<div className={`${styles.flex1} color-black bg-violet-700 rounded-lg p-[2em] m-2`}>
+					<div className={`${styles.rounded} cursor-pointer`}
+						onClick={() => { setShowLogoFullScreen(true) }}> {/* fixed inset-0 */}
+						<Image
+							src={meuLogo}
+							alt="Logo da Empresa"
+							width={150}  /* Obrigatório informar width e height para imagens da pasta public */
+							height={150}
+						/>
+					</div>
+					{showLogoFullScreen && <div style={{ zIndex: 150 }} className={`cursor-pointer rounded-lg fixed inset-0 p-[2em] border-white border-[0.1em] flex flex-col items-center justify-center text-center bg-violet-700 z-30 overflow-scroll`} onClick={() => { setShowLogoFullScreen(false) }}>
+						<h1 className={`text-white`}>Clique ou toque na tela para fechar essa visualização.</h1>
+						<div className={`w-[100%] h-[100%] relative justify-start items-center flex flex-col p-2`}>
+							<Image
+								className={`relative rounded-lg m-2`}
+								src={meuLogo}
+								alt="Logo da Empresa"
+							// width={600}
+							// height={600}
+							/>
+						</div>
+					</div>}
+					<h1 className={`flex justify-center items-center text-white text-center bg-violet mt-1`}>
+						<VscDeveloperTools className={`mr-1`} />
+						Leandro Santos de Carvalho
+					</h1>
+					<h2 className={`text-white text-center bg-violet`}>
+						🏠 Corretor de Imóveis - CRECI/MS 18329
+					</h2>
+					<h2 className={`text-white text-center bg-violet`}>
+						💻 Programador Web e Mobile, Full Cycle
+					</h2>
 
-                    <button
-                        onClick={() => {
-                            window.open('https://bit.ly/43xMhI1', '_blank')
-                        }}
-                        className="
+					<button
+						onClick={() => {
+							window.open('https://bit.ly/43xMhI1', '_blank')
+						}}
+						className="
         /* Layout e Alinhamento */
         group relative inline-flex items-center gap-3
         w-fit px-6 py-3.5
@@ -183,76 +183,76 @@ export default function HomeScreen() {
         /* Cursor */
         cursor-pointer
       "
-                    >
-                        {/* Container do Ícone com destaque visual */}
-                        <span className="
+					>
+						{/* Container do Ícone com destaque visual */}
+						<span className="
         flex items-center justify-center 
         p-2 bg-white/10 rounded-xl 
         backdrop-blur-sm 
         group-hover:bg-white/20 
         transition-colors duration-200
       ">
-                            <TbDeviceMobileCode className="w-6 h-6 text-violet-200 group-hover:text-white transition-colors" />
-                        </span>
+							<TbDeviceMobileCode className="w-6 h-6 text-violet-200 group-hover:text-white transition-colors" />
+						</span>
 
-                        {/* Texto do Botão */}
-                        <span>Uma base de um dos nossos aplicativos móveis</span>
-                    </button>
-                </div>
-                <div className={`${styles.flex1} border border-violet-700 rounded-lg p-[1em] m-2 mt-0 border-4 bg-white text-black overflow-scroll`}>
-                    <p className={styles.p}>
-                        Seu site / servidor contará com criptografia, ponta a ponta, proteção contra ataques de força bruta, negação de serviço (DDOS), SQL Injection, entre vários outros recursos. Desenvolvemos sites, com responsividade, visando, em primeiro lugar, os celulares (mobile first). Você terá a sua disposição nossas habilidades em SEO, Cloud Computing, WebSockets, Gateway de Pagamentos, conceito SPA, APIs, SOAs, arquitetura REST, proxy reverso – com NGINX – containerização – com docker – e clusters – com Kubernetes. No frontend, CSS Flexible Box Layout, Grid Layout, além de frameworks CSS. A escolha de todas as ferramentas ou parte delas depende do seu objetivo e condições.
-                    </p>
-                    <p className={styles.p}>
-                        Visamos, sempre, as melhores práticas, como código limpo e as melhores ferramentas (clean code / best practices), as mais eficientes e eficazes, prezando pelo o que há de mais atual em desenvolvimento de software. Um exemplo é usar ferramentas de plataformas colaborativas que atualizam o código em seu servidor, a cada implementação, ao invés de acesso FTP ou mesmo SSH manualmente.
-                    </p>
-                    <div className={`justify-start w-[100%]`}>
-                        <p className={`${styles.p}`}>
-                            Me peça um orçamento sem compromisso.
-                        </p>
-                    </div>
-                    <div className="w-[100%] max-w-4xl mx-auto aspect-video rounded-xl overflow-hidden shadow-lg">
-                        <iframe
-                            className="w-[100%] h-full"
-                            src="https://www.youtube.com/embed/NFKLWOIu7G8"
-                            title="Vídeo do YouTube"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            allowFullScreen
-                        />
-                    </div>
-                </div>
+						{/* Texto do Botão */}
+						<span>Uma base de um dos nossos aplicativos móveis</span>
+					</button>
+				</div>
+				<div className={`${styles.flex1} border border-violet-700 rounded-lg p-[1em] m-2 mt-0 border-4 bg-white text-black overflow-scroll`}>
+					<p className={styles.p}>
+						Seu site / servidor contará com criptografia, ponta a ponta, proteção contra ataques de força bruta, negação de serviço (DDOS), SQL Injection, entre vários outros recursos. Desenvolvemos sites, com responsividade, visando, em primeiro lugar, os celulares (mobile first). Você terá a sua disposição nossas habilidades em SEO, Cloud Computing, WebSockets, Gateway de Pagamentos, conceito SPA, APIs, SOAs, arquitetura REST, proxy reverso – com NGINX – containerização – com docker – e clusters – com Kubernetes. No frontend, CSS Flexible Box Layout, Grid Layout, além de frameworks CSS. A escolha de todas as ferramentas ou parte delas depende do seu objetivo e condições.
+					</p>
+					<p className={styles.p}>
+						Visamos, sempre, as melhores práticas, como código limpo e as melhores ferramentas (clean code / best practices), as mais eficientes e eficazes, prezando pelo o que há de mais atual em desenvolvimento de software. Um exemplo é usar ferramentas de plataformas colaborativas que atualizam o código em seu servidor, a cada implementação, ao invés de acesso FTP ou mesmo SSH manualmente.
+					</p>
+					<div className={`justify-start w-[100%]`}>
+						<p className={`${styles.p}`}>
+							Me peça um orçamento sem compromisso.
+						</p>
+					</div>
+					<div className="w-[100%] max-w-4xl mx-auto aspect-video rounded-xl overflow-hidden shadow-lg">
+						<iframe
+							className="w-[100%] h-full"
+							src="https://www.youtube.com/embed/NFKLWOIu7G8"
+							title="Vídeo do YouTube"
+							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+							allowFullScreen
+						/>
+					</div>
+				</div>
 
-                <div className={`${styles.flex1} bg-white text-black p-2 rounded-lg border border-4 border-violet-700`}>
-                    <h3 className={`font-mono text-3xl`}>Experiência</h3>
-                    <div className={`text-start`}>
-                        <p className={styles.p}><span className={`text-3xl`}>⛵</span> Full Cycle Web Dev no Projeto Arca — 2018</p>
-                        <p className={styles.p}><span className={`text-3xl`}>🚀</span> Full Cycle Web Dev e conteudista de mídias sociais na startup Ecomblue.io — 2019 - 2020</p>
-                        <p className={styles.p}><span className={`text-3xl`}>🔍</span> Full Cycle Web Dev, Mobile Developer, Cloud Computing e SEO — 2014 ao presente, em projetos pessoais e de estudos.</p>
-                    </div>
-                </div>
-                <FooterComponent />
-                {showAdvise && <div id={divLocalStorage} className={`${styles.divLocalStorage} fixed`}>
-                    <div className={styles.right}>
-                        <div className={`${styles.buttonClose} transition-all duration-150 active:scale-95 active:shadow-inner cursor-pointer`}
-                            onClick={() => {
-                                setShowAdvise(false)
-                            }}
-                        >
-                            <IoClose size={24} color="#000000" />
-                        </div>
-                    </div>
-                    <p>
-                        Como prática comum dos sites, utilizamos armazenamento local.
-                    </p>
+				<div className={`${styles.flex1} bg-white text-black p-2 rounded-lg border border-4 border-violet-700`}>
+					<h3 className={`font-mono text-3xl`}>Experiência</h3>
+					<div className={`text-start`}>
+						<p className={styles.p}><span className={`text-3xl`}>⛵</span> Full Cycle Web Dev no Projeto Arca — 2018</p>
+						<p className={styles.p}><span className={`text-3xl`}>🚀</span> Full Cycle Web Dev e conteudista de mídias sociais na startup Ecomblue.io — 2019 - 2020</p>
+						<p className={styles.p}><span className={`text-3xl`}>🔍</span> Full Cycle Web Dev, Mobile Developer, Cloud Computing e SEO — 2014 ao presente, em projetos pessoais e de estudos.</p>
+					</div>
+				</div>
+				<FooterComponent />
+				{showAdvise && <div id={divLocalStorage} className={`${styles.divLocalStorage} fixed`}>
+					<div className={styles.right}>
+						<div className={`${styles.buttonClose} transition-all duration-150 active:scale-95 active:shadow-inner cursor-pointer`}
+							onClick={() => {
+								setShowAdvise(false)
+							}}
+						>
+							<IoClose size={24} color="#000000" />
+						</div>
+					</div>
+					<p>
+						Como prática comum dos sites, utilizamos armazenamento local.
+					</p>
 
-                    <p>
-                        Não entregamos ou expomos suas informações pessoais e de acesso a nenhuma pessoa sem autorização para tal.
-                    </p>
-                    <p>
-                        Caso não aceite cookies e outras tecnologias de armazenamento local, não prossiga com o acesso a este site.
-                    </p>
-                    <div className={styles.center}>
-                        <button className="
+					<p>
+						Não entregamos ou expomos suas informações pessoais e de acesso a nenhuma pessoa sem autorização para tal.
+					</p>
+					<p>
+						Caso não aceite cookies e outras tecnologias de armazenamento local, não prossiga com o acesso a este site.
+					</p>
+					<div className={styles.center}>
+						<button className="
       /* Layout e Dimensionamento */
       w-fit
       px-6 py-2.5 
@@ -280,16 +280,16 @@ export default function HomeScreen() {
       transition-all duration-200 
       cursor-pointer
     " onClick={() => {
-                                localStorage.setItem('acceptLocalStorage', 'true')
-                                console.warn(localStorage.getItem('acceptLocalStorage'))
-                                setShowAdvise(false)
-                            }
-                            }>
-                            Aceito
-                        </button>
-                    </div>
-                </div>}
-            </div>
-        </>
-    )
+								localStorage.setItem('acceptLocalStorage', 'true')
+								console.warn(localStorage.getItem('acceptLocalStorage'))
+								setShowAdvise(false)
+							}
+							}>
+							Aceito
+						</button>
+					</div>
+				</div>}
+			</div>
+		</>
+	)
 }
