@@ -27,15 +27,15 @@ export default function LoginComponent() {
 			<div className={`min-h-[calc(100vh-120px)] min-w-screen flex flex-col items-center justify-center gap-2 bg-black text-black`}>
 				<div
 					className={`bg-white border-[0.4em] border-purple-700 flex flex-col items-center justify-center px-0 sm:px-12 py-2 gap-1 rounded-lg w-[auto]`}>
-					<div className={`flex flex-col items-center justify-center border-[2px] py-1 rounded-lg w-full`}>
+					<div className={`flex flex-col items-center justify-center border-[2px] border-gray-200 py-1 rounded-lg w-full`}>
 						<label className={`text-xs`} htmlFor="inputUser">Nome de Usuário / e-mail cadastrado: </label>
 						<input className={`p-2 border-[2px] rounded text-center`} placeholder="Usuário" type="text" name="inputUser" id="" />
 					</div>
-					<div className={`flex flex-col items-center justify-center border-[2px] py-1 rounded-lg w-full`}>
+					<div className={`flex flex-col items-center justify-center border-[2px] border-gray-200 py-1 rounded-lg w-full`}>
 						<label className={`text-xs`} htmlFor="inputPassword">Senha: </label>
 						<input className={`p-2 border-[2px] rounded text-center`} placeholder="Senha" type="password" name="inputPassword" id="" />
 					</div>
-					<div className={`flex flex-row items-center justify-center gap-2 w-full px-1`}>
+					<div className={`flex flex-row items-center border-[2px] border-gray-200 rounded-lg justify-center gap-2 w-full px-1`}>
 						<button className="px-6 py-2.5 text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/50 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-slate-900">
 							Entrar
 						</button>
