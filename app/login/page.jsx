@@ -5,17 +5,48 @@ import { useEffect, useRef, useState } from "react";
 import { GoogleReCaptchaProvider, useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { useRouter } from "next/navigation";
 import HeaderComponent from '../components/screens/HeaderComponent';
+import FooterComponent from '@/app/components/screens/FooterComponent'
 import useWindowSizeHW from '../components/utils/useWindowHW';
 import { GoogleLogin } from '@react-oauth/google';
+import { useGoogleToken } from '@/app/components/utils/useGoogleToken';
+import { toast } from 'sonner';
 
 export default function LoginComponent() {
+	const { getGoogleToken, isReady } = useGoogleToken();
 	const divRef = useRef(null);
 	const router = useRouter()
-	const handleSuccess = (credentialResponse) => {
-		console.log('Login efetuado com sucesso! Token JWT do Google:', credentialResponse.credential);
+	const handleSuccess = async (credentialResponse) => {
+		const token = credentialResponse.credential
+		// console.log('Login efetuado com sucesso! Token JWT do Google:', token);
 
 		// Aqui você normalmente envia o 'credential' (ID token) para o seu backend 
 		// ou API Route do Next.js para validar a sessão e autenticar o usuário no banco de dados.
+		try {
+			isReady && getGoogleToken('api_news_action').then(async token => {
+				if (token) {
+					const response = await fetch('/api/auth/google', {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify({ token }),
+					});
+
+					const data = await response.json();
+
+					if (response.ok) {
+						console.log('Autenticado com sucesso no backend!', data);
+						router.push('/dashboard'); // Redireciona após o login
+					} else {
+						console.error('Erro na autenticação:', data.error);
+					}
+				} else {
+					console.error('Falha ao obter o token do Google reCAPTCHA v3.');
+				}
+			});
+		} catch (error) {
+			console.error('Erro de rede ao comunicar com o backend:', error);
+		}
 	};
 
 	const handleError = () => {
@@ -62,6 +93,7 @@ export default function LoginComponent() {
 					</div>
 				</div>
 			</div>
+			<FooterComponent />
 		</>
 	)
 }
