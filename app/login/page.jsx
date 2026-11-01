@@ -24,16 +24,16 @@ export default function LoginComponent() {
 	return (
 		<>
 			<HeaderComponent />
-			<div className={`min-h-[calc(100vh-58px)] min-w-screen flex flex-col items-center justify-center gap-2 bg-black text-black`}>
+			<div className={`min-h-[calc(100vh-120px)] min-w-screen flex flex-col items-center justify-center gap-2 bg-black text-black`}>
 				<div
 					className={`bg-white border-[0.4em] border-purple-700 flex flex-col items-center justify-center px-0 sm:px-12 py-2 gap-1 rounded-lg w-[auto]`}>
-					<div className={`flex flex-row items-center justify-center gap-2 border-[2px] p-2 rounded-lg w-full`}>
+					<div className={`flex flex-col items-center justify-center gap-2 border-[2px] p-2 rounded-lg w-full`}>
 						<label htmlFor="inputUser">Usuário: </label>
-						<input className={`p-2 border-[2px] rounded`} type="text" name="inputUser" id="" />
+						<input className={`p-2 border-[2px] rounded text-center`} type="text" name="inputUser" id="" />
 					</div>
-					<div className={`flex flex-row items-center justify-center gap-2 border-[2px] p-2 rounded-lg w-full`}>
-						<label htmlFor="inputPassword">Senha: </label>
-						<input className={`p-2 border-[2px] rounded`} type="password" name="inputPassword" id="" />
+					<div className={`flex flex-col items-center justify-center gap-2 border-[2px] p-2 rounded-lg w-full`}>
+						<label className={``} htmlFor="inputPassword">Senha: </label>
+						<input className={`p-2 border-[2px] rounded text-center`} type="password" name="inputPassword" id="" />
 					</div>
 					<div className={`flex flex-row items-center justify-center gap-2 w-full`}>
 						<button className="px-6 py-2.5 text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/50 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-slate-900">
@@ -52,11 +52,13 @@ export default function LoginComponent() {
 							</svg>
 							<span>Entrar com o Google</span>
 						</button> */}
-						<GoogleLogin
-							onSuccess={handleSuccess}
-							onError={handleError}
-							useOneTap
-						/>
+						<div className="overflow-scroll max-w-[140px]">
+							<GoogleLogin
+								onSuccess={handleSuccess}
+								onError={handleError}
+								useOneTap
+							/>
+						</div>
 					</div>
 				</div>
 			</div>
