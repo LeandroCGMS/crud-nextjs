@@ -6,7 +6,7 @@ const client = new OAuth2Client(process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID);
 export async function POST(request) {
 	try {
 		const { token } = await request.json();
-
+		console.log('Token recebido do frontend:', token);
 		// O Google valida se o token é legítimo e pertence ao seu Client ID
 		const ticket = await client.verifyIdToken({
 			idToken: token,
@@ -22,6 +22,7 @@ export async function POST(request) {
 		// Depois, gera a sessão ou o cookie de login da sua própria aplicação.
 
 		return NextResponse.json({
+			typeAccount: 'Google',
 			success: true,
 			user: { email, name, picture }
 		});

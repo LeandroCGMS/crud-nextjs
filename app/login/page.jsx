@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { GoogleReCaptchaProvider, useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { useRouter } from "next/navigation";
 import HeaderComponent from '../components/screens/HeaderComponent';
@@ -10,11 +10,24 @@ import useWindowSizeHW from '../components/utils/useWindowHW';
 import { GoogleLogin } from '@react-oauth/google';
 import { useGoogleToken } from '@/app/components/utils/useGoogleToken';
 import { toast } from 'sonner';
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
 
 export default function LoginComponent() {
 	const { getGoogleToken, isReady } = useGoogleToken();
 	const divRef = useRef(null);
 	const router = useRouter()
+	const [hidePassword, setHidePassword] = useState(true)
+	const [inputHeightPassword, setInputHeightPassword] = useState(0)
+	const inputRefPassword = useRef(null);
+	useEffect(() => {
+		if (inputRefPassword.current) {
+			setInputHeightPassword(inputRefPassword.current.offsetHeight);
+		}
+	}, [])
+	const baseIconPasswordStyle = {
+		marginBottom: - inputHeightPassword, position: 'relative', marginLeft: 5, cursor: 'pointer', opacity: 0.5
+	}
 	const handleSuccess = async (credentialResponse) => {
 		const token = credentialResponse.credential
 		// console.log('Login efetuado com sucesso! Token JWT do Google:', token);
@@ -22,12 +35,13 @@ export default function LoginComponent() {
 		// Aqui você normalmente envia o 'credential' (ID token) para o seu backend 
 		// ou API Route do Next.js para validar a sessão e autenticar o usuário no banco de dados.
 		try {
-			isReady && getGoogleToken('api_news_action').then(async token => {
-				if (token) {
+			isReady && getGoogleToken('api_news_action').then(async googleToken => {
+				if (googleToken) {
 					const response = await fetch('/api/auth/google', {
 						method: 'POST',
 						headers: {
 							'Content-Type': 'application/json',
+							googleToken: googleToken
 						},
 						body: JSON.stringify({ token }),
 					});
@@ -35,22 +49,21 @@ export default function LoginComponent() {
 					const data = await response.json();
 
 					if (response.ok) {
-						console.log('Autenticado com sucesso no backend!', data);
-						router.push('/dashboard'); // Redireciona após o login
+						toast.success('Autenticado com sucesso.', data);
 					} else {
-						console.error('Erro na autenticação:', data.error);
+						toast.error('Erro na autenticação. Tente, novamente, ou contacte o administrador do sistema.');
 					}
 				} else {
-					console.error('Falha ao obter o token do Google reCAPTCHA v3.');
+					toast.error('Falha ao obter o token do Google reCAPTCHA v3.');
 				}
 			});
 		} catch (error) {
-			console.error('Erro de rede ao comunicar com o backend:', error);
+			toast.error('Erro de rede ao comunicar com o servidor. Tente, novamente, ou contacte o administrador do sistema.');
 		}
 	};
 
 	const handleError = () => {
-		console.log('Erro ao realizar login com o Google.');
+		toast.error('Erro ao realizar login com o Google.');
 	};
 	return (
 		<>
@@ -64,7 +77,14 @@ export default function LoginComponent() {
 					</div>
 					<div className={`flex flex-col items-center justify-center border-[2px] border-gray-200 py-1 rounded-lg w-full`}>
 						<label className={`text-xs`} htmlFor="inputPassword">Senha: </label>
-						<input className={`p-2 border-[2px] rounded text-center`} placeholder="Senha" type="password" name="inputPassword" id="" />
+						<div className={``}>
+							{hidePassword ? (
+								<FaEye style={baseIconPasswordStyle} size={inputHeightPassword} onClick={() => setHidePassword(false)} />
+							) : (
+								<FaEyeSlash style={baseIconPasswordStyle} size={inputHeightPassword} onClick={() => setHidePassword(true)} />
+							)}
+							<input ref={inputRefPassword} maxLength="20" className={`p-2 border-[2px] rounded text-center`} placeholder="Senha" type={hidePassword ? "password" : "text"} name="inputPassword" id="" />
+						</div>
 					</div>
 					<div className={`flex flex-row items-center border-[2px] border-gray-200 rounded-lg justify-center gap-2 w-full px-1`}>
 						<button className="px-6 py-2.5 text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/50 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-slate-900">
