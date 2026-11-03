@@ -1,3 +1,4 @@
+'use client';
 import { useEffect, useRef, useState, useId, useCallback } from "react";
 // import { GoogleReCaptchaProvider, useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { useRouter, usePathname } from "next/navigation";
