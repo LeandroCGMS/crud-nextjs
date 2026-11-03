@@ -21,8 +21,10 @@ import { FaEyeSlash } from "react-icons/fa";
 */
 
 export default function HomeLoggedComponent() {
-  let dataUser = JSON.parse(sessionStorage.getItem('dataUser'))
-  console.log('dataUser', dataUser)
+  const [dataUser, setDataUser] = useState(null);
+  useEffect(() => {
+    setDataUser(JSON.parse(sessionStorage.getItem('dataUser')))
+  }, [])
   return (
     <>
       <HeaderComponent />
