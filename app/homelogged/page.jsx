@@ -31,7 +31,7 @@ export default function HomeLoggedComponent() {
       <div className={`h-screen min-w-screen flex flex-row items-center justify-center bg-white text-black`}>
         <div className={`basis-1/3 h-screen border border-violet-700 ml-0 m-1 rounded-lg p-2 flex flex-col items-center justify-start gap-2`}>
           <div className={`flex flex-col items-center justify-center gap-1`}>
-            <img referrerPolicy="no-referrer" src={dataUser?.user?.picture} alt="Foto de Perfil do Usuário" className="rounded-full w-24 h-24" />
+            <img referrerPolicy="no-referrer" src={dataUser?.user?.picture?.replace(/=s\d+(-c)?$/, '=s0')} alt="Foto de Perfil do Usuário" className="rounded-full w-48 h-48" />
             <small>Tipo de Conta: {dataUser?.typeAccount}</small>
             <h2>{dataUser?.user?.name}</h2>
             <p>{dataUser?.user?.email}</p>
