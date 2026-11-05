@@ -51,8 +51,8 @@ export default function HomeLoggedComponent() {
               />
             </div>
 
-            <span className="px-3 py-1 mb-2 text-xs font-semibold tracking-wider uppercase text-cyan-400 bg-cyan-950/60 rounded-full border border-cyan-800/50">
-              {dataUser?.typeAccount || 'Conta Padrão'}
+            <span className="px-3 py-1 mb-2 text-xs font-semibold tracking-wider text-cyan-400 bg-cyan-950/60 rounded-full border border-cyan-800/50">
+              {'Tipo de Conta: ' + dataUser?.typeAccount || 'Conta Padrão'}
             </span>
 
             <h2 className="text-xl font-bold text-white tracking-tight">
