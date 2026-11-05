@@ -23,12 +23,16 @@ import { FaEyeSlash } from "react-icons/fa";
 export default function HomeLoggedComponent() {
   const router = useRouter()
   const [dataUser, setDataUser] = useState(null);
+  const hasRedirected = useRef(false); // Trava de segurança
   useEffect(() => {
     const currentUser = JSON.parse(localStorage.getItem('userData'));
     if (!currentUser) {
+      // Se já disparou o redirecionamento, impede que execute de novo
+      if (hasRedirected.current) return;
+      hasRedirected.current = true;
       toast.warning(`Usuário não autenticado. Redirecionando para login...
 \nAs sessões autenticadas valem uma sessão, ou seja, enquanto esta aba ou esta janela estiver aberta, você estará autenticado. Por favor, faça login para acessar seu espaço de usuário.`,
-{duration: 7000, position: 'top-center'});
+        { duration: 7000, position: 'top-center' });
       router.push('/login')
     }
     setDataUser(currentUser);
