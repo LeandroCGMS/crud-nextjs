@@ -26,8 +26,9 @@ export default function HomeLoggedComponent() {
   useEffect(() => {
     const currentUser = JSON.parse(localStorage.getItem('userData'));
     if (!currentUser) {
-      toast.error('Usuário não autenticado. Redirecionando para login...');
-      toast.warning('As sessões autenticadas valem uma sessão, ou seja, enquanto esta aba ou esta janela estiver aberta, você estará autenticado. Por favor, faça login para acessar seu espaço de usuário.');
+      toast.warning(`Usuário não autenticado. Redirecionando para login...
+\nAs sessões autenticadas valem uma sessão, ou seja, enquanto esta aba ou esta janela estiver aberta, você estará autenticado. Por favor, faça login para acessar seu espaço de usuário.`,
+{duration: 7000, position: 'top-center'});
       router.push('/login')
     }
     setDataUser(currentUser);
