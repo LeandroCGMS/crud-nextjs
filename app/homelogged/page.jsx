@@ -52,8 +52,8 @@ export default function HomeLoggedComponent() {
             </div>
 
             {/* Badge de Tipo de Conta */}
-            <span className="px-3 py-1 mb-3 text-xs font-semibold tracking-wider uppercase text-cyan-400 bg-cyan-950/60 rounded-full border border-cyan-800/50">
-              {dataUser?.typeAccount || 'Conta Padrão'}
+            <span className="px-3 py-1 mb-3 text-xs font-semibold tracking-wider text-cyan-400 bg-cyan-950/60 rounded-full border border-cyan-800/50">
+              {'Tipo de Conta: ' + dataUser?.typeAccount || 'Conta Padrão'}
             </span>
 
             {/* Nome do Usuário */}
