@@ -45,7 +45,7 @@ export default function HomeLoggedComponent() {
               <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full blur opacity-50 group-hover:opacity-100 transition duration-300"></div>
               <img
                 referrerPolicy="no-referrer"
-                src={dataUser?.user?.picture?.replace(/=s\d+(-c)?\$/, '=s0') || 'https://via.placeholder.com/150'}
+                src={dataUser?.user?.picture?.replace(/=s\d+(-c)?$/, '=s0') || 'https://via.placeholder.com/150'}
                 alt="Foto de Perfil"
                 className="relative w-28 h-28 rounded-full object-cover border-2 border-slate-900 shadow-xl transform group-hover:scale-105 transition duration-300"
               />
