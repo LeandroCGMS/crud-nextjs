@@ -16,7 +16,7 @@ import { VscCallOutgoing } from "react-icons/vsc";
 const classNamesButtonsContact = `cursor-pointer hover:bg-gray-700 active:bg-gray-600 p-2 rounded-lg bg-[white] border-[#CF27F5] border-1`;
 function HeaderPCVersion() {
     return (
-        <div className="w-full w-x-full flex flex-row text-white bg-black justify-between items-center p-2 border border-white rounded-lg">
+        <div className="w-full w-x-full flex flex-row text-white bg-black justify-between items-center p-2 border-2 border-purple-500 rounded-lg">
             <div>
                 <ComponentButtonFaleConosco />
             </div>
