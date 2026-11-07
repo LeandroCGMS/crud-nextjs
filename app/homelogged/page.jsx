@@ -29,7 +29,7 @@ export default function HomeLoggedComponent() {
     if (!currentUser) {
       toast.warning(`Usuário não autenticado. Redirecionando para login...
 \nAs sessões autenticadas valem uma sessão, ou seja, enquanto esta aba ou esta janela estiver aberta, você estará autenticado. Por favor, faça login para acessar seu espaço de usuário.`,
-        { duration: 7000, position: 'top-center' });
+        { duration: 14000, position: 'top-center' });
       router.push('/login')
     }
     setDataUser(currentUser);
