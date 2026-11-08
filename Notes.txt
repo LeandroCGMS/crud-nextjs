@@ -1,0 +1,1 @@
+altura do HeaderComponent para telas maiores, 80 e para telas menores é 61

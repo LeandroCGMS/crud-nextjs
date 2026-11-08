@@ -9,7 +9,7 @@ import { FaNewspaper } from "react-icons/fa";
 export default function HeadlineTicker({
 	headlines = [],
 	position = 'top',
-	offset = 125,
+	offset = 125+19, // 125
 	dataNews = {},
 	setVisibleDivNews = () => {}
 }) {
