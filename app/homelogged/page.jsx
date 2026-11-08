@@ -28,7 +28,7 @@ export default function HomeLoggedComponent() {
     const currentUser = JSON.parse(sessionStorage.getItem('dataUser'));
     if (!currentUser) {
       toast.warning(`Usuário não autenticado. Redirecionando para login...
-\nAs sessões autenticadas duram enquanto esta aba ou esta janela estiver aberta, você estará autenticado. Por favor, faça login para acessar seu espaço de usuário novamente.`,
+\nAs sessões autenticadas duram enquanto esta aba ou esta janela estiver aberta. Faça login para acessar seu espaço de usuário novamente.`,
         { duration: 14000, position: 'top-center' });
       router.push('/login')
     }
