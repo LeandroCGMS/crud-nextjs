@@ -70,7 +70,7 @@ export default function LoginComponent() {
 	return (
 		<>
 			<HeaderComponent />
-			<div className={`min-h-[calc(100vh-20px)] min-w-screen flex flex-col items-center justify-center gap-2 bg-black text-black`}>
+			<div className={`min-h-[calc(100vh-170px)] min-w-screen flex flex-col items-center justify-center gap-2 bg-black text-black`}>
 				<div
 					className={`bg-white border-[0.4em] border-purple-700 flex flex-col items-center justify-center px-0 sm:px-12 py-2 gap-1 rounded-lg w-[auto]`}>
 					<div className={`flex flex-col items-center justify-center border-[2px] border-gray-200 py-1 rounded-lg w-full`}>
