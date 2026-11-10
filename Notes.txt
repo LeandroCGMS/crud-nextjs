@@ -1,1 +1,2 @@
 altura do HeaderComponent para telas maiores, 80 e para telas menores é 61
+Quero 2 pixels de distância entre os 2 componentes de informações de cotações e notícias

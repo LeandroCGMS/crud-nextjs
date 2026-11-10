@@ -5,18 +5,29 @@ import { copyFormattedText, clearClipboard } from './functions';
 import { FiCopy, FiTrash2 } from 'react-icons/fi';
 import { toast } from 'sonner';
 import { FaNewspaper } from "react-icons/fa";
+import windowSize from '@/app/components/utils/useWindowHW'; // object with width and height of the window
+/* 
+	{
+		width: undefined,
+		height: undefined,
+	}
+*/
 
 export default function HeadlineTicker({
 	headlines = [],
-	position = 'top',
-	offset = 125+19, // 125
+	position = 'bottom',
+	offset = 0, // 125 + 19, // 125
 	dataNews = {},
-	setVisibleDivNews = () => {}
+	setVisibleDivNews = () => { }
 }) {
 	const [index, setIndex] = useState(0);
 	const [isVisible, setIsVisible] = useState(true);
 	const [copied, setCopied] = useState(false);
 	const contentRef = useRef(null);
+	const { width: windowWidth } = windowSize(); // Get the current window width >>>> 768px
+	console.log(`Current window width: ${windowWidth}px`);
+	const isMobile = windowWidth < 768; // Define a largura mínima para considerar como mobile
+	console.log(`Is mobile: ${isMobile}`);
 
 	useEffect(() => {
 		if (!headlines.length) return;
@@ -40,14 +51,14 @@ export default function HeadlineTicker({
 		>
 			<div className="relative flex-1 overflow-hidden h-full flex items-center">
 				<button
-								className={`p-1 rounded-lg m-1 cursor-pointer p-2 rounded-lg hover:bg-gray-700 bg-[#000000] ${copied ? 'text-green-500' : 'text-gray-400'}`}
-								onClick={() => {
-									setVisibleDivNews(true)
-								}}
-								aria-label="Copiar texto"
-							>
-								<FaNewspaper size={48}/>
-							</button>
+					className={`p-1 rounded-lg m-1 cursor-pointer p-2 rounded-lg hover:bg-gray-700 bg-[#000000] ${copied ? 'text-green-500' : 'text-gray-400'}`}
+					onClick={() => {
+						setVisibleDivNews(true)
+					}}
+					aria-label="Copiar texto"
+				>
+					<FaNewspaper size={48} />
+				</button>
 				<AnimatePresence mode="wait">
 					<motion.p
 						key={index}
