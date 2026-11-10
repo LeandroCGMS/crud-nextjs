@@ -29,3 +29,7 @@ body {
 body[data-path="/login"] .grecaptcha-badge {
   bottom: 100px;
 }
+
+.grecaptcha-badge {
+  z-index: 1000;
+}

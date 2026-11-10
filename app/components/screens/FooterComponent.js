@@ -14,7 +14,7 @@ export default function FooterComponent() {
 		getCurrentYear(setCurrentYearOnline);
 	}, []);
 	return (
-		<div style={{ zIndex: usePathname() == '/login' ? 0 : 10 }} className={`${styles.footer} w-full border-2 border-purple-500 rounded-lg mb-0 flex flex-col text-white bg-black justify-center items-center m-2 p-2`}>
+		<div style={{ zIndex: usePathname() == '/login' ? 0 : 1001 }} className={`${styles.footer} w-full border-2 border-purple-500 rounded-lg mb-0 flex flex-col text-white bg-black justify-center items-center m-2 p-2`}>
 			<h1 className={`text-2xl text-center`}>
 				© {currentYearOnline} Leandro Santos de Carvalho.
 			</h1>
