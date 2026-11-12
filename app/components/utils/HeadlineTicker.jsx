@@ -47,7 +47,7 @@ export default function HeadlineTicker({
 	return (
 		<div
 			style={positionStyle}
-			className="fixed left-0 right-0 z-50 h-10 w-full overflow-hidden flex items-center justify-between bg-zinc-900/90 backdrop-blur-md px-4 border-y border-zinc-800 text-zinc-100 shadow-xl text-center"
+			className="z-20000 fixed left-0 right-0 z-50 h-10 w-full overflow-hidden flex items-center justify-between bg-zinc-900/90 backdrop-blur-md px-4 border-y border-zinc-800 text-zinc-100 shadow-xl text-center"
 		>
 			<div className="relative flex-1 overflow-hidden h-full flex items-center">
 				<button
