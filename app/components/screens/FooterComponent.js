@@ -8,7 +8,6 @@ import { global } from '@/app/components/utils/functions'
 
 
 export default function FooterComponent() {
-	console.log('usePathname => ', usePathname())
 	const [currentYearOnline, setCurrentYearOnline] = useState(null);
 	const footerRef = useRef(null)
 	// Usar useEffect para buscar o ano apenas na montagem inicial evita chamadas repetidas

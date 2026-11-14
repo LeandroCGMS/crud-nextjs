@@ -17,7 +17,6 @@ import { global } from '@/app/components/utils/functions'
 export default function LoginComponent() {
 	const { footerHeight, headerHeight } = global
 	const sumHeights = footerHeight + headerHeight
-	console.warn('footerHeight => ', footerHeight, 'headerHeight => ', headerHeight, 'sumHeights => ', sumHeights)
 	const { getGoogleToken, isReady } = useGoogleToken();
 	const divRef = useRef(null);
 	const router = useRouter()

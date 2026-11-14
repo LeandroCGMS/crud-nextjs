@@ -87,7 +87,6 @@ export function ComponentButtonAreaDeTestes() {
 
 	// Verifica se está exatamente na raiz '/'
 	const isHome = pathname === '/';
-	console.log('pathname:', pathname, 'isHome:', isHome);
 	const router = useRouter();
 	if (isHome) {
 		return (
