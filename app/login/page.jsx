@@ -12,8 +12,12 @@ import { useGoogleToken } from '@/app/components/utils/useGoogleToken';
 import { toast } from 'sonner';
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
+import { global } from '@/app/components/utils/functions'
 
 export default function LoginComponent() {
+	const { footerHeight, headerHeight } = global
+	const sumHeights = footerHeight + headerHeight
+	console.warn('footerHeight => ', footerHeight, 'headerHeight => ', headerHeight, 'sumHeights => ', sumHeights)
 	const { getGoogleToken, isReady } = useGoogleToken();
 	const divRef = useRef(null);
 	const router = useRouter()
@@ -70,7 +74,7 @@ export default function LoginComponent() {
 	return (
 		<>
 			<HeaderComponent />
-			<div className={`min-h-[calc(100vh-170px)] min-w-screen flex flex-col items-center justify-center gap-2 bg-black text-black`}>
+			<div style={{ minHeight: `calc(100vh - ${sumHeights}px)` }} className={`min-w-screen flex flex-col items-center justify-center gap-2 bg-black text-black`}>
 				<div
 					className={`bg-white border-[0.4em] border-purple-700 flex flex-col items-center justify-center px-0 sm:px-12 py-2 gap-1 rounded-lg w-[auto]`}>
 					<div className={`flex flex-col items-center justify-center border-[2px] border-gray-200 py-1 rounded-lg w-full`}>

@@ -8,6 +8,8 @@ import { FaNewspaper } from "react-icons/fa";
 import SlidingToast from "./SlidingToast";
 import { toast } from 'sonner';
 
+export const global = { footerHeight: 0, headerHeight: 0 }
+
 export function getNow() {
 	return new Date().toLocaleString('pt-BR');
 }

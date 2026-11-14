@@ -26,6 +26,7 @@ import { useGoogleToken } from '@/app/components/utils/useGoogleToken';
 import HeadlineTicker from '../utils/HeadlineTicker';
 import NewsPrintLayout from '@/app/components/utils/NewsPrintLayout';
 import { VscDeveloperTools } from "react-icons/vsc";
+import { global } from '@/app/components/utils/functions'
 
 function ChildrenSlidingToast({ children }) {
 	return (
