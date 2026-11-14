@@ -4,44 +4,44 @@ import '../css/Navbar.css'; // Importa o arquivo CSS para estilização do Navba
 import { ComponentContacts, ComponentButtonAreaDeTestes, ComponentButtonFaleConosco } from '../screens/HeaderComponent'; // Importa o componente de contatos
 
 export default function Navbar() {
-    // Estado para controlar se o menu está aberto ou fechado
-    const [menuAberto, setMenuAberto] = useState(false);
+	// Estado para controlar se o menu está aberto ou fechado
+	const [menuAberto, setMenuAberto] = useState(false);
 
-    // Função para alternar o estado do menu
-    const toggleMenu = () => {
-        setMenuAberto(!menuAberto);
-    };
+	// Função para alternar o estado do menu
+	const toggleMenu = () => {
+		setMenuAberto(!menuAberto);
+	};
 
-    // Função para fechar o menu ao clicar em um link
-    const fecharMenu = () => {
-        setMenuAberto(false);
-    };
+	// Função para fechar o menu ao clicar em um link
+	const fecharMenu = () => {
+		setMenuAberto(false);
+	};
 
-    return (
-        <header className="header min-w-screen flex">
-            {/* <div className="logo">Menu</div> */}
+	return (
+		<header className="header min-w-screen flex">
+			{/* <div className="logo">Menu</div> */}
 
-            {/* Botão do Hamburguer (só aparece em telas menores via CSS) */}
-            <button
-                className="hamburger-btn"
-                onClick={toggleMenu}
-                aria-label="Toggle Menu"
-            >
-                {menuAberto ? <X size={28} /> : <Menu size={28} />}
-            </button>
+			{/* Botão do Hamburguer (só aparece em telas menores via CSS) */}
+			<button
+				className="hamburger-btn"
+				onClick={toggleMenu}
+				aria-label="Toggle Menu"
+			>
+				{menuAberto ? <X size={28} /> : <Menu size={28} />}
+			</button>
 
-            {/* Links de Navegação */}
-            <nav className={`min-w-screen flex nav-menu ${menuAberto ? 'active' : ''}`}>
-                <ul>
-                    <li className="nav-item">
-                        <ComponentButtonFaleConosco />
-                    </li>
-                    <li className="nav-item">
-                        <ComponentButtonAreaDeTestes />
-                    </li>
-                    <ComponentContacts rowOrColumn="column" />
-                </ul>
-            </nav>
-        </header>
-    );
+			{/* Links de Navegação */}
+			<nav className={`min-w-screen flex nav-menu ${menuAberto ? 'active' : ''}`}>
+				<ul>
+					<li className="nav-item">
+						<ComponentButtonFaleConosco />
+					</li>
+					<li className="nav-item">
+						<ComponentButtonAreaDeTestes />
+					</li>
+					<ComponentContacts rowOrColumn="column" />
+				</ul>
+			</nav>
+		</header>
+	);
 }
