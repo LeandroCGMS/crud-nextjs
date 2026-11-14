@@ -18,7 +18,7 @@ export default function Navbar() {
     };
 
     return (
-        <header className="header">
+        <header className="header min-w-screen flex">
             {/* <div className="logo">Menu</div> */}
 
             {/* Botão do Hamburguer (só aparece em telas menores via CSS) */}
@@ -31,7 +31,7 @@ export default function Navbar() {
             </button>
 
             {/* Links de Navegação */}
-            <nav className={`nav-menu ${menuAberto ? 'active' : ''}`}>
+            <nav className={`min-w-screen flex nav-menu ${menuAberto ? 'active' : ''}`}>
                 <ul>
                     <li className="nav-item">
                         <ComponentButtonFaleConosco />
