@@ -37,7 +37,7 @@ export default function HomeLoggedComponent() {
   return (
     <>
       <HeaderComponent />
-      <div className={`h-screen min-w-screen flex flex-row items-center justify-center bg-white text-black`}>
+      <div className={`mt-2 mx-1 h-screen min-w-screen flex flex-row items-center justify-center bg-white text-black`}>
         <aside className="basis-1/3 h-full bg-slate-900/80 backdrop-blur-xl border-r border-slate-800 p-6 flex flex-col justify-between">
           {/* Perfil do Usuário */}
           <div className="flex flex-col items-center text-center">
