@@ -18,7 +18,7 @@ export default function Navbar() {
 	};
 
 	return (
-		<header className="header min-w-screen flex">
+		<header className="header flex w-fit rounded-lg items-center justify-center">
 			{/* <div className="logo">Menu</div> */}
 
 			{/* Botão do Hamburguer (só aparece em telas menores via CSS) */}
@@ -31,7 +31,7 @@ export default function Navbar() {
 			</button>
 
 			{/* Links de Navegação */}
-			<nav className={`min-w-screen flex nav-menu ${menuAberto ? 'active' : ''}`}>
+			<nav className={`flex min-w-screen items-center justify-center nav-menu ${menuAberto ? 'active' : ''}`}>
 				<ul>
 					<li className="nav-item">
 						<ComponentButtonFaleConosco />
