@@ -18,15 +18,17 @@ export default function FooterComponent() {
 		if (footerRef.current) {
 			global.footerHeight = footerRef.current.offsetHeight;
 		}
-	},[footerRef?.current?.offsetHeight]);
+	}, [footerRef?.current?.offsetHeight]);
 	return (
-		<div ref={footerRef} style={{ zIndex: usePathname() == '/login' ? 0 : 1001 }} className={`${styles.footer} border-2 border-purple-500 rounded-lg mb-0 flex flex-col text-white bg-black justify-center items-center p-2`}>
-			<h1 className={`text-2xl text-center`}>
-				© {currentYearOnline} Leandro Santos de Carvalho.
-			</h1>
-			<h1 className={`text-2xl text-center`}>
-				Todos os direitos reservados.
-			</h1>
+		<div ref={footerRef} style={{ zIndex: usePathname() == '/login' ? 0 : 1001 }} className={`${styles.footer} border-2 border-purple-500 rounded-lg mb-0 flex flex-col text-white bg-black justify-center items-center`}>
+			<div className={``}>
+				<h1 className={`text-2xl text-center`}>
+					© {currentYearOnline} Leandro Santos de Carvalho.
+				</h1>
+				<h1 className={`text-2xl text-center`}>
+					Todos os direitos reservados.
+				</h1>
+			</div>
 			{/* <div style={{ height: 65 }}>
 
             </div> */}
