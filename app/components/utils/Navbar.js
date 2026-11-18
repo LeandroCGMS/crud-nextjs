@@ -31,7 +31,7 @@ export default function Navbar() {
 			</button>
 
 			{/* Links de Navegação */}
-			<nav className={`flex min-w-screen items-center justify-center nav-menu ${menuAberto ? 'active' : ''}`}>
+			<nav className={`flex items-center relative justify-center rounded-lg nav-menu ${menuAberto ? 'active' : ''}`} style={{ width: 'auto', padding: '0.5em' }}>
 				<ul>
 					<li className="nav-item">
 						<ComponentButtonFaleConosco />
