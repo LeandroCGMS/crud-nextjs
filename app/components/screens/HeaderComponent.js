@@ -17,7 +17,7 @@ import { global } from '@/app/components/utils/functions'
 const classNamesButtonsContact = `cursor-pointer hover:bg-gray-700 active:bg-gray-600 p-2 rounded-lg bg-[white] border-[#CF27F5] border-1`;
 function HeaderPCVersion() {
 	return (
-		<div className="flex flex-row relative w-[100%] text-white bg-black justify-between items-center border-2 border-purple-500 rounded-lg">
+		<div className="flex flex-row relative w-full text-white bg-black justify-between items-center border-2 border-purple-500 rounded-lg">
 			<div>
 				<ComponentButtonFaleConosco />
 			</div>
@@ -50,9 +50,9 @@ export default function HeaderComponent() {
 
 export function ComponentContacts({ rowOrColumn = 'row' }) {
 	return (
-		<div className={`flex ${rowOrColumn === 'row' ? 'flex-row' : 'flex-col'} gap-2 justify-center items-center w-fit h-fit`}>
+		<div className={`flex ${rowOrColumn === 'row' ? 'flex-row' : 'flex-col'} gap-2 justify-center items-center h-fit`}>
 			<h1 className={`text-white bg-black font-mono`}>Contatos: </h1>
-			<div className={`flex flex-row gap-4 md:mr-2`}>
+			<div className={`flex flex-row gap-2`}>
 				<BsMicrosoftTeams className={classNamesButtonsContact} size={60} color="#6264A7" onClick={() => {
 					window.open(`https://teams.microsoft.com/l/chat/0/0?users=leandrocgms1986@outlook.com`, '_blank', 'noopener,noreferrer')
 				}} />

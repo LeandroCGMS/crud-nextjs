@@ -30,11 +30,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ''}>
       <ReCaptchaProvider>
         <html
-          style={{ width: 'fit-content' }}
+          style={{  }}
           lang="pt-BR"
-          className={`${geistSans.variable} ${geistMono.variable} w-x-full h-full antialiased fit-content`}
+          className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
         >
-          <body className="min-w-screen min-h-screen border border-purple-500 flex flex-col w-full max-w-full overflow-x-hidden rounded-lg p-1">
+          <body className="border border-purple-500 min-h-screen flex flex-col rounded-lg" style={{ width: '100%' }}>
             {children}
             <Toaster position="top-right" richColors />
           </body>
