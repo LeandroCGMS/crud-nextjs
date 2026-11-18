@@ -34,7 +34,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           lang="pt-BR"
           className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
         >
-          <body className="p-1 border border-purple-500 flex flex-col rounded-lg" style={{ width: '100%', height: '100%' }}>
+          <body className="p-1 border border-purple-500 flex flex-col rounded-lg" style={{ width: '100%', height: 'auto' }}>
             {children}
             <Toaster position="top-right" richColors />
           </body>
